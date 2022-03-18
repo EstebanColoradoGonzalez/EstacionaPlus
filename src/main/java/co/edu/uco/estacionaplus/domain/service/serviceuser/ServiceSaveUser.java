@@ -1,10 +1,11 @@
 package co.edu.uco.estacionaplus.domain.service.serviceuser;
 
+import co.edu.uco.estacionaplus.domain.model.TypeVehicle;
 import co.edu.uco.estacionaplus.domain.model.User;
 import co.edu.uco.estacionaplus.domain.model.UserRole;
+import co.edu.uco.estacionaplus.domain.port.TypeVehicleRepository;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
 import co.edu.uco.estacionaplus.domain.port.UserRoleRepository;
-import co.edu.uco.estacionaplus.domain.service.servicevehicle.ServiceSaveVehicle;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,13 @@ public class ServiceSaveUser
 {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    private final TypeVehicleRepository typeVehicleRepository;
 
-    public ServiceSaveUser(UserRepository userRepository, UserRoleRepository userRoleRepository)
+    public ServiceSaveUser(UserRepository userRepository, UserRoleRepository userRoleRepository, TypeVehicleRepository typeVehicleRepository)
     {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
+        this.typeVehicleRepository = typeVehicleRepository;
     }
 
     public void save(User user)
@@ -25,6 +28,7 @@ public class ServiceSaveUser
         checkUserRoleDoesNotExists(user.getUserRole());
         checkUserDoesNotExistsWithEmail(user);
         checkUserDoesNotExistsWithIdentificationNumber(user);
+        checkTypeVehicleDoesNotExists(user.getVehicle().getTypeVehicle());
         this.userRepository.save(user);
     }
 
@@ -56,11 +60,11 @@ public class ServiceSaveUser
         }
     }
 
-    private void checkTypeVehicleDoesNotExists(UserRole userRole)
+    private void checkTypeVehicleDoesNotExists(TypeVehicle typeVehicle)
     {
-        if(!this.userRoleRepository.exists(userRole))
+        if(!this.typeVehicleRepository.exists(typeVehicle))
         {
-            throw new IllegalArgumentException("This user role doesn't exists with this name.");
+            throw new IllegalArgumentException("This type of vehicle doesn't exists with this name.");
         }
     }
 }

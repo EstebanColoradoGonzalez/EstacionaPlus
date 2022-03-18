@@ -7,6 +7,14 @@ plugins {
 	id "org.owasp.dependencycheck" version "6.5.3"
 }
 
+sonarqube {
+	properties {
+		property "sonar.projectKey", "EstebanColoradoGonzalez_EstacionaPlus"
+		property "sonar.organization", "estebancoloradogonzalez"
+		property "sonar.host.url", "https://sonarcloud.io"
+	}
+}
+
 group = 'co.edu.uco'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
@@ -34,14 +42,6 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
-}
-
-sonarqube {
-	properties {
-		property "sonar.projectKey", "EstebanColoradoGonzalez_EstacionaPlus"
-		property "sonar.organization", "estebancoloradogonzalez"
-		property "sonar.host.url", "https://sonarcloud.io"
-	}
 }
 
 jacocoTestReport {

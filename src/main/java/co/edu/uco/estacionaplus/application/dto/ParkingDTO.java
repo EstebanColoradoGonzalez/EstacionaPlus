@@ -1,5 +1,16 @@
 package co.edu.uco.estacionaplus.application.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class ParkingDTO
 {
     private int code;
@@ -7,18 +18,5 @@ public class ParkingDTO
     private String name;
     private String address;
     private CityDTO city;
-
-    public ParkingDTO()
-    {
-
-    }
-
-    public ParkingDTO(int code, String nit, String name, String address, CityDTO city)
-    {
-        this.code = code;
-        this.nit = nit;
-        this.name = name;
-        this.address = address;
-        this.city = city;
-    }
+    private List<PlaceDTO> places;
 }

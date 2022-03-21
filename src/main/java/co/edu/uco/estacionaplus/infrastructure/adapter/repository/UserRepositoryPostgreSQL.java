@@ -4,7 +4,10 @@ import co.edu.uco.estacionaplus.domain.dto.TypeVehicleSummaryDTO;
 import co.edu.uco.estacionaplus.domain.dto.UserRoleSummaryDTO;
 import co.edu.uco.estacionaplus.domain.dto.UserSummaryDTO;
 import co.edu.uco.estacionaplus.domain.dto.VehicleSummaryDTO;
+import co.edu.uco.estacionaplus.domain.model.TypeVehicle;
 import co.edu.uco.estacionaplus.domain.model.User;
+import co.edu.uco.estacionaplus.domain.model.UserRole;
+import co.edu.uco.estacionaplus.domain.model.Vehicle;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.TypeVehicleEntity;
@@ -14,11 +17,8 @@ import co.edu.uco.estacionaplus.infrastructure.adapter.entity.VehicleEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.TypeVehicleDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserRoleDAO;
-import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.VehicleDAO;
-import jdk.jshell.execution.Util;
 import org.springframework.stereotype.Repository;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class UserRepositoryPostgreSQL implements UserRepository
@@ -37,39 +37,39 @@ public class UserRepositoryPostgreSQL implements UserRepository
     @Override
     public List<UserSummaryDTO> getAll()
     {
-        return this.userDAO.findAll().stream().map(entity -> new UserSummaryDTO(entity.getCode(), entity.getNames(), entity.getLastNames(), entity.getIdentificationNumber(), entity.getPhone(), entity.getEmail(), new UserRoleSummaryDTO(entity.getUserRole().getCode(), entity.getUserRole().getName()), new VehicleSummaryDTO(entity.getVehicle().getCode(), entity.getVehicle().getLicense(), new TypeVehicleSummaryDTO(entity.getVehicle().getTypeVehicle().getCode(), entity.getVehicle().getTypeVehicle().getName())))).collect(Collectors.toList());
+        return this.userDAO.findAll().stream().map(this::assembleUserSummaryDTO).toList();
     }
 
     @Override
     public UserSummaryDTO getByCode(int code)
     {
-        return this.userDAO.findById(code).map(entity -> new UserSummaryDTO(entity.getCode(), entity.getNames(), entity.getLastNames(), entity.getIdentificationNumber(), entity.getPhone(), entity.getEmail(), new UserRoleSummaryDTO(entity.getUserRole().getCode(), entity.getUserRole().getName()), new VehicleSummaryDTO(entity.getVehicle().getCode(), entity.getVehicle().getLicense(), new TypeVehicleSummaryDTO(entity.getVehicle().getTypeVehicle().getCode(), entity.getVehicle().getTypeVehicle().getName())))).orElse(null);
+        return this.userDAO.findById(code).map(this::assembleUserSummaryDTO).orElse(null);
     }
 
     @Override
     public UserSummaryDTO getByIdentificationNumber(String identificationNumber)
     {
-        UserEntity user = this.userDAO.findByIdentificationNumber(identificationNumber);
+        var user = this.userDAO.findByIdentificationNumber(identificationNumber);
 
         if(UtilObject.isNull(user))
         {
             return null;
         }
 
-        return new UserSummaryDTO(user.getCode(), user.getNames(), user.getLastNames(), user.getIdentificationNumber(), user.getPhone(), user.getEmail(), new UserRoleSummaryDTO(user.getUserRole().getCode(), user.getUserRole().getName()), new VehicleSummaryDTO(user.getVehicle().getCode(), user.getVehicle().getLicense(), new TypeVehicleSummaryDTO(user.getVehicle().getTypeVehicle().getCode(), user.getVehicle().getTypeVehicle().getName())));
+        return assembleUserSummaryDTO(user);
     }
 
     @Override
     public UserSummaryDTO getByEmail(String email)
     {
-        UserEntity user = this.userDAO.findByEmail(email);
+        var user = this.userDAO.findByEmail(email);
 
         if(UtilObject.isNull(user))
         {
             return null;
         }
 
-        return new UserSummaryDTO(user.getCode(), user.getNames(), user.getLastNames(), user.getIdentificationNumber(), user.getPhone(), user.getEmail(), new UserRoleSummaryDTO(user.getUserRole().getCode(), user.getUserRole().getName()), new VehicleSummaryDTO(user.getVehicle().getCode(), user.getVehicle().getLicense(), new TypeVehicleSummaryDTO(user.getVehicle().getTypeVehicle().getCode(), user.getVehicle().getTypeVehicle().getName())));
+        return assembleUserSummaryDTO(user);
     }
 
     @Override
@@ -78,13 +78,13 @@ public class UserRepositoryPostgreSQL implements UserRepository
         var userRole = this.userRoleDAO.findById(user.getUserRole().getCode()).map(entity -> new UserRoleEntity(entity.getCode(), entity.getName())).orElse(null);
         var typeVehicle = this.typeVehicleDAO.findById(user.getVehicle().getTypeVehicle().getCode()).map(entity -> new TypeVehicleEntity(entity.getCode(), entity.getName())).orElse(null);
 
-        this.userDAO.save(new UserEntity(user.getCode(), user.getNames(), user.getLastNames(), user.getIdentificationNumber(), user.getPhone(), user.getEmail(), user.getPassword(), userRole, new VehicleEntity(user.getVehicle().getCode(), user.getVehicle().getLicense(), typeVehicle)));
+        this.userDAO.save(assembleUserEntity(user, userRole, typeVehicle));
     }
 
     @Override
     public void modify(int code, User user)
     {
-        this.userDAO.save(new UserEntity(code, user.getNames(), user.getLastNames(), user.getIdentificationNumber(), user.getPhone(), user.getEmail(), user.getPassword(), new UserRoleEntity(user.getUserRole().getCode(), user.getUserRole().getName()), new VehicleEntity(user.getVehicle().getCode(), user.getVehicle().getLicense(), new TypeVehicleEntity(user.getVehicle().getTypeVehicle().getCode(), user.getVehicle().getTypeVehicle().getName()))));
+        this.userDAO.save(assembleUserEntity(code, user));
     }
 
     @Override
@@ -97,5 +97,65 @@ public class UserRepositoryPostgreSQL implements UserRepository
     public boolean exists(UserSummaryDTO user)
     {
         return this.userDAO.existsById(user.getCode());
+    }
+
+    private UserEntity assembleUserEntity(User user, UserRoleEntity userRole, TypeVehicleEntity typeVehicle)
+    {
+        return new UserEntity(user.getCode(), user.getNames(), user.getLastNames(), user.getIdentificationNumber(), user.getPhone(), user.getEmail(), user.getPassword(), assembleUserRoleEntity(userRole), assembleVehicleEntity(user.getVehicle(), typeVehicle));
+    }
+
+    private UserRoleEntity assembleUserRoleEntity(UserRoleEntity userRole)
+    {
+        return new UserRoleEntity(userRole.getCode(), userRole.getName());
+    }
+
+    private VehicleEntity assembleVehicleEntity(Vehicle vehicle, TypeVehicleEntity typeVehicle)
+    {
+        return new VehicleEntity(vehicle.getCode(), vehicle.getLicense(), assembleTypeVehicleEntity(typeVehicle));
+    }
+
+    private TypeVehicleEntity assembleTypeVehicleEntity(TypeVehicleEntity typeVehicle)
+    {
+        return new TypeVehicleEntity(typeVehicle.getCode(), typeVehicle.getName());
+    }
+
+    private UserEntity assembleUserEntity(int code, User user)
+    {
+        return new UserEntity(code, user.getNames(), user.getLastNames(), user.getIdentificationNumber(), user.getPhone(), user.getEmail(), user.getPassword(), assembleUserRoleEntity(user.getUserRole()), assembleVehicleEntity(user.getVehicle()));
+    }
+
+    private UserRoleEntity assembleUserRoleEntity(UserRole userRole)
+    {
+        return new UserRoleEntity(userRole.getCode(), userRole.getName());
+    }
+
+    private VehicleEntity assembleVehicleEntity(Vehicle vehicle)
+    {
+        return new VehicleEntity(vehicle.getCode(), vehicle.getLicense(), assembleTypeVehicleEntity(vehicle.getTypeVehicle()));
+    }
+
+    private TypeVehicleEntity assembleTypeVehicleEntity(TypeVehicle typeVehicle)
+    {
+        return new TypeVehicleEntity(typeVehicle.getCode(), typeVehicle.getName());
+    }
+
+    private UserSummaryDTO assembleUserSummaryDTO(UserEntity user)
+    {
+        return new UserSummaryDTO(user.getCode(), user.getNames(), user.getLastNames(), user.getIdentificationNumber(), user.getPhone(), user.getEmail(), assembleUserRoleSummaryDTO(user.getUserRole()), assembleVehicleSummaryDTO(user.getVehicle()));
+    }
+
+    private UserRoleSummaryDTO assembleUserRoleSummaryDTO(UserRoleEntity userRole)
+    {
+        return new UserRoleSummaryDTO(userRole.getCode(), userRole.getName());
+    }
+
+    private VehicleSummaryDTO assembleVehicleSummaryDTO(VehicleEntity vehicle)
+    {
+        return new VehicleSummaryDTO(vehicle.getCode(), vehicle.getLicense(), assembleTypeVehicleSummaryDTO(vehicle.getTypeVehicle()));
+    }
+
+    private TypeVehicleSummaryDTO assembleTypeVehicleSummaryDTO(TypeVehicleEntity typeVehicle)
+    {
+        return new TypeVehicleSummaryDTO(typeVehicle.getCode(), typeVehicle.getName());
     }
 }

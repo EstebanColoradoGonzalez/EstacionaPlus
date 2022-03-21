@@ -1,24 +1,30 @@
 package co.edu.uco.estacionaplus.infrastructure.adapter.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "parking")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class ParkingEntity
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int code;
     private String nit;
     private String name;
     private String address;
+    @ManyToOne
+    @JoinColumn(name = "city")
     private CityEntity city;
-
-    public ParkingEntity()
-    {
-
-    }
-
-    public ParkingEntity(int code, String nit, String name, String address, CityEntity city)
-    {
-        this.code = code;
-        this.nit = nit;
-        this.name = name;
-        this.address = address;
-        this.city = city;
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "places")
+    private List<PlaceEntity> places;
 }

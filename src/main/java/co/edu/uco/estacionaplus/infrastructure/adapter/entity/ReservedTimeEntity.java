@@ -1,50 +1,22 @@
 package co.edu.uco.estacionaplus.infrastructure.adapter.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "reservedtime")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class ReservedTimeEntity
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int code;
     private String value;
     private String typeTime;
-
-    public ReservedTimeEntity()
-    {
-
-    }
-
-    public ReservedTimeEntity(int code, String value, String typeTime)
-    {
-        this.code = code;
-        this.value = value;
-        this.typeTime = typeTime;
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    public void setCode(int code)
-    {
-        this.code = code;
-    }
-
-    public String getValue()
-    {
-        return value;
-    }
-
-    public void setValue(String value)
-    {
-        this.value = value;
-    }
-
-    public String getTypeTime()
-    {
-        return typeTime;
-    }
-
-    public void setTypeTime(String typeTime)
-    {
-        this.typeTime = typeTime;
-    }
 }

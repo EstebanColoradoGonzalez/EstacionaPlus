@@ -1,7 +1,9 @@
 package co.edu.uco.estacionaplus.domain.model;
 
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import lombok.Getter;
 
+@Getter
 public class User
 {
     private int code;
@@ -23,23 +25,13 @@ public class User
         setPhone(phone);
         setEmail(email);
         setPassword(password);
-        setUserRole(userRole) ;
-        setVehicle(vehicle);
+        this.userRole = userRole;
+        this.vehicle = vehicle;
     }
 
     public static User create(int code, String names, String lastNames, String identificationNumber, String phone, String email, String password, UserRole userRole, Vehicle vehicle)
     {
         return new User(code, names, lastNames, identificationNumber, phone, email, password, userRole, vehicle);
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    public String getNames()
-    {
-        return names;
     }
 
     private void setNames(String names)
@@ -62,11 +54,6 @@ public class User
         this.names = names;
     }
 
-    public String getLastNames()
-    {
-        return lastNames;
-    }
-
     private void setLastNames(String lastNames)
     {
         if (UtilText.isStringEmpty(lastNames))
@@ -85,11 +72,6 @@ public class User
         }
 
         this.lastNames = lastNames;
-    }
-
-    public String getIdentificationNumber()
-    {
-        return identificationNumber;
     }
 
     private void setIdentificationNumber(String identificationNumber)
@@ -112,11 +94,6 @@ public class User
         this.identificationNumber = identificationNumber;
     }
 
-    public String getPhone()
-    {
-        return phone;
-    }
-
     private void setPhone(String phone)
     {
         if (UtilText.isStringEmpty(phone))
@@ -135,11 +112,6 @@ public class User
         }
 
         this.phone = phone;
-    }
-
-    public String getEmail()
-    {
-        return email;
     }
 
     private void setEmail(String email)
@@ -162,11 +134,6 @@ public class User
         this.email = email;
     }
 
-    public String getPassword()
-    {
-        return password;
-    }
-
     private void setPassword(String password)
     {
         if (UtilText.isStringEmpty(password))
@@ -185,25 +152,5 @@ public class User
         }
 
         this.password = password;
-    }
-
-    public UserRole getUserRole()
-    {
-        return userRole;
-    }
-
-    private void setUserRole(UserRole userRole)
-    {
-        this.userRole = userRole;
-    }
-
-    public Vehicle getVehicle()
-    {
-        return vehicle;
-    }
-
-    private void setVehicle(Vehicle vehicle)
-    {
-        this.vehicle = vehicle;
     }
 }

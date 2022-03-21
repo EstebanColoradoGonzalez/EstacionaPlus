@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 public class ServiceDeleteUser
 {
     private static final String MESSAGE_IT_DOES_NOT_EXISTS = "This user doesn't exists with this code";
+
     private final UserRepository userRepository;
 
     public ServiceDeleteUser(UserRepository userRepository)

@@ -1,7 +1,9 @@
 package co.edu.uco.estacionaplus.domain.model;
 
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import lombok.Getter;
 
+@Getter
 public class Vehicle
 {
     private int code;
@@ -12,22 +14,12 @@ public class Vehicle
     {
         this.code = code;
         setLicense(license);
-        setTypeVehicle(typeVehicle);
+        this.typeVehicle = typeVehicle;
     }
 
     public static Vehicle create(int code, String license, TypeVehicle typeVehicle)
     {
         return new Vehicle(code, license, typeVehicle);
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    public String getLicense()
-    {
-        return license;
     }
 
     private void setLicense(String license)
@@ -48,15 +40,5 @@ public class Vehicle
         }
 
         this.license = license;
-    }
-
-    public TypeVehicle getTypeVehicle()
-    {
-        return typeVehicle;
-    }
-
-    private void setTypeVehicle(TypeVehicle typeVehicle)
-    {
-        this.typeVehicle = typeVehicle;
     }
 }

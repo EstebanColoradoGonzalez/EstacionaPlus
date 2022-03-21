@@ -1,14 +1,9 @@
 package co.edu.uco.estacionaplus.application.service.serviceuser;
 
-import co.edu.uco.estacionaplus.application.dto.TypeVehicleDTO;
-import co.edu.uco.estacionaplus.application.dto.UserDTO;
-import co.edu.uco.estacionaplus.application.dto.UserRoleDTO;
-import co.edu.uco.estacionaplus.application.dto.VehicleDTO;
 import co.edu.uco.estacionaplus.domain.dto.TypeVehicleSummaryDTO;
 import co.edu.uco.estacionaplus.domain.dto.UserRoleSummaryDTO;
 import co.edu.uco.estacionaplus.domain.dto.UserSummaryDTO;
 import co.edu.uco.estacionaplus.domain.dto.VehicleSummaryDTO;
-import co.edu.uco.estacionaplus.domain.model.User;
 import co.edu.uco.estacionaplus.domain.service.serviceuser.ServiceGetUserByCode;
 import org.springframework.stereotype.Component;
 

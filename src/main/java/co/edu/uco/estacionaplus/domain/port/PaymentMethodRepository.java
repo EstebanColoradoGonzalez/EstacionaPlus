@@ -1,7 +1,6 @@
 package co.edu.uco.estacionaplus.domain.port;
 
 import co.edu.uco.estacionaplus.domain.model.PaymentMethod;
-
 import java.util.List;
 
 public interface PaymentMethodRepository

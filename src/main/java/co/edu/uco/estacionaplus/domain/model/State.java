@@ -1,7 +1,9 @@
 package co.edu.uco.estacionaplus.domain.model;
 
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import lombok.Getter;
 
+@Getter
 public class State
 {
     private int code;
@@ -16,21 +18,6 @@ public class State
     public static State create(int code, String name)
     {
         return new State(code, name);
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    private void setCode(int code)
-    {
-        this.code = code;
-    }
-
-    public String getName()
-    {
-        return name;
     }
 
     private void setName(String name)

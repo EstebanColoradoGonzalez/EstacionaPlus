@@ -1,38 +1,16 @@
 package co.edu.uco.estacionaplus.application.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class PriceDTO
 {
     private int code;
     private double value;
-
-    public PriceDTO()
-    {
-
-    }
-
-    public PriceDTO(int code, double value)
-    {
-        this.code = code;
-        this.value = value;
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    public void setCode(int code)
-    {
-        this.code = code;
-    }
-
-    public double getValue()
-    {
-        return value;
-    }
-
-    public void setValue(double value)
-    {
-        this.value = value;
-    }
 }

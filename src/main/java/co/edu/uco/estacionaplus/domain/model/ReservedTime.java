@@ -1,7 +1,9 @@
 package co.edu.uco.estacionaplus.domain.model;
 
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import lombok.Getter;
 
+@Getter
 public class ReservedTime
 {
     private int code;
@@ -18,16 +20,6 @@ public class ReservedTime
     public static ReservedTime create(int code, String value, String typeTime)
     {
         return new ReservedTime(code, value, typeTime);
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    public String getValue()
-    {
-        return value;
     }
 
     private void setValue(String value)
@@ -48,11 +40,6 @@ public class ReservedTime
         }
 
         this.value = value;
-    }
-
-    public String getTypeTime()
-    {
-        return typeTime;
     }
 
     private void setTypeTime(String typeTime)

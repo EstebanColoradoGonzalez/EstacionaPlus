@@ -1,9 +1,10 @@
 package co.edu.uco.estacionaplus.domain.model;
 
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
-
+import lombok.Getter;
 import java.util.Date;
 
+@Getter
 public class Reservation
 {
     private int code;
@@ -22,11 +23,11 @@ public class Reservation
         setDate(date);
         setArrivalTime(arrivalTime);
         setDepartureTime(departureTime);
-        setReservedTime(reservedTime);
-        setPrice(price);
-        setPlace(place);
-        setPaymentMethod(paymentMethod);
-        setUser(user);
+        this.reservedTime = reservedTime;
+        this.price = price;
+        this.place = place;
+        this.paymentMethod = paymentMethod;
+        this.user = user;
     }
 
     public static Reservation create(int code, Date date, String arrivalTime, String departureTime, ReservedTime reservedTime, Price price, Place place, PaymentMethod paymentMethod, User user)
@@ -34,24 +35,9 @@ public class Reservation
         return new Reservation(code, date, arrivalTime, departureTime, reservedTime, price, place, paymentMethod, user);
     }
 
-    public int getCode()
-    {
-        return code;
-    }
-
-    public Date getDate()
-    {
-        return date;
-    }
-
     private void setDate(Date date)
     {
         this.date = date;
-    }
-
-    public String getArrivalTime()
-    {
-        return arrivalTime;
     }
 
     public void setArrivalTime(String arrivalTime)
@@ -74,11 +60,6 @@ public class Reservation
         this.arrivalTime = arrivalTime;
     }
 
-    public String getDepartureTime()
-    {
-        return departureTime;
-    }
-
     private void setDepartureTime(String departureTime)
     {
         if (UtilText.isStringEmpty(departureTime))
@@ -97,55 +78,5 @@ public class Reservation
         }
 
         this.departureTime = departureTime;
-    }
-
-    public ReservedTime getReservedTime()
-    {
-        return reservedTime;
-    }
-
-    private void setReservedTime(ReservedTime reservedTime)
-    {
-        this.reservedTime = reservedTime;
-    }
-
-    public Price getPrice()
-    {
-        return price;
-    }
-
-    private void setPrice(Price price)
-    {
-        this.price = price;
-    }
-
-    public Place getPlace()
-    {
-        return place;
-    }
-
-    private void setPlace(Place place)
-    {
-        this.place = place;
-    }
-
-    public PaymentMethod getPaymentMethod()
-    {
-        return paymentMethod;
-    }
-
-    private void setPaymentMethod(PaymentMethod paymentMethod)
-    {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public User getUser()
-    {
-        return user;
-    }
-
-    private void setUser(User user)
-    {
-        this.user = user;
     }
 }

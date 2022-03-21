@@ -1,50 +1,22 @@
 package co.edu.uco.estacionaplus.infrastructure.adapter.entity;
 
+import lombok.*;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "place")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class PlaceEntity
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int code;
     private String position;
+    private boolean taken;
+    @ManyToOne
+    @JoinColumn(name = "typeplace")
     private TypePlaceEntity typePlace;
-
-    public PlaceEntity()
-    {
-
-    }
-
-    public PlaceEntity(int code, String position, TypePlaceEntity typePlace)
-    {
-        this.code = code;
-        this.position = position;
-        this.typePlace = typePlace;
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    public void setCode(int code)
-    {
-        this.code = code;
-    }
-
-    public String getPosition()
-    {
-        return position;
-    }
-
-    public void setPosition(String position)
-    {
-        this.position = position;
-    }
-
-    public TypePlaceEntity getTypePlace()
-    {
-        return typePlace;
-    }
-
-    public void setTypePlace(TypePlaceEntity typePlace)
-    {
-        this.typePlace = typePlace;
-    }
 }

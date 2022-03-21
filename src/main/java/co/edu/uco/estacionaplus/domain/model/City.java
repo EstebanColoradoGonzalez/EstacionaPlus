@@ -1,7 +1,9 @@
 package co.edu.uco.estacionaplus.domain.model;
 
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import lombok.Getter;
 
+@Getter
 public class City
 {
     private int code;
@@ -12,7 +14,7 @@ public class City
     {
         this.code = code;
         setName(name);
-        setState(state);
+        this.state = state;
     }
 
     public static City create(int code, String name, State state)
@@ -20,15 +22,6 @@ public class City
         return new City(code, name, state);
     }
 
-    public int getCode()
-    {
-        return code;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
 
     private void setName(String name)
     {
@@ -48,15 +41,5 @@ public class City
         }
 
         this.name = name;
-    }
-
-    public State getState()
-    {
-        return state;
-    }
-
-    private void setState(State state)
-    {
-        this.state = state;
     }
 }

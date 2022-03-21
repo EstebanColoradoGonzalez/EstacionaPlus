@@ -1,7 +1,9 @@
 package co.edu.uco.estacionaplus.domain.model;
 
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilNumber;
+import lombok.Getter;
 
+@Getter
 public class Price
 {
     private int code;
@@ -16,16 +18,6 @@ public class Price
     public static Price create(int code, double value)
     {
         return new Price(code, value);
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    public double getValue()
-    {
-        return value;
     }
 
     private void setValue(double value)

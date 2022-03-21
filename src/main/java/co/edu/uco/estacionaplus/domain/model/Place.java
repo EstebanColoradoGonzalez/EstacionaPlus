@@ -1,33 +1,27 @@
 package co.edu.uco.estacionaplus.domain.model;
 
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import lombok.Getter;
 
+@Getter
 public class Place
 {
     private int code;
     private String position;
+    private boolean taken;
     private TypePlace typePlace;
 
-    private Place(int code, String position, TypePlace typePlace)
+    private Place(int code, String position, boolean taken, TypePlace typePlace)
     {
         this.code = code;
         setPosition(position);
-        setTypePlace(typePlace);
+        this.typePlace = typePlace;
+        this.taken = taken;
     }
 
-    public static Place create(int code, String position, TypePlace typePlace)
+    public static Place create(int code, String position, boolean taken, TypePlace typePlace)
     {
-        return new Place(code, position, typePlace);
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    public String getPosition()
-    {
-        return position;
+        return new Place(code, position, taken, typePlace);
     }
 
     private void setPosition(String position)
@@ -48,15 +42,5 @@ public class Place
         }
 
         this.position = position;
-    }
-
-    public TypePlace getTypePlace()
-    {
-        return typePlace;
-    }
-
-    private void setTypePlace(TypePlace typePlace)
-    {
-        this.typePlace = typePlace;
     }
 }

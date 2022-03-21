@@ -1,7 +1,9 @@
 package co.edu.uco.estacionaplus.domain.model;
 
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import lombok.Getter;
 
+@Getter
 public class PaymentMethod
 {
     private int code;
@@ -16,16 +18,6 @@ public class PaymentMethod
     public static PaymentMethod create(int code, String name)
     {
         return new PaymentMethod(code, name);
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    public String getName()
-    {
-        return name;
     }
 
     private void setName(String name)

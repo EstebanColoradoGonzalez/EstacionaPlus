@@ -1,10 +1,8 @@
 package co.edu.uco.estacionaplus.domain.service.serviceuser;
 
 import co.edu.uco.estacionaplus.domain.dto.UserSummaryDTO;
-import co.edu.uco.estacionaplus.domain.model.User;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

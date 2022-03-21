@@ -9,7 +9,7 @@ public class PlaceTest
     void validateSuccessfulCreation()
     {
 
-        var place = Place.create(1, "A1", TypePlace.create(1, "Moto"));
+        var place = Place.create(1, "A1", true, TypePlace.create(1, "Moto"));
 
         Assertions.assertEquals("A1", place.getPosition());
         Assertions.assertEquals("Moto", place.getTypePlace().getName());
@@ -18,12 +18,12 @@ public class PlaceTest
     @Test
     void validateMissingFields()
     {
-        Assertions.assertEquals("The value of a Place cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> Place.create(1, null, TypePlace.create(1, "Moto"))).getMessage());
+        Assertions.assertEquals("The value of a Place cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> Place.create(1, null, true, TypePlace.create(1, "Moto"))).getMessage());
     }
 
     @Test
     void ValidateEmptyFields()
     {
-        Assertions.assertEquals("The value of a Place cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> Place.create(1, "", TypePlace.create(1, "Moto"))).getMessage());
+        Assertions.assertEquals("The value of a Place cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> Place.create(1, "", true, TypePlace.create(1, "Moto"))).getMessage());
     }
 }

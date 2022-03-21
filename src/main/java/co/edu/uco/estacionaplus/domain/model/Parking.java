@@ -1,7 +1,10 @@
 package co.edu.uco.estacionaplus.domain.model;
 
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import lombok.Getter;
+import java.util.List;
 
+@Getter
 public class Parking
 {
     private int code;
@@ -9,29 +12,21 @@ public class Parking
     private String name;
     private String address;
     private City city;
+    private List<Place> places;
 
-    private Parking(int code, String nit, String name, String address, City city)
+    private Parking(int code, String nit, String name, String address, City city, List<Place> places)
     {
         this.code = code;
         setNit(nit);
         setName(name);
         setAddress(address);
-        setCity(city);
+        this.city = city;
+        this.places = places;
     }
 
-    public static Parking create(int code, String nit, String name, String address, City city)
+    public static Parking create(int code, String nit, String name, String address, City city, List<Place> places)
     {
-        return new Parking(code, nit, name, address, city);
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    public String getNit()
-    {
-        return nit;
+        return new Parking(code, nit, name, address, city, places);
     }
 
     private void setNit(String nit)
@@ -54,11 +49,6 @@ public class Parking
         this.nit = nit;
     }
 
-    public String getName()
-    {
-        return name;
-    }
-
     private void setName(String name)
     {
         if (UtilText.isStringEmpty(name))
@@ -79,11 +69,6 @@ public class Parking
         this.name = name;
     }
 
-    public String getAddress()
-    {
-        return address;
-    }
-
     private void setAddress(String address)
     {
         if (UtilText.isStringEmpty(address))
@@ -102,15 +87,5 @@ public class Parking
         }
 
         this.address = address;
-    }
-
-    public City getCity()
-    {
-        return city;
-    }
-
-    private void setCity(City city)
-    {
-        this.city = city;
     }
 }

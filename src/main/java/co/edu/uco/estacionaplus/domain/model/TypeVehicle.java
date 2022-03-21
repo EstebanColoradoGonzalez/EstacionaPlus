@@ -1,7 +1,9 @@
 package co.edu.uco.estacionaplus.domain.model;
 
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import lombok.Getter;
 
+@Getter
 public class TypeVehicle
 {
     private int code;
@@ -16,16 +18,6 @@ public class TypeVehicle
     public static TypeVehicle create(int code, String name)
     {
         return new TypeVehicle(code, name);
-    }
-
-    public int getCode()
-    {
-        return code;
-    }
-
-    public String getName()
-    {
-        return name;
     }
 
     private void setName(String name)

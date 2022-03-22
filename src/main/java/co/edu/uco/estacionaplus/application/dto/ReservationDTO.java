@@ -13,7 +13,7 @@ import java.util.Date;
 public class ReservationDTO
 {
     private int code;
-    private Date date;
+    private String date;
     private String arrivalTime;
     private String departureTime;
     private ReservedTimeDTO reservedTime;

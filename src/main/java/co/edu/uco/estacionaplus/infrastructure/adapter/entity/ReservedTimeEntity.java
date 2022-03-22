@@ -17,6 +17,6 @@ public class ReservedTimeEntity
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int code;
-    private String value;
+    private int value;
     private String typeTime;
 }

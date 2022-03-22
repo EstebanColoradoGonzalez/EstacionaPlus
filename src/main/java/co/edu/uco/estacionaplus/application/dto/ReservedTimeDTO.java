@@ -12,6 +12,6 @@ import lombok.Setter;
 public class ReservedTimeDTO
 {
     private int code;
-    private String value;
+    private int value;
     private String typeTime;
 }

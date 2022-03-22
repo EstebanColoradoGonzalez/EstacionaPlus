@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.domain.utilitarian;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +20,11 @@ public class UtilDate
         return UtilObject.getDefaultValue(date, defaultValue);
     }
 
+    public static Date getSpecificDate(String date)
+    {
+        return formatDate(date, FORMAT_YYYY_MM_DD);
+    }
+
     public static Date getCurrentDate()
     {
         return new Date();
@@ -32,6 +38,11 @@ public class UtilDate
     public static Date getDateByDefault(Date date)
     {
         return formatDate(DEFAULT_DATE, FORMAT_YYYY_MM_DD);
+    }
+
+    public static String getStringDate(Date date)
+    {
+        return DateFormat.getDateInstance().format(date);
     }
 
     public static Date formatDate(String textDate, String format)

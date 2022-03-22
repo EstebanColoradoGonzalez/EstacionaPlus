@@ -24,7 +24,7 @@ public class ReservationEntity
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reservedtime")
     private ReservedTimeEntity reservedTime;
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "price")
     private PriceEntity price;
     @ManyToOne

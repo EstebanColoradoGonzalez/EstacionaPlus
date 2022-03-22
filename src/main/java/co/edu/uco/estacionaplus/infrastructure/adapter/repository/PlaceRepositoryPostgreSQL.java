@@ -3,6 +3,7 @@ package co.edu.uco.estacionaplus.infrastructure.adapter.repository;
 import co.edu.uco.estacionaplus.domain.model.Place;
 import co.edu.uco.estacionaplus.domain.model.TypePlace;
 import co.edu.uco.estacionaplus.domain.port.PlaceRepository;
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.PlaceEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.TypePlaceEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.PlaceDAO;
@@ -32,6 +33,19 @@ public class PlaceRepositoryPostgreSQL implements PlaceRepository
     public Place getByCode(int code)
     {
         return this.placeDAO.findById(code).map(this::assemblePlace).orElse(null);
+    }
+
+    @Override
+    public Place getByPosition(String position)
+    {
+        var place = this.placeDAO.findByPosition(position);
+
+        if(UtilObject.isNull(place))
+        {
+            return null;
+        }
+
+        return assemblePlace(place);
     }
 
     @Override

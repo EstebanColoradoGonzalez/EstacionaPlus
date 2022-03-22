@@ -7,6 +7,7 @@ public interface PlaceRepository
 {
     List<Place> getAll();
     Place getByCode(int code);
+    Place getByPosition(String position);
     void save(Place place);
     void modify(int code, Place place);
     void delete(int code);

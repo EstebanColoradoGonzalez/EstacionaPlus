@@ -25,6 +25,6 @@ public class ParkingEntity
     @JoinColumn(name = "city")
     private CityEntity city;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "places")
+    @JoinColumn(name = "place")
     private List<PlaceEntity> places;
 }

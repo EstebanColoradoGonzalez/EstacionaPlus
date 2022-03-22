@@ -2,15 +2,13 @@ package co.edu.uco.estacionaplus.domain.service.servicereservation;
 
 import co.edu.uco.estacionaplus.domain.model.*;
 import co.edu.uco.estacionaplus.domain.port.*;
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilNumber;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServiceModifyReservation
 {
-    private static final String MESSAGE_PAYMENT_METHOD_DOES_NOT_EXISTS = "This payment method doesn't exists";
-    private static final String MESSAGE_PLACE_IS_TAKEN = "This place was taken by someone else";
-
     private final ReservationRepository reservationRepository;
     private final PaymentMethodRepository paymentMethodRepository;
     private final PlaceRepository placeRepository;
@@ -36,7 +34,7 @@ public class ServiceModifyReservation
     {
         if(!this.paymentMethodRepository.exists(paymentMethod))
         {
-            throw new IllegalArgumentException(MESSAGE_PAYMENT_METHOD_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_PAYMENT_METHOD_DOES_NOT_EXISTS);
         }
     }
 
@@ -46,7 +44,7 @@ public class ServiceModifyReservation
 
         if(object.isTaken())
         {
-            throw new IllegalArgumentException(MESSAGE_PLACE_IS_TAKEN);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_PLACE_IS_TAKEN);
         }
     }
 

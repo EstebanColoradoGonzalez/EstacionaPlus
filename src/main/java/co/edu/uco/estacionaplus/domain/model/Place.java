@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.domain.model;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
 import lombok.Getter;
 
@@ -28,17 +29,17 @@ public class Place
     {
         if (UtilText.isStringEmpty(position))
         {
-            throw new IllegalArgumentException("The value of a Place cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.PLACE_POSITION_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(position,1, 10))
         {
-            throw new IllegalArgumentException("The value of a Place must have a minimum of 1 character and a maximum of 10 characters.");
+            throw new IllegalArgumentException(UtilMessage.PLACE_POSITION_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.isStringAlphanumeric(position))
         {
-            throw new IllegalArgumentException("The value of a Place can only contain characters.");
+            throw new IllegalArgumentException(UtilMessage.PLACE_POSITION_CHECK_PATTERN);
         }
 
         this.position = position;

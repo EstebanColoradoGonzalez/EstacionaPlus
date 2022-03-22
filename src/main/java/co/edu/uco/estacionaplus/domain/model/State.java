@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.domain.model;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
 import lombok.Getter;
 
@@ -24,17 +25,17 @@ public class State
     {
         if (UtilText.isStringEmpty(name))
         {
-            throw new IllegalArgumentException("The name of a State cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.STATE_NAME_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(name, 1, 20))
         {
-            throw new IllegalArgumentException("The name of a State must have a minimum of 1 character and a maximum of 50 characters.");
+            throw new IllegalArgumentException(UtilMessage.STATE_NAME_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.stringContainsOnlyLettersAndSpaces(name))
         {
-            throw new IllegalArgumentException("The name of a State can only contain letters and spaces.");
+            throw new IllegalArgumentException(UtilMessage.STATE_NAME_CHECK_PATTERN);
         }
 
         this.name = name;

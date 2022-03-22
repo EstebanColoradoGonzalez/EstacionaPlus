@@ -5,6 +5,7 @@ import co.edu.uco.estacionaplus.application.service.serviceuserparking.ServiceAp
 import co.edu.uco.estacionaplus.application.service.serviceuserparking.ServiceApplicationGetUserParkingByCode;
 import co.edu.uco.estacionaplus.application.service.serviceuserparking.ServiceApplicationModifyUserParking;
 import co.edu.uco.estacionaplus.application.service.serviceuserparking.ServiceApplicationSaveUserParking;
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,6 @@ import java.util.List;
 @RequestMapping("/api/userparking")
 public class UserParkingController
 {
-    private static final String MESSAGE_CREATION_SUCCESSFUL = "the admin was created successful";
-    private static final String MESSAGE_MODIFICATION_SUCCESSFUL = "the admin was modified successful";
-    private static final String MESSAGE_ELIMINATION_SUCCESSFUL = "the admin was removed successful";
-    private static final String MESSAGE_THE_USER_WITH_CODE = "the admin with the code ";
-    private static final String MESSAGE_CONSULTATION_SUCCESSFUL = " was consulted successful";
-
     private final ServiceApplicationSaveUserParking serviceSaveUserParking;
     private final ServiceApplicationModifyUserParking serviceModifyUserParking;
     private final ServiceApplicationDeleteUserParking serviceDeleteUserParking;
@@ -44,7 +39,7 @@ public class UserParkingController
 
         serviceSaveUserParking.save(userParkingDTO);
 
-        response.addMessage(MESSAGE_CREATION_SUCCESSFUL);
+        response.addMessage(UtilMessage.ADMIN_MESSAGE_CREATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -60,7 +55,7 @@ public class UserParkingController
 
         serviceModifyUserParking.modify(code, userParkingDTO);
 
-        response.addMessage(MESSAGE_MODIFICATION_SUCCESSFUL);
+        response.addMessage(UtilMessage.ADMIN_MESSAGE_MODIFICATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -76,7 +71,7 @@ public class UserParkingController
 
         serviceDeleteUserParking.delete(code);
 
-        response.addMessage(MESSAGE_ELIMINATION_SUCCESSFUL);
+        response.addMessage(UtilMessage.ADMIN_MESSAGE_ELIMINATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -95,7 +90,7 @@ public class UserParkingController
 
         respuesta.setData(users);
 
-        respuesta.addMessage(MESSAGE_THE_USER_WITH_CODE + code + MESSAGE_CONSULTATION_SUCCESSFUL);
+        respuesta.addMessage(UtilMessage.ADMIN_MESSAGE_THE_USER_WITH_CODE + code + UtilMessage.MESSAGE_CONSULTATION_SUCCESSFUL);
         respuesta.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(respuesta, HttpStatus.ACCEPTED);

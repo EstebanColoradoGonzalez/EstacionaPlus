@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.infrastructure.error;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ErrorManager extends ResponseEntityExceptionHandler
 {
     private static final Logger LOGGER_ERROR = LoggerFactory.getLogger(ErrorManager.class);
-    private static final String AN_ERROR_OCCURRED_PLEASE_CONTACT_THE_ADMINISTRATOR = "An error occurred, please contact the administrator.";
     private static final ConcurrentHashMap<String, Integer> STATUS_CODES = new ConcurrentHashMap<>();
 
     public ErrorManager()
@@ -38,7 +38,7 @@ public class ErrorManager extends ResponseEntityExceptionHandler
         else
         {
             LOGGER_ERROR.error(nameException, exception);
-            Error error = new Error(nameException, AN_ERROR_OCCURRED_PLEASE_CONTACT_THE_ADMINISTRATOR);
+            Error error = new Error(nameException, UtilMessage.AN_ERROR_OCCURRED_PLEASE_CONTACT_THE_ADMINISTRATOR);
             result = new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

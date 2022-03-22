@@ -4,16 +4,13 @@ import co.edu.uco.estacionaplus.domain.model.User;
 import co.edu.uco.estacionaplus.domain.model.Vehicle;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
 import co.edu.uco.estacionaplus.domain.port.VehicleRepository;
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServiceModifyUser
 {
-    private static final String MESSAGE_EXISTS_WITH_EMAIL = "There is already someone with this email.";
-    private static final String MESSAGE_EXISTS_WITH_IDENTIFICATION_NUMBER = "There is already someone with this identification number.";
-    private static final String MESSAGE_VEHICLE_EXISTS_WITH_LICENSE = "There is already some car with this license.";
-
     private final UserRepository userRepository;
     private final VehicleRepository vehicleRepository;
 
@@ -37,7 +34,7 @@ public class ServiceModifyUser
 
         if(!UtilObject.isNull(userSummary) && userSummary.getCode() != code)
         {
-            throw new IllegalArgumentException(MESSAGE_EXISTS_WITH_EMAIL);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_EMAIL);
         }
     }
 
@@ -47,7 +44,7 @@ public class ServiceModifyUser
 
         if(!UtilObject.isNull(userSummary) && userSummary.getCode() != code)
         {
-            throw new IllegalArgumentException(MESSAGE_EXISTS_WITH_IDENTIFICATION_NUMBER);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_IDENTIFICATION_NUMBER);
         }
     }
 
@@ -57,7 +54,7 @@ public class ServiceModifyUser
 
         if(!UtilObject.isNull(vehicleSummary) && vehicleSummary.getCode() != vehicle.getCode())
         {
-            throw new IllegalArgumentException(MESSAGE_VEHICLE_EXISTS_WITH_LICENSE);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_VEHICLE_EXISTS_WITH_LICENSE);
         }
     }
 }

@@ -3,6 +3,7 @@ package co.edu.uco.estacionaplus.infrastructure.controller;
 import co.edu.uco.estacionaplus.application.dto.UserDTO;
 import co.edu.uco.estacionaplus.application.service.serviceuser.*;
 import co.edu.uco.estacionaplus.domain.dto.UserSummaryDTO;
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
 import org.springframework.http.HttpStatus;
@@ -15,14 +16,6 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController
 {
-    private static final String MESSAGE_CREATION_SUCCESSFUL = "the user was created successful";
-    private static final String MESSAGE_MODIFICATION_SUCCESSFUL = "the user was modified successful";
-    private static final String MESSAGE_ELIMINATION_SUCCESSFUL = "the user was removed successful";
-    private static final String MESSAGE_CONSULTATION_ALL_SUCCESSFUL = "the users was consulted successful";
-    private static final String MESSAGE_THE_USER_WITH_CODE = "the user with the code ";
-    private static final String MESSAGE_THE_USER_WITH_EMAIL = "the user with the email ";
-    private static final String MESSAGE_CONSULTATION_SUCCESSFUL = " was consulted successful";
-
     private final ServiceApplicationSaveUser serviceSaveUser;
     private final ServiceApplicationModifyUser serviceModifyUser;
     private final ServiceApplicationDeleteUser serviceDeleteUser;
@@ -48,7 +41,7 @@ public class UserController
 
         serviceSaveUser.save(userDTO);
 
-        response.addMessage(MESSAGE_CREATION_SUCCESSFUL);
+        response.addMessage(UtilMessage.USER_MESSAGE_CREATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -64,7 +57,7 @@ public class UserController
 
         serviceModifyUser.modify(code, userDTO);
 
-        response.addMessage(MESSAGE_MODIFICATION_SUCCESSFUL);
+        response.addMessage(UtilMessage.USER_MESSAGE_MODIFICATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -80,7 +73,7 @@ public class UserController
 
         serviceDeleteUser.delete(code);
 
-        response.addMessage(MESSAGE_ELIMINATION_SUCCESSFUL);
+        response.addMessage(UtilMessage.USER_MESSAGE_ELIMINATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -95,7 +88,7 @@ public class UserController
         Response<UserSummaryDTO> response = new Response<>();
 
         response.setData(this.serviceGetUsers.getAll());
-        response.addMessage(MESSAGE_CONSULTATION_ALL_SUCCESSFUL);
+        response.addMessage(UtilMessage.USER_MESSAGE_CONSULTATION_ALL_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -114,7 +107,7 @@ public class UserController
 
         respuesta.setData(users);
 
-        respuesta.addMessage(MESSAGE_THE_USER_WITH_CODE + code + MESSAGE_CONSULTATION_SUCCESSFUL);
+        respuesta.addMessage(UtilMessage.USER_MESSAGE_THE_USER_WITH_CODE + code + UtilMessage.MESSAGE_CONSULTATION_SUCCESSFUL);
         respuesta.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(respuesta, HttpStatus.ACCEPTED);
@@ -132,7 +125,7 @@ public class UserController
         users.add(this.serviceGetUserByEmail.getByEmail(email));
         respuesta.setData(users);
 
-        respuesta.addMessage(MESSAGE_THE_USER_WITH_EMAIL + email + MESSAGE_CONSULTATION_SUCCESSFUL);
+        respuesta.addMessage(UtilMessage.USER_MESSAGE_THE_USER_WITH_EMAIL + email + UtilMessage.MESSAGE_CONSULTATION_SUCCESSFUL);
         respuesta.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(respuesta, HttpStatus.ACCEPTED);

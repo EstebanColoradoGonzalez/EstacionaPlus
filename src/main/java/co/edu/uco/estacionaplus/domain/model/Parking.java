@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.domain.model;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
 import lombok.Getter;
 import java.util.List;
@@ -33,17 +34,17 @@ public class Parking
     {
         if (UtilText.isStringEmpty(nit))
         {
-            throw new IllegalArgumentException("The NIT of a Parking cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.PARKING_NIT_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(nit,1, 20))
         {
-            throw new IllegalArgumentException("The NIT of a Parking must have a minimum of 1 character and a maximum of 20 characters.");
+            throw new IllegalArgumentException(UtilMessage.PARKING_NIT_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.stringNIT(nit))
         {
-            throw new IllegalArgumentException("The NIT of a Parking can only contain characters.");
+            throw new IllegalArgumentException(UtilMessage.PARKING_NIT_CHECK_PATTERN);
         }
 
         this.nit = nit;
@@ -53,17 +54,17 @@ public class Parking
     {
         if (UtilText.isStringEmpty(name))
         {
-            throw new IllegalArgumentException("The Name of a Parking cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.PARKING_NAME_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(name,1, 50))
         {
-            throw new IllegalArgumentException("The Name of a Parking must have a minimum of 1 character and a maximum of 50 characters.");
+            throw new IllegalArgumentException(UtilMessage.PARKING_NAME_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.isStringAlphanumeric(name))
         {
-            throw new IllegalArgumentException("The Name of a Parking can only contain characters.");
+            throw new IllegalArgumentException(UtilMessage.PARKING_NAME_CHECK_PATTERN);
         }
 
         this.name = name;
@@ -73,17 +74,17 @@ public class Parking
     {
         if (UtilText.isStringEmpty(address))
         {
-            throw new IllegalArgumentException("The address of a Parking cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.PARKING_ADDRESS_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(address,1, 50))
         {
-            throw new IllegalArgumentException("The address of a Parking must have a minimum of 1 character and a maximum of 50 characters.");
+            throw new IllegalArgumentException(UtilMessage.PARKING_ADDRESS_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.isStringAlphanumeric(address))
         {
-            throw new IllegalArgumentException("The address of a Parking can only contain characters and numbers.");
+            throw new IllegalArgumentException(UtilMessage.PARKING_ADDRESS_CHECK_PATTERN);
         }
 
         this.address = address;

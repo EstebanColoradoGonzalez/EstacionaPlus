@@ -8,18 +8,13 @@ import co.edu.uco.estacionaplus.domain.port.TypeVehicleRepository;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
 import co.edu.uco.estacionaplus.domain.port.UserRoleRepository;
 import co.edu.uco.estacionaplus.domain.port.VehicleRepository;
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServiceSaveUser
 {
-    private static final String MESSAGE_EXISTS_WITH_EMAIL = "There is already someone with this email.";
-    private static final String MESSAGE_EXISTS_WITH_IDENTIFICATION_NUMBER = "There is already someone with this identification number.";
-    private static final String MESSAGE_USER_ROLE_DOES_NOT_EXISTS_WITH_NAME = "This user role doesn't exists with this name.";
-    private static final String MESSAGE_TYPE_VEHICLE_DOES_NOT_EXISTS_WITH_NAME = "This type of vehicle doesn't exists with this name.";
-    private static final String MESSAGE_VEHICLE_EXISTS_WITH_LICENSE = "There is already some car with this license.";
-
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final VehicleRepository vehicleRepository;
@@ -47,7 +42,7 @@ public class ServiceSaveUser
     {
         if(!this.userRoleRepository.exists(userRole))
         {
-            throw new IllegalArgumentException(MESSAGE_USER_ROLE_DOES_NOT_EXISTS_WITH_NAME);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_USER_ROLE_DOES_NOT_EXISTS_WITH_NAME);
         }
     }
 
@@ -57,7 +52,7 @@ public class ServiceSaveUser
 
         if(!UtilObject.isNull(userSummary))
         {
-            throw new IllegalArgumentException(MESSAGE_EXISTS_WITH_EMAIL);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_EMAIL);
         }
     }
 
@@ -67,7 +62,7 @@ public class ServiceSaveUser
 
         if(!UtilObject.isNull(userSummary))
         {
-            throw new IllegalArgumentException(MESSAGE_EXISTS_WITH_IDENTIFICATION_NUMBER);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_IDENTIFICATION_NUMBER);
         }
     }
 
@@ -75,7 +70,7 @@ public class ServiceSaveUser
     {
         if(!this.typeVehicleRepository.exists(typeVehicle))
         {
-            throw new IllegalArgumentException(MESSAGE_TYPE_VEHICLE_DOES_NOT_EXISTS_WITH_NAME);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_TYPE_VEHICLE_DOES_NOT_EXISTS_WITH_NAME);
         }
     }
 
@@ -85,7 +80,7 @@ public class ServiceSaveUser
 
         if(!UtilObject.isNull(vehicleSummary))
         {
-            throw new IllegalArgumentException(MESSAGE_VEHICLE_EXISTS_WITH_LICENSE);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_VEHICLE_EXISTS_WITH_LICENSE);
         }
     }
 }

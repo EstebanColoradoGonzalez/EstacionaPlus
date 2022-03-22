@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.domain.model;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilNumber;
 import lombok.Getter;
 
@@ -24,7 +25,7 @@ public class Price
     {
         if(UtilNumber.isNumberLessThanOrEqual(value, 0))
         {
-            throw new IllegalArgumentException("The value of a Price cannot be less than or equal to zero.");
+            throw new IllegalArgumentException(UtilMessage.PRICE_VALUE_CHECK_NUMBER);
         }
 
         this.value = value;

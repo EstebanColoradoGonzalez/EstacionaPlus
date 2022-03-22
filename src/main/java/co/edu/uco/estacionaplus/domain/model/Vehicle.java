@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.domain.model;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
 import lombok.Getter;
 
@@ -26,17 +27,17 @@ public class Vehicle
     {
         if (UtilText.isStringEmpty(license))
         {
-            throw new IllegalArgumentException("The license of a Vehicle cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.VEHICLE_LICENSE_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(license,1, 6))
         {
-            throw new IllegalArgumentException("The license of a Vehicle must have a minimum of 1 character and a maximum of 6 characters.");
+            throw new IllegalArgumentException(UtilMessage.VEHICLE_LICENSE_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.isStringAlphanumeric(license))
         {
-            throw new IllegalArgumentException("The value of a Vehicle must be alphanumeric.");
+            throw new IllegalArgumentException(UtilMessage.VEHICLE_LICENSE_CHECK_PATTERN);
         }
 
         this.license = license;

@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.domain.model;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
 import lombok.Getter;
 
@@ -38,17 +39,17 @@ public class User
     {
         if (UtilText.isStringEmpty(names))
         {
-            throw new IllegalArgumentException("The names of a User cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.USER_NAME_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(names,1, 20))
         {
-            throw new IllegalArgumentException("The names of a User must have a minimum of 1 character and a maximum of 20 characters.");
+            throw new IllegalArgumentException(UtilMessage.USER_NAME_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.stringContainsOnlyLettersAndSpaces(names))
         {
-            throw new IllegalArgumentException("The names of a User can only contain characters.");
+            throw new IllegalArgumentException(UtilMessage.USER_NAME_CHECK_PATTERN);
         }
 
         this.names = names;
@@ -58,17 +59,17 @@ public class User
     {
         if (UtilText.isStringEmpty(lastNames))
         {
-            throw new IllegalArgumentException("The lastNames of a User cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.USER_LASTNAME_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(lastNames,1, 50))
         {
-            throw new IllegalArgumentException("The lastNames of a User must have a minimum of 1 character and a maximum of 50 characters.");
+            throw new IllegalArgumentException(UtilMessage.USER_LASTNAME_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.stringContainsOnlyLettersAndSpaces(lastNames))
         {
-            throw new IllegalArgumentException("The lastNames of a User can only contain characters.");
+            throw new IllegalArgumentException(UtilMessage.USER_LASTNAME_CHECK_PATTERN);
         }
 
         this.lastNames = lastNames;
@@ -78,17 +79,17 @@ public class User
     {
         if (UtilText.isStringEmpty(identificationNumber))
         {
-            throw new IllegalArgumentException("The lastNames of a User cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.USER_IDENTIFICATION_NUMBER_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(identificationNumber,1, 10))
         {
-            throw new IllegalArgumentException("The lastNames of a User must have a minimum of 1 character and a maximum of 10 characters.");
+            throw new IllegalArgumentException(UtilMessage.USER_IDENTIFICATION_NUMBER_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.isStringAlphanumeric(identificationNumber))
         {
-            throw new IllegalArgumentException("The lastNames of a User can only contain characters.");
+            throw new IllegalArgumentException(UtilMessage.USER_IDENTIFICATION_NUMBER_CHECK_PATTERN);
         }
 
         this.identificationNumber = identificationNumber;
@@ -98,17 +99,17 @@ public class User
     {
         if (UtilText.isStringEmpty(phone))
         {
-            throw new IllegalArgumentException("The phone of a User cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.USER_PHONE_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(phone,1, 10))
         {
-            throw new IllegalArgumentException("The phone of a User must have a minimum of 1 character and a maximum of 10 characters.");
+            throw new IllegalArgumentException(UtilMessage.USER_PHONE_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.isStringAlphanumeric(phone))
         {
-            throw new IllegalArgumentException("The phone of a User can only contain characters.");
+            throw new IllegalArgumentException(UtilMessage.USER_PHONE_CHECK_PATTERN);
         }
 
         this.phone = phone;
@@ -118,17 +119,17 @@ public class User
     {
         if (UtilText.isStringEmpty(email))
         {
-            throw new IllegalArgumentException("The email of a User cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.USER_EMAIL_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(email,1, 100))
         {
-            throw new IllegalArgumentException("The email of a User must have a minimum of 1 character and a maximum of 100 characters.");
+            throw new IllegalArgumentException(UtilMessage.USER_EMAIL_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.stringEmail(email))
         {
-            throw new IllegalArgumentException("The email of a User can only contain characters.");
+            throw new IllegalArgumentException(UtilMessage.USER_EMAIL_CHECK_PATTERN);
         }
 
         this.email = email;
@@ -138,17 +139,17 @@ public class User
     {
         if (UtilText.isStringEmpty(password))
         {
-            throw new IllegalArgumentException("The email of a User cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.USER_PASSWORD_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(password,1, 255))
         {
-            throw new IllegalArgumentException("The email of a User must have a minimum of 1 character and a maximum of 255 characters.");
+            throw new IllegalArgumentException(UtilMessage.USER_PASSWORD_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.stringPassword(password))
         {
-            throw new IllegalArgumentException("The password of a User is incorrect");
+            throw new IllegalArgumentException(UtilMessage.USER_PASSWORD_CHECK_PATTERN);
         }
 
         this.password = password;

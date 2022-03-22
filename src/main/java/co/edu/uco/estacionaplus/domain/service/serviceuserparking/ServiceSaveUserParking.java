@@ -8,16 +8,13 @@ import co.edu.uco.estacionaplus.domain.model.*;
 import co.edu.uco.estacionaplus.domain.port.ParkingRepository;
 import co.edu.uco.estacionaplus.domain.port.UserParkingRepository;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServiceSaveUserParking
 {
-    private static final String MESSAGE_USER_DOES_NOT_EXISTS = "This user doesn't exists";
-    private static final String MESSAGE_EXISTS_WITH_NIT = "There is already some parking with this NIT.";
-    private static final String MESSAGE_EXISTS_WITH_ADDRESS = "There is already some parking located in this address.";
-
     private final UserParkingRepository userParkingRepository;
     private final UserRepository userRepository;
     private final ParkingRepository parkingRepository;
@@ -34,6 +31,7 @@ public class ServiceSaveUserParking
         checkUserDoesNotExists(userParking.getUser());
         checkParkingDoesNotExistsWithNIT(userParking.getParking().getNit());
         checkParkingDoesNotExistsWithAddress(userParking.getParking().getAddress());
+        this.userRepository.modify(userParking.getUser().getCode(), assembleUser(userParking.getUser()));
         this.userParkingRepository.save(userParking);
     }
 
@@ -41,8 +39,28 @@ public class ServiceSaveUserParking
     {
         if(!this.userRepository.exists(assembleUserSummaryDTO(user)))
         {
-            throw new IllegalArgumentException(MESSAGE_USER_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_USER_DOES_NOT_EXISTS);
         }
+    }
+
+    private User assembleUser(User user)
+    {
+        return User.create(user.getCode(), user.getNames(), user.getLastNames(), user.getIdentificationNumber(), user.getPhone(), user.getEmail(), user.getPassword(), assembleUserRole(user.getUserRole()), assembleVehicle(user.getVehicle()));
+    }
+
+    private UserRole assembleUserRole(UserRole userRole)
+    {
+        return UserRole.create(userRole.getCode(), "ROLE_ADMIN");
+    }
+
+    private Vehicle assembleVehicle(Vehicle vehicle)
+    {
+        return Vehicle.create(vehicle.getCode(), vehicle.getLicense(), assembleTypeVehicle(vehicle.getTypeVehicle()));
+    }
+
+    private TypeVehicle assembleTypeVehicle(TypeVehicle typeVehicle)
+    {
+        return TypeVehicle.create(typeVehicle.getCode(), typeVehicle.getName());
     }
 
     private UserSummaryDTO assembleUserSummaryDTO(User user)
@@ -71,7 +89,7 @@ public class ServiceSaveUserParking
 
         if(!UtilObject.isNull(parking))
         {
-            throw new IllegalArgumentException(MESSAGE_EXISTS_WITH_NIT);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_NIT);
         }
     }
 
@@ -81,7 +99,7 @@ public class ServiceSaveUserParking
 
         if(!UtilObject.isNull(parking))
         {
-            throw new IllegalArgumentException(MESSAGE_EXISTS_WITH_ADDRESS);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_ADDRESS);
         }
     }
 }

@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.domain.model;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilNumber;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
 import lombok.Getter;
@@ -27,7 +28,7 @@ public class ReservedTime
     {
         if (UtilNumber.isNumberLess(value, 0))
         {
-            throw new IllegalArgumentException("The value of a ReservedTime cannot be less tan zero.");
+            throw new IllegalArgumentException(UtilMessage.RESERVEDTIME_VALUE_CHECK_NUMBER);
         }
 
         this.value = value;
@@ -37,17 +38,17 @@ public class ReservedTime
     {
         if (UtilText.isStringEmpty(typeTime))
         {
-            throw new IllegalArgumentException("The type of Time of a ReservedTime cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.RESERVEDTIME_TYPETIME_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(typeTime, 1, 10))
         {
-            throw new IllegalArgumentException("The type of Time of a ReservedTime must have a minimum of 1 character and a maximum of 10 characters.");
+            throw new IllegalArgumentException(UtilMessage.RESERVEDTIME_TYPETIME_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.stringContainsOnlyLettersAndSpaces(typeTime))
         {
-            throw new IllegalArgumentException("The type of Time of a ReservedTime can only contain letters and spaces.");
+            throw new IllegalArgumentException(UtilMessage.RESERVEDTIME_TYPETIME_CHECK_PATTERN);
         }
 
         this.typeTime = typeTime;

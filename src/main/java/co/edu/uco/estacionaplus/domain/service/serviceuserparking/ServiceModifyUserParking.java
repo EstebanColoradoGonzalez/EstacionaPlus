@@ -3,15 +3,13 @@ package co.edu.uco.estacionaplus.domain.service.serviceuserparking;
 import co.edu.uco.estacionaplus.domain.model.UserParking;
 import co.edu.uco.estacionaplus.domain.port.ParkingRepository;
 import co.edu.uco.estacionaplus.domain.port.UserParkingRepository;
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServiceModifyUserParking
 {
-    private static final String MESSAGE_EXISTS_WITH_NIT = "There is already some parking with this NIT.";
-    private static final String MESSAGE_EXISTS_WITH_ADDRESS = "There is already some parking located in this address.";
-
     private final UserParkingRepository userParkingRepository;
     private final ParkingRepository parkingRepository;
 
@@ -35,7 +33,7 @@ public class ServiceModifyUserParking
 
         if(!UtilObject.isNull(parking) && userParking.getCode() != code)
         {
-            throw new IllegalArgumentException(MESSAGE_EXISTS_WITH_NIT);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_NIT);
         }
     }
 
@@ -45,7 +43,7 @@ public class ServiceModifyUserParking
 
         if(!UtilObject.isNull(parking) && userParking.getCode() != code)
         {
-            throw new IllegalArgumentException(MESSAGE_EXISTS_WITH_ADDRESS);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_ADDRESS);
         }
     }
 }

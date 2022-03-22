@@ -5,6 +5,7 @@ import co.edu.uco.estacionaplus.application.service.servicereservation.ServiceAp
 import co.edu.uco.estacionaplus.application.service.servicereservation.ServiceApplicationGetReservationByCode;
 import co.edu.uco.estacionaplus.application.service.servicereservation.ServiceApplicationModifyReservation;
 import co.edu.uco.estacionaplus.application.service.servicereservation.ServiceApplicationSaveReservation;
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,6 @@ import java.util.List;
 @RequestMapping("/api/reservation")
 public class ReservationController
 {
-    private static final String MESSAGE_CREATION_SUCCESSFUL = "the reservation was created successful";
-    private static final String MESSAGE_MODIFICATION_SUCCESSFUL = "the reservation was modified successful";
-    private static final String MESSAGE_ELIMINATION_SUCCESSFUL = "the reservation was removed successful";
-    private static final String MESSAGE_THE_USER_WITH_CODE = "the reservation with the code ";
-    private static final String MESSAGE_CONSULTATION_SUCCESSFUL = " was consulted successful";
-
     private final ServiceApplicationSaveReservation serviceSaveReservation;
     private final ServiceApplicationModifyReservation serviceModifyReservation;
     private final ServiceApplicationDeleteReservation serviceDeleteReservation;
@@ -44,7 +39,7 @@ public class ReservationController
 
         serviceSaveReservation.save(reservationDTO);
 
-        response.addMessage(MESSAGE_CREATION_SUCCESSFUL);
+        response.addMessage(UtilMessage.RESERVATION_MESSAGE_CREATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -60,7 +55,7 @@ public class ReservationController
 
         serviceModifyReservation.modify(code, reservationDTO);
 
-        response.addMessage(MESSAGE_MODIFICATION_SUCCESSFUL);
+        response.addMessage(UtilMessage.RESERVATION_MESSAGE_MODIFICATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -76,7 +71,7 @@ public class ReservationController
 
         serviceDeleteReservation.delete(code);
 
-        response.addMessage(MESSAGE_ELIMINATION_SUCCESSFUL);
+        response.addMessage(UtilMessage.RESERVATION_MESSAGE_ELIMINATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -95,7 +90,7 @@ public class ReservationController
 
         respuesta.setData(reservations);
 
-        respuesta.addMessage(MESSAGE_THE_USER_WITH_CODE + code + MESSAGE_CONSULTATION_SUCCESSFUL);
+        respuesta.addMessage(UtilMessage.RESERVATION_MESSAGE_THE_USER_WITH_CODE + code + UtilMessage.MESSAGE_CONSULTATION_SUCCESSFUL);
         respuesta.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(respuesta, HttpStatus.ACCEPTED);

@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.domain.model;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
 import lombok.Getter;
 import java.util.Date;
@@ -44,17 +45,17 @@ public class Reservation
     {
         if (UtilText.isStringEmpty(arrivalTime))
         {
-            throw new IllegalArgumentException("The arrivalTime of a Reservation cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.RESERVATION_ARRIVALTIME_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(arrivalTime,1, 10))
         {
-            throw new IllegalArgumentException("The arrivalTime of a Reservation must have a minimum of 1 character and a maximum of 10 characters.");
+            throw new IllegalArgumentException(UtilMessage.RESERVATION_ARRIVALTIME_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.isStringAlphanumeric(arrivalTime))
         {
-            throw new IllegalArgumentException("The arrivalTime of a Reservation can only contain characters.");
+            throw new IllegalArgumentException(UtilMessage.RESERVATION_ARRIVALTIME_CHECK_PATTERN);
         }
 
         this.arrivalTime = arrivalTime;
@@ -64,17 +65,17 @@ public class Reservation
     {
         if (UtilText.isStringEmpty(departureTime))
         {
-            throw new IllegalArgumentException("The departureTime of a Reservation cannot be empty.");
+            throw new IllegalArgumentException(UtilMessage.RESERVATION_DEPARTURETIME_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(departureTime,1, 10))
         {
-            throw new IllegalArgumentException("The departureTime of a Reservation must have a minimum of 1 character and a maximum of 10 characters.");
+            throw new IllegalArgumentException(UtilMessage.RESERVATION_DEPARTURETIME_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.isStringAlphanumeric(departureTime))
         {
-            throw new IllegalArgumentException("The departureTime of a Reservation can only contain characters.");
+            throw new IllegalArgumentException(UtilMessage.RESERVATION_DEPARTURETIME_CHECK_PATTERN);
         }
 
         this.departureTime = departureTime;

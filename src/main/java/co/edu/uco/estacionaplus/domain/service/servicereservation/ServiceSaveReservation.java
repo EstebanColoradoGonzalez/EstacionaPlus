@@ -5,18 +5,17 @@ import co.edu.uco.estacionaplus.domain.dto.UserRoleSummaryDTO;
 import co.edu.uco.estacionaplus.domain.dto.UserSummaryDTO;
 import co.edu.uco.estacionaplus.domain.dto.VehicleSummaryDTO;
 import co.edu.uco.estacionaplus.domain.model.*;
-import co.edu.uco.estacionaplus.domain.port.*;
+import co.edu.uco.estacionaplus.domain.port.PaymentMethodRepository;
+import co.edu.uco.estacionaplus.domain.port.PlaceRepository;
+import co.edu.uco.estacionaplus.domain.port.ReservationRepository;
+import co.edu.uco.estacionaplus.domain.port.UserRepository;
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilNumber;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServiceSaveReservation
 {
-    private static final String MESSAGE_USER_DOES_NOT_EXISTS = "This user doesn't exists";
-    private static final String MESSAGE_PLACE_DOES_NOT_EXISTS = "This place doesn't exists";
-    private static final String MESSAGE_PAYMENT_METHOD_DOES_NOT_EXISTS = "This payment method doesn't exists";
-    private static final String MESSAGE_PLACE_IS_TAKEN = "This place was taken by someone else";
-
     private final ReservationRepository reservationRepository;
     private final PlaceRepository placeRepository;
     private final PaymentMethodRepository paymentMethodRepository;
@@ -48,7 +47,7 @@ public class ServiceSaveReservation
 
         if(object.isTaken())
         {
-            throw new IllegalArgumentException(MESSAGE_PLACE_IS_TAKEN);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_PLACE_IS_TAKEN);
         }
     }
 
@@ -56,7 +55,7 @@ public class ServiceSaveReservation
     {
         if(!this.placeRepository.exists(place))
         {
-            throw new IllegalArgumentException(MESSAGE_PLACE_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_PLACE_DOES_NOT_EXISTS);
         }
     }
 
@@ -64,7 +63,7 @@ public class ServiceSaveReservation
     {
         if(!this.paymentMethodRepository.exists(paymentMethod))
         {
-            throw new IllegalArgumentException(MESSAGE_PAYMENT_METHOD_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_PAYMENT_METHOD_DOES_NOT_EXISTS);
         }
     }
 
@@ -72,7 +71,7 @@ public class ServiceSaveReservation
     {
         if(!this.userRepository.exists(assembleUserSummaryDTO(user)))
         {
-            throw new IllegalArgumentException(MESSAGE_USER_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(UtilMessage.MESSAGE_USER_DOES_NOT_EXISTS);
         }
     }
 

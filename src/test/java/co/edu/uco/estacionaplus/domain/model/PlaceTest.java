@@ -3,7 +3,7 @@ package co.edu.uco.estacionaplus.domain.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class PlaceTest
+class PlaceTest
 {
     @Test
     void validateSuccessfulCreation()

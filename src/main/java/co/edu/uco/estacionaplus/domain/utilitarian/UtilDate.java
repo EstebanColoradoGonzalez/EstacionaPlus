@@ -35,11 +35,6 @@ public class UtilDate
         return formatDate(DEFAULT_DATE, FORMAT_YYYY_MM_DD);
     }
 
-    public static Date getDateByDefault(Date date)
-    {
-        return formatDate(DEFAULT_DATE, FORMAT_YYYY_MM_DD);
-    }
-
     public static String getStringDate(Date date)
     {
         return DateFormat.getDateInstance().format(date);

@@ -3,7 +3,10 @@ package co.edu.uco.estacionaplus.infrastructure.adapter.repository;
 import co.edu.uco.estacionaplus.domain.model.*;
 import co.edu.uco.estacionaplus.domain.port.ReservationRepository;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.*;
-import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.*;
+import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.PaymentMethodDAO;
+import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.PlaceDAO;
+import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.ReservationDAO;
+import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserDAO;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -13,15 +16,13 @@ public class ReservationRepositoryPostgreSQL implements ReservationRepository
     private final UserDAO userDAO;
     private final PaymentMethodDAO paymentMethodDAO;
     private final PlaceDAO placeDAO;
-    private final PriceDAO priceDAO;
 
-    public ReservationRepositoryPostgreSQL(ReservationDAO reservationDAO, UserDAO userDAO, PaymentMethodDAO paymentMethodDAO, PlaceDAO placeDAO, PriceDAO priceDAO)
+    public ReservationRepositoryPostgreSQL(ReservationDAO reservationDAO, UserDAO userDAO, PaymentMethodDAO paymentMethodDAO, PlaceDAO placeDAO)
     {
         this.reservationDAO = reservationDAO;
         this.userDAO = userDAO;
         this.paymentMethodDAO = paymentMethodDAO;
         this.placeDAO = placeDAO;
-        this.priceDAO = priceDAO;
     }
 
     @Override

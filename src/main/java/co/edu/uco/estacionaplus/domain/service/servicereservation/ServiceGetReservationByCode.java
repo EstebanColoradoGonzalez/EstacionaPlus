@@ -1,7 +1,5 @@
 package co.edu.uco.estacionaplus.domain.service.servicereservation;
 
-import co.edu.uco.estacionaplus.application.dto.ReservationDTO;
-import co.edu.uco.estacionaplus.domain.dto.UserSummaryDTO;
 import co.edu.uco.estacionaplus.domain.model.Reservation;
 import co.edu.uco.estacionaplus.domain.port.ReservationRepository;
 import org.springframework.stereotype.Service;

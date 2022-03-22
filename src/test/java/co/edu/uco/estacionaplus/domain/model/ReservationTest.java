@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
-public class ReservationTest
+class ReservationTest
 {
     @Test
     void validateSuccessfulCreation()

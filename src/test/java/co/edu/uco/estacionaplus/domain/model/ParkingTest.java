@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-public class ParkingTest
+class ParkingTest
 {
     @Test
     void validateSuccessfulCreation()

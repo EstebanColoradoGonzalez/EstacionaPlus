@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class UserRoleEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="userrole_code_seq")
+    @SequenceGenerator(name="userrole_code_seq", sequenceName="userrole_code_seq", allocationSize=1)
     private int code;
     private String name;
 }

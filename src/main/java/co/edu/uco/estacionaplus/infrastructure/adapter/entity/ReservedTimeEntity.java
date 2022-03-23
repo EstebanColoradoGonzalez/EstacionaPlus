@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class ReservedTimeEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="reservedtime_code_seq")
+    @SequenceGenerator(name="reservedtime_code_seq", sequenceName="reservedtime_code_seq", allocationSize=1)
     private int code;
     private int value;
     private String typeTime;

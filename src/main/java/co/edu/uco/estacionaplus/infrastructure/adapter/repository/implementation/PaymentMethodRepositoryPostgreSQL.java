@@ -1,11 +1,11 @@
-package co.edu.uco.estacionaplus.infrastructure.adapter.repository;
+package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementation;
 
 import co.edu.uco.estacionaplus.domain.model.PaymentMethod;
 import co.edu.uco.estacionaplus.domain.port.PaymentMethodRepository;
-import co.edu.uco.estacionaplus.infrastructure.adapter.entity.PaymentMethodEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.PaymentMethodDAO;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.PaymentMethodAssemblerImplementation.getPaymentMethodAssembler;
 
 @Repository
 public class PaymentMethodRepositoryPostgreSQL implements PaymentMethodRepository
@@ -20,23 +20,18 @@ public class PaymentMethodRepositoryPostgreSQL implements PaymentMethodRepositor
     @Override
     public List<PaymentMethod> getAll()
     {
-        return this.paymentMethodDAO.findAll().stream().map(this::assemblePaymentMethod).toList();
+        return this.paymentMethodDAO.findAll().stream().map(getPaymentMethodAssembler()::assembleDomainFromEntity).toList();
     }
 
     @Override
     public PaymentMethod getByCode(int code)
     {
-        return this.paymentMethodDAO.findById(code).map(this::assemblePaymentMethod).orElse(null);
+        return this.paymentMethodDAO.findById(code).map(getPaymentMethodAssembler()::assembleDomainFromEntity).orElse(null);
     }
 
     @Override
     public boolean exists(PaymentMethod paymentMethod)
     {
         return this.paymentMethodDAO.existsById(paymentMethod.getCode());
-    }
-
-    private PaymentMethod assemblePaymentMethod(PaymentMethodEntity paymentMethod)
-    {
-        return PaymentMethod.create(paymentMethod.getCode(), paymentMethod.getName());
     }
 }

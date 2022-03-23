@@ -1,10 +1,10 @@
-package co.edu.uco.estacionaplus.infrastructure.adapter.repository;
+package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementation;
 
 import co.edu.uco.estacionaplus.domain.model.ReservedTime;
 import co.edu.uco.estacionaplus.domain.port.ReservedTimeRepository;
-import co.edu.uco.estacionaplus.infrastructure.adapter.entity.ReservedTimeEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.ReservedTimeDAO;
 import org.springframework.stereotype.Repository;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.ReservedTimeAssemblerImplementation.getReservedTimeAssembler;
 
 @Repository
 public class ReservedTimeRepositoryPostgreSQL implements ReservedTimeRepository
@@ -19,28 +19,18 @@ public class ReservedTimeRepositoryPostgreSQL implements ReservedTimeRepository
     @Override
     public ReservedTime getByCode(int code)
     {
-        return this.reservedTimeDAO.findById(code).map(this::assembleReservedTime).orElse(null);
+        return this.reservedTimeDAO.findById(code).map(getReservedTimeAssembler()::assembleDomainFromEntity).orElse(null);
     }
 
     @Override
     public void save(ReservedTime reservedTime)
     {
-        this.reservedTimeDAO.save(assembleReservedTimeEntity(reservedTime));
+        this.reservedTimeDAO.save(getReservedTimeAssembler().assembleEntityFromDomain(reservedTime));
     }
 
     @Override
     public boolean exists(ReservedTime reservedTime)
     {
         return this.reservedTimeDAO.existsById(reservedTime.getCode());
-    }
-
-    private ReservedTime assembleReservedTime(ReservedTimeEntity reservedTime)
-    {
-        return ReservedTime.create(reservedTime.getCode(), reservedTime.getValue(), reservedTime.getTypeTime());
-    }
-
-    private ReservedTimeEntity assembleReservedTimeEntity(ReservedTime reservedTime)
-    {
-        return new ReservedTimeEntity(reservedTime.getCode(), reservedTime.getValue(), reservedTime.getTypeTime());
     }
 }

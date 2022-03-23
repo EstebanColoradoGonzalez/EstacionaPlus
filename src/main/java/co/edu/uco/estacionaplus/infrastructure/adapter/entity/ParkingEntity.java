@@ -16,7 +16,8 @@ import java.util.List;
 public class ParkingEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="parking_code_seq")
+    @SequenceGenerator(name="parking_code_seq", sequenceName="parking_code_seq", allocationSize=1)
     private int code;
     private String nit;
     private String name;
@@ -25,6 +26,6 @@ public class ParkingEntity
     @JoinColumn(name = "city")
     private CityEntity city;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "place")
+    @JoinColumn(name = "parking")
     private List<PlaceEntity> places;
 }

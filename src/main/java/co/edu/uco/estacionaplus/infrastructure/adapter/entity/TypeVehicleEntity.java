@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class TypeVehicleEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="typevehicle_code_seq")
+    @SequenceGenerator(name="typevehicle_code_seq", sequenceName="typevehicle_code_seq", allocationSize=1)
     private int code;
     private String name;
 }

@@ -70,9 +70,9 @@ public class UtilMessage
     public static final String USER_EMAIL_CHECK_STRING_EMPTY = "The email of a User cannot be empty.";
     public static final String USER_EMAIL_CHECK_LENGTH_VALID = "The email of a User must have a minimum of 1 character and a maximum of 100 characters.";
     public static final String USER_EMAIL_CHECK_PATTERN = "The email of a User can only contain characters.";
-    public static final String USER_PASSWORD_CHECK_STRING_EMPTY = "The email of a User cannot be empty.";
-    public static final String USER_PASSWORD_CHECK_LENGTH_VALID = "The email of a User must have a minimum of 1 character and a maximum of 255 characters.";
-    public static final String USER_PASSWORD_CHECK_PATTERN = "The password of a User is incorrect";
+    public static final String USER_SECRETWORD_CHECK_STRING_EMPTY = "The email of a User cannot be empty.";
+    public static final String USER_SECRETWORD_CHECK_LENGTH_VALID = "The email of a User must have a minimum of 1 character and a maximum of 255 characters.";
+    public static final String USER_SECRETWORD_CHECK_PATTERN = "The password of a User is incorrect";
 
     public static final String USERROLE_NAME_CHECK_STRING_EMPTY = "The name of a User Role cannot be empty.";
     public static final String USERROLE_NAME_CHECK_LENGTH_VALID = "The name of a User Role must have a minimum of 1 character and a maximum of 20 characters.";

@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class PriceEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="price_code_seq")
+    @SequenceGenerator(name="price_code_seq", sequenceName="price_code_seq", allocationSize=1)
     private int code;
     private double value;
 }

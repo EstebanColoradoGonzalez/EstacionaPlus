@@ -12,7 +12,8 @@ import javax.persistence.*;
 public class PlaceEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="place_code_seq")
+    @SequenceGenerator(name="place_code_seq", sequenceName="place_code_seq", allocationSize=1)
     private int code;
     private String position;
     private boolean taken;

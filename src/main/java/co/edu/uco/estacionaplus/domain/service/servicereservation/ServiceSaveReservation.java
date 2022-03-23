@@ -38,7 +38,7 @@ public class ServiceSaveReservation
         var price = calculatePrice(reservation.getReservedTime().getValue());
         var departureTime = calculateDepartureTime(reservation.getArrivalTime(), reservation.getReservedTime().getTypeTime(), reservation.getReservedTime().getValue());
         this.reservationRepository.save(assembleReservation(reservation, price, departureTime));
-
+        this.placeRepository.modify(reservation.getPlace().getCode(), assemblePlace(reservation.getPlace(), true));
     }
 
     private void checkPlaceIsTaken(Place place)
@@ -164,6 +164,11 @@ public class ServiceSaveReservation
     private Place assemblePlace(Place place)
     {
         return Place.create(place.getCode(), place.getPosition(), place.isTaken(), assembleTypePlace(place.getTypePlace()));
+    }
+
+    private Place assemblePlace(Place place, boolean value)
+    {
+        return Place.create(place.getCode(), place.getPosition(), value, assembleTypePlace(place.getTypePlace()));
     }
 
     private TypePlace assembleTypePlace(TypePlace typePlace)

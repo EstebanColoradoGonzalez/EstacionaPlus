@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class UserParkingEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="userparking_code_seq")
+    @SequenceGenerator(name="userparking_code_seq", sequenceName="userparking_code_seq", allocationSize=1)
     private int code;
     @ManyToOne
     @JoinColumn(name = "users")

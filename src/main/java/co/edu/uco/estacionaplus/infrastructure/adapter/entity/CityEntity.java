@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class CityEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="city_code_seq")
+    @SequenceGenerator(name="city_code_seq", sequenceName="city_code_seq", allocationSize=1)
     private int code;
     private String name;
     @ManyToOne

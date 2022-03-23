@@ -1,14 +1,14 @@
-package co.edu.uco.estacionaplus.infrastructure.adapter.repository;
+package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementation;
 
 import co.edu.uco.estacionaplus.domain.model.City;
-import co.edu.uco.estacionaplus.domain.model.State;
 import co.edu.uco.estacionaplus.domain.port.CityRepository;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
-import co.edu.uco.estacionaplus.infrastructure.adapter.entity.CityEntity;
-import co.edu.uco.estacionaplus.infrastructure.adapter.entity.StateEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.CityDAO;
+import org.springframework.stereotype.Repository;
 import java.util.List;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.CityAssemblerImplementation.getCityAssembler;
 
+@Repository
 public class CityRepositoryPostgreSQL implements CityRepository
 {
     private final CityDAO cityDAO;
@@ -21,13 +21,13 @@ public class CityRepositoryPostgreSQL implements CityRepository
     @Override
     public List<City> getAll()
     {
-        return this.cityDAO.findAll().stream().map(this::assembleCity).toList();
+        return this.cityDAO.findAll().stream().map(getCityAssembler()::assembleDomainFromEntity).toList();
     }
 
     @Override
     public City getByCode(int code)
     {
-        return this.cityDAO.findById(code).map(this::assembleCity).orElse(null);
+        return this.cityDAO.findById(code).map(getCityAssembler()::assembleDomainFromEntity).orElse(null);
     }
 
     @Override
@@ -40,22 +40,12 @@ public class CityRepositoryPostgreSQL implements CityRepository
             return null;
         }
 
-        return assembleCity(city);
+        return getCityAssembler().assembleDomainFromEntity(city);
     }
 
     @Override
     public boolean exists(City city)
     {
         return this.cityDAO.existsById(city.getCode());
-    }
-
-    private City assembleCity(CityEntity city)
-    {
-        return City.create(city.getCode(), city.getName(), assembleState(city.getState()));
-    }
-
-    private State assembleState(StateEntity state)
-    {
-        return State.create(state.getCode(), state.getName());
     }
 }

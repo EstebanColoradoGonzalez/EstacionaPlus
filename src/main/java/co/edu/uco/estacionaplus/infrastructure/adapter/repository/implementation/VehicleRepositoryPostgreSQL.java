@@ -1,14 +1,13 @@
-package co.edu.uco.estacionaplus.infrastructure.adapter.repository;
+package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementation;
 
-import co.edu.uco.estacionaplus.domain.model.TypeVehicle;
 import co.edu.uco.estacionaplus.domain.model.Vehicle;
 import co.edu.uco.estacionaplus.domain.port.VehicleRepository;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.TypeVehicleEntity;
-import co.edu.uco.estacionaplus.infrastructure.adapter.entity.VehicleEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.TypeVehicleDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.VehicleDAO;
 import org.springframework.stereotype.Repository;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.VehicleAssemblerImplementation.getVehicleAssembler;
 
 @Repository
 public class VehicleRepositoryPostgreSQL implements VehicleRepository
@@ -25,7 +24,7 @@ public class VehicleRepositoryPostgreSQL implements VehicleRepository
     @Override
     public Vehicle getByCode(int code)
     {
-        return this.vehicleDAO.findById(code).map(this::assembleVehicle).orElse(null);
+        return this.vehicleDAO.findById(code).map(getVehicleAssembler()::assembleDomainFromEntity).orElse(null);
     }
 
     @Override
@@ -38,7 +37,7 @@ public class VehicleRepositoryPostgreSQL implements VehicleRepository
             return null;
         }
 
-        return assembleVehicle(vehicle);
+        return getVehicleAssembler().assembleDomainFromEntity(vehicle);
     }
 
     @Override
@@ -46,27 +45,12 @@ public class VehicleRepositoryPostgreSQL implements VehicleRepository
     {
         var typeVehicle = this.typeVehicleDAO.findById(vehicle.getTypeVehicle().getCode()).map(entity -> new TypeVehicleEntity(entity.getCode(), entity.getName())).orElse(null);
 
-        this.vehicleDAO.save(assembleVehicleEntity(vehicle, typeVehicle));
+        this.vehicleDAO.save(getVehicleAssembler().assembleEntityFromDomainToSave(vehicle, typeVehicle));
     }
 
     @Override
     public boolean exists(Vehicle vehicle)
     {
         return this.vehicleDAO.existsById(vehicle.getCode());
-    }
-
-    private Vehicle assembleVehicle(VehicleEntity vehicle)
-    {
-        return Vehicle.create(vehicle.getCode(), vehicle.getLicense(), assembleTypeVehicle(vehicle.getTypeVehicle()));
-    }
-
-    private TypeVehicle assembleTypeVehicle(TypeVehicleEntity typeVehicle)
-    {
-        return TypeVehicle.create(typeVehicle.getCode(), typeVehicle.getName());
-    }
-
-    private VehicleEntity assembleVehicleEntity(Vehicle vehicle, TypeVehicleEntity typeVehicle)
-    {
-        return new VehicleEntity(vehicle.getCode(), vehicle.getLicense(), typeVehicle);
     }
 }

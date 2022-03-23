@@ -139,17 +139,17 @@ public class User
     {
         if (UtilText.isStringEmpty(password))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_PASSWORD_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(UtilMessage.USER_SECRETWORD_CHECK_STRING_EMPTY);
         }
 
         if(!UtilText.isLengthValid(password,1, 255))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_PASSWORD_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(UtilMessage.USER_SECRETWORD_CHECK_LENGTH_VALID);
         }
 
         if(!UtilText.stringPassword(password))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_PASSWORD_CHECK_PATTERN);
+            throw new IllegalArgumentException(UtilMessage.USER_SECRETWORD_CHECK_PATTERN);
         }
 
         this.password = password;

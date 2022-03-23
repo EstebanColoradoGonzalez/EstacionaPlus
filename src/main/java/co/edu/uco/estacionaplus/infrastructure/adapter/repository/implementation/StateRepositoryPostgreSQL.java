@@ -1,12 +1,14 @@
-package co.edu.uco.estacionaplus.infrastructure.adapter.repository;
+package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementation;
 
 import co.edu.uco.estacionaplus.domain.model.State;
 import co.edu.uco.estacionaplus.domain.port.StateRepository;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
-import co.edu.uco.estacionaplus.infrastructure.adapter.entity.StateEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.StateDAO;
+import org.springframework.stereotype.Repository;
 import java.util.List;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.StateAssemblerImplementation.getStateAssembler;
 
+@Repository
 public class StateRepositoryPostgreSQL implements StateRepository
 {
     private final StateDAO stateDAO;
@@ -19,13 +21,13 @@ public class StateRepositoryPostgreSQL implements StateRepository
     @Override
     public List<State> getAll()
     {
-        return this.stateDAO.findAll().stream().map(this::assembleState).toList();
+        return this.stateDAO.findAll().stream().map(getStateAssembler()::assembleDomainFromEntity).toList();
     }
 
     @Override
     public State getByCode(int code)
     {
-        return this.stateDAO.findById(code).map(this::assembleState).orElse(null);
+        return this.stateDAO.findById(code).map(getStateAssembler()::assembleDomainFromEntity).orElse(null);
     }
 
     @Override
@@ -38,17 +40,12 @@ public class StateRepositoryPostgreSQL implements StateRepository
             return null;
         }
 
-        return assembleState(state);
+        return getStateAssembler().assembleDomainFromEntity(state);
     }
 
     @Override
     public boolean exists(State state)
     {
         return this.stateDAO.existsById(state.getCode());
-    }
-
-    private State assembleState(StateEntity state)
-    {
-        return State.create(state.getCode(), state.getName());
     }
 }

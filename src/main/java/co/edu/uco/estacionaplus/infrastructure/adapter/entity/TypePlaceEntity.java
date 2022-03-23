@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class TypePlaceEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="typeplace_code_seq")
+    @SequenceGenerator(name="typeplace_code_seq", sequenceName="typeplace_code_seq", allocationSize=1)
     private int code;
     private String name;
 }

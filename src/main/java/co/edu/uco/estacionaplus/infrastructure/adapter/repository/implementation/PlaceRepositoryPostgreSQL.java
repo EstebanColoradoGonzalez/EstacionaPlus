@@ -1,4 +1,4 @@
-package co.edu.uco.estacionaplus.infrastructure.adapter.repository;
+package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementation;
 
 import co.edu.uco.estacionaplus.domain.model.Place;
 import co.edu.uco.estacionaplus.domain.model.TypePlace;
@@ -10,6 +10,9 @@ import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.PlaceDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.TypePlaceDAO;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.PlaceAssemblerImplementation.getPlaceAssembler;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.TypePlaceAssemblerImplementation.getTypePlaceAssembler;
 
 @Repository
 public class PlaceRepositoryPostgreSQL implements PlaceRepository
@@ -26,13 +29,13 @@ public class PlaceRepositoryPostgreSQL implements PlaceRepository
     @Override
     public List<Place> getAll()
     {
-        return this.placeDAO.findAll().stream().map(this::assemblePlace).toList();
+        return this.placeDAO.findAll().stream().map(getPlaceAssembler()::assembleDomainFromEntity).toList();
     }
 
     @Override
     public Place getByCode(int code)
     {
-        return this.placeDAO.findById(code).map(this::assemblePlace).orElse(null);
+        return this.placeDAO.findById(code).map(getPlaceAssembler()::assembleDomainFromEntity).orElse(null);
     }
 
     @Override
@@ -45,21 +48,22 @@ public class PlaceRepositoryPostgreSQL implements PlaceRepository
             return null;
         }
 
-        return assemblePlace(place);
+        return getPlaceAssembler().assembleDomainFromEntity(place);
     }
 
     @Override
     public void save(Place place)
     {
-        var typePlace = this.typePlaceDAO.findById(place.getCode()).map(this::assembleTypePlaceEntity).orElse(null);
+        var typePlace = this.typePlaceDAO.findById(place.getCode()).map(getTypePlaceAssembler()::assembleDomainFromEntity).orElse(null);
 
-        this.placeDAO.save(assemblePlaceEntity(place, typePlace));
+
+        this.placeDAO.save(getPlaceAssembler().assembleEntityFromDomainToSave(place, typePlace));
     }
 
     @Override
     public void modify(int code, Place place)
     {
-        this.placeDAO.save(assemblePlaceEntity(code, place));
+        this.placeDAO.save(getPlaceAssembler().assembleEntityFromDomainToModify(code, place));
     }
 
     @Override
@@ -72,35 +76,5 @@ public class PlaceRepositoryPostgreSQL implements PlaceRepository
     public boolean exists(Place place)
     {
         return this.placeDAO.existsById(place.getCode());
-    }
-
-    private Place assemblePlace(PlaceEntity place)
-    {
-        return Place.create(place.getCode(), place.getPosition(), place.isTaken(), assembleTypePlace(place.getTypePlace()));
-    }
-
-    private TypePlace assembleTypePlace(TypePlaceEntity typePlace)
-    {
-        return TypePlace.create(typePlace.getCode(), typePlace.getName());
-    }
-
-    private PlaceEntity assemblePlaceEntity(int code, Place place)
-    {
-        return new PlaceEntity(code, place.getPosition(), place.isTaken(), assembleTypePlaceEntity(place.getTypePlace()));
-    }
-
-    private PlaceEntity assemblePlaceEntity(Place place, TypePlaceEntity typePlace)
-    {
-        return new PlaceEntity(place.getCode(), place.getPosition(), place.isTaken(), typePlace);
-    }
-
-    private TypePlaceEntity assembleTypePlaceEntity(TypePlace typePlace)
-    {
-        return new TypePlaceEntity(typePlace.getCode(), typePlace.getName());
-    }
-
-    private TypePlaceEntity assembleTypePlaceEntity(TypePlaceEntity typePlace)
-    {
-        return new TypePlaceEntity(typePlace.getCode(), typePlace.getName());
     }
 }

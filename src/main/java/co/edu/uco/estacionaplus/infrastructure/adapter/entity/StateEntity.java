@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class StateEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="state_code_seq")
+    @SequenceGenerator(name="state_code_seq", sequenceName="state_code_seq", allocationSize=1)
     private int code;
     private String name;
 }

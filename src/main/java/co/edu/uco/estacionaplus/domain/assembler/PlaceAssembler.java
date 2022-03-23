@@ -15,4 +15,5 @@ public interface PlaceAssembler extends Assembler<Place, PlaceEntity, PlaceDTO>
     List<Place> assembleDomainsFromDTOs(List<PlaceDTO> dtos);
     PlaceEntity assembleEntityFromDomainToSave(Place domain, TypePlace typePlace);
     PlaceEntity assembleEntityFromDomainToModify(int code, Place domain);
+    Place assembleDomainFromDTO(PlaceDTO dto, boolean isTaken);
 }

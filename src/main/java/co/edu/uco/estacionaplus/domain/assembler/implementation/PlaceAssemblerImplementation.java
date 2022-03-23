@@ -81,4 +81,10 @@ public class PlaceAssemblerImplementation implements PlaceAssembler
     {
         return new PlaceEntity(code, domain.getPosition(), domain.isTaken(), getTypePlaceAssembler().assembleEntityFromDomain(domain.getTypePlace()));
     }
+
+    @Override
+    public Place assembleDomainFromDTO(PlaceDTO dto, boolean isTaken)
+    {
+        return Place.create(dto.getCode(), dto.getPosition(), isTaken, getTypePlaceAssembler().assembleDomainFromDTO(dto.getTypePlace()));
+    }
 }

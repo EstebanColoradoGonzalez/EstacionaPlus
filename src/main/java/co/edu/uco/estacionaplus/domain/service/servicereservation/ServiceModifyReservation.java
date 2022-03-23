@@ -1,10 +1,17 @@
 package co.edu.uco.estacionaplus.domain.service.servicereservation;
 
-import co.edu.uco.estacionaplus.domain.model.*;
-import co.edu.uco.estacionaplus.domain.port.*;
+import co.edu.uco.estacionaplus.domain.model.PaymentMethod;
+import co.edu.uco.estacionaplus.domain.model.Place;
+import co.edu.uco.estacionaplus.domain.model.Price;
+import co.edu.uco.estacionaplus.domain.model.Reservation;
+import co.edu.uco.estacionaplus.domain.port.PaymentMethodRepository;
+import co.edu.uco.estacionaplus.domain.port.PlaceRepository;
+import co.edu.uco.estacionaplus.domain.port.ReservationRepository;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilNumber;
 import org.springframework.stereotype.Service;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.PriceAssemblerImplementation.getPriceAssembler;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.ReservationAssemblerImplementation.getReservationAssembler;
 
 @Service
 public class ServiceModifyReservation
@@ -27,7 +34,11 @@ public class ServiceModifyReservation
         var price = calculatePrice(reservation.getReservedTime().getValue());
         var departureTime = calculateDepartureTime(reservation.getArrivalTime(), reservation.getReservedTime().getTypeTime(), reservation.getReservedTime().getValue());
 
-        this.reservationRepository.modify(code, assembleReservation(reservation, price, departureTime));
+        var reservationDTO = getReservationAssembler().assembleDTOFromDomain(reservation);
+        reservationDTO.setPrice(getPriceAssembler().assembleDTOFromDomain(price));
+        reservationDTO.setDepartureTime(departureTime);
+
+        this.reservationRepository.modify(code, getReservationAssembler().assembleDomainFromDTO(reservationDTO));
     }
 
     private void checkPaymentMethodDoesNotExists(PaymentMethod paymentMethod)
@@ -102,50 +113,5 @@ public class ServiceModifyReservation
     private Price calculatePrice(int arrivalTime)
     {
         return Price.create(0, (double) 2000 * arrivalTime);
-    }
-
-    private Reservation assembleReservation(Reservation reservation, Price price, String departureTime)
-    {
-        return Reservation.create(reservation.getCode(), reservation.getDate(), reservation.getArrivalTime(), departureTime, assembleReservedTime(reservation.getReservedTime()), price, assemblePlace(reservation.getPlace()), assemblePaymentMethod(reservation.getPaymentMethod()), assembleUser(reservation.getUser()));
-    }
-
-    private ReservedTime assembleReservedTime(ReservedTime reservedTime)
-    {
-        return ReservedTime.create(reservedTime.getCode(), reservedTime.getValue(), reservedTime.getTypeTime());
-    }
-
-    private Place assemblePlace(Place place)
-    {
-        return Place.create(place.getCode(), place.getPosition(), place.isTaken(), assembleTypePlace(place.getTypePlace()));
-    }
-
-    private TypePlace assembleTypePlace(TypePlace typePlace)
-    {
-        return TypePlace.create(typePlace.getCode(), typePlace.getName());
-    }
-
-    private PaymentMethod assemblePaymentMethod(PaymentMethod paymentMethod)
-    {
-        return PaymentMethod.create(paymentMethod.getCode(), paymentMethod.getName());
-    }
-
-    private User assembleUser(User user)
-    {
-        return User.create(user.getCode(), user.getNames(), user.getLastNames(), user.getIdentificationNumber(), user.getPhone(), user.getEmail(), user.getPassword(), assembleUserRole(user.getUserRole()), assembleVehicle(user.getVehicle()));
-    }
-
-    private UserRole assembleUserRole(UserRole userRole)
-    {
-        return UserRole.create(userRole.getCode(), userRole.getName());
-    }
-
-    private Vehicle assembleVehicle(Vehicle vehicle)
-    {
-        return Vehicle.create(vehicle.getCode(), vehicle.getLicense(), assembleTypeVehicle(vehicle.getTypeVehicle()));
-    }
-
-    private TypeVehicle assembleTypeVehicle(TypeVehicle typeVehicle)
-    {
-        return TypeVehicle.create(typeVehicle.getCode(), typeVehicle.getName());
     }
 }

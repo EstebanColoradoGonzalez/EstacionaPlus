@@ -1,16 +1,12 @@
 package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementation;
 
 import co.edu.uco.estacionaplus.domain.model.Place;
-import co.edu.uco.estacionaplus.domain.model.TypePlace;
 import co.edu.uco.estacionaplus.domain.port.PlaceRepository;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
-import co.edu.uco.estacionaplus.infrastructure.adapter.entity.PlaceEntity;
-import co.edu.uco.estacionaplus.infrastructure.adapter.entity.TypePlaceEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.PlaceDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.TypePlaceDAO;
 import org.springframework.stereotype.Repository;
 import java.util.List;
-
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PlaceAssemblerImplementation.getPlaceAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.TypePlaceAssemblerImplementation.getTypePlaceAssembler;
 

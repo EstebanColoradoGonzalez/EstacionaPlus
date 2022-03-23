@@ -1,9 +1,5 @@
 package co.edu.uco.estacionaplus.domain.service.servicereservation;
 
-import co.edu.uco.estacionaplus.domain.dto.TypeVehicleSummaryDTO;
-import co.edu.uco.estacionaplus.domain.dto.UserRoleSummaryDTO;
-import co.edu.uco.estacionaplus.domain.dto.UserSummaryDTO;
-import co.edu.uco.estacionaplus.domain.dto.VehicleSummaryDTO;
 import co.edu.uco.estacionaplus.domain.model.*;
 import co.edu.uco.estacionaplus.domain.port.PaymentMethodRepository;
 import co.edu.uco.estacionaplus.domain.port.PlaceRepository;
@@ -12,6 +8,10 @@ import co.edu.uco.estacionaplus.domain.port.UserRepository;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilNumber;
 import org.springframework.stereotype.Service;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.PlaceAssemblerImplementation.getPlaceAssembler;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.PriceAssemblerImplementation.getPriceAssembler;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.ReservationAssemblerImplementation.getReservationAssembler;
+import static co.edu.uco.estacionaplus.domain.assembler.implementation.UserAssemblerImplementation.getUserAssembler;
 
 @Service
 public class ServiceSaveReservation
@@ -35,10 +35,16 @@ public class ServiceSaveReservation
         checkPaymentMethodDoesNotExists(reservation.getPaymentMethod());
         checkUserDoesNotExists(reservation.getUser());
         checkPlaceIsTaken(reservation.getPlace());
+
         var price = calculatePrice(reservation.getReservedTime().getValue());
         var departureTime = calculateDepartureTime(reservation.getArrivalTime(), reservation.getReservedTime().getTypeTime(), reservation.getReservedTime().getValue());
-        this.reservationRepository.save(assembleReservation(reservation, price, departureTime));
-        this.placeRepository.modify(reservation.getPlace().getCode(), assemblePlace(reservation.getPlace(), true));
+
+        var reservationDTO = getReservationAssembler().assembleDTOFromDomain(reservation);
+        reservationDTO.setPrice(getPriceAssembler().assembleDTOFromDomain(price));
+        reservationDTO.setDepartureTime(departureTime);
+
+        this.reservationRepository.save(getReservationAssembler().assembleDomainFromDTO(reservationDTO));
+        this.placeRepository.modify(reservation.getPlace().getCode(), getPlaceAssembler().assembleDomainFromDTO(reservationDTO.getPlace(), true));
     }
 
     private void checkPlaceIsTaken(Place place)
@@ -69,30 +75,10 @@ public class ServiceSaveReservation
 
     private void checkUserDoesNotExists(User user)
     {
-        if(!this.userRepository.exists(assembleUserSummaryDTO(user)))
+        if(!this.userRepository.exists(getUserAssembler().assembleSummaryDTOFromDomain(user)))
         {
             throw new IllegalArgumentException(UtilMessage.MESSAGE_USER_DOES_NOT_EXISTS);
         }
-    }
-
-    private UserSummaryDTO assembleUserSummaryDTO(User user)
-    {
-        return new UserSummaryDTO(user.getCode(), user.getNames(), user.getLastNames(), user.getIdentificationNumber(), user.getPhone(), user.getEmail(), assembleUserRoleSummaryDTO(user.getUserRole()), assembleVehicleSummaryDTO(user.getVehicle()));
-    }
-
-    private UserRoleSummaryDTO assembleUserRoleSummaryDTO(UserRole userRole)
-    {
-        return new UserRoleSummaryDTO(userRole.getCode(), userRole.getName());
-    }
-
-    private VehicleSummaryDTO assembleVehicleSummaryDTO(Vehicle vehicle)
-    {
-        return new VehicleSummaryDTO(vehicle.getCode(), vehicle.getLicense(), assembleTypeVehicleSummaryDTO(vehicle.getTypeVehicle()));
-    }
-
-    private TypeVehicleSummaryDTO assembleTypeVehicleSummaryDTO(TypeVehicle typeVehicle)
-    {
-        return new TypeVehicleSummaryDTO(typeVehicle.getCode(), typeVehicle.getName());
     }
 
     private static String calculateDepartureTime(String arrivalTime, String typeTime, int value)
@@ -149,55 +135,5 @@ public class ServiceSaveReservation
     private Price calculatePrice(int arrivalTime)
     {
         return Price.create(0, (double) 2000 * arrivalTime);
-    }
-
-    private Reservation assembleReservation(Reservation reservation, Price price, String departureTime)
-    {
-        return Reservation.create(reservation.getCode(), reservation.getDate(), reservation.getArrivalTime(), departureTime, assembleReservedTime(reservation.getReservedTime()), price, assemblePlace(reservation.getPlace()), assemblePaymentMethod(reservation.getPaymentMethod()), assembleUser(reservation.getUser()));
-    }
-
-    private ReservedTime assembleReservedTime(ReservedTime reservedTime)
-    {
-        return ReservedTime.create(reservedTime.getCode(), reservedTime.getValue(), reservedTime.getTypeTime());
-    }
-
-    private Place assemblePlace(Place place)
-    {
-        return Place.create(place.getCode(), place.getPosition(), place.isTaken(), assembleTypePlace(place.getTypePlace()));
-    }
-
-    private Place assemblePlace(Place place, boolean value)
-    {
-        return Place.create(place.getCode(), place.getPosition(), value, assembleTypePlace(place.getTypePlace()));
-    }
-
-    private TypePlace assembleTypePlace(TypePlace typePlace)
-    {
-        return TypePlace.create(typePlace.getCode(), typePlace.getName());
-    }
-
-    private PaymentMethod assemblePaymentMethod(PaymentMethod paymentMethod)
-    {
-        return PaymentMethod.create(paymentMethod.getCode(), paymentMethod.getName());
-    }
-
-    private User assembleUser(User user)
-    {
-        return User.create(user.getCode(), user.getNames(), user.getLastNames(), user.getIdentificationNumber(), user.getPhone(), user.getEmail(), user.getPassword(), assembleUserRole(user.getUserRole()), assembleVehicle(user.getVehicle()));
-    }
-
-    private UserRole assembleUserRole(UserRole userRole)
-    {
-        return UserRole.create(userRole.getCode(), userRole.getName());
-    }
-
-    private Vehicle assembleVehicle(Vehicle vehicle)
-    {
-        return Vehicle.create(vehicle.getCode(), vehicle.getLicense(), assembleTypeVehicle(vehicle.getTypeVehicle()));
-    }
-
-    private TypeVehicle assembleTypeVehicle(TypeVehicle typeVehicle)
-    {
-        return TypeVehicle.create(typeVehicle.getCode(), typeVehicle.getName());
     }
 }

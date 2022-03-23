@@ -4,7 +4,6 @@ import co.edu.uco.estacionaplus.application.dto.UserRoleDTO;
 import co.edu.uco.estacionaplus.domain.assembler.UserRoleAssembler;
 import co.edu.uco.estacionaplus.domain.dto.UserRoleSummaryDTO;
 import co.edu.uco.estacionaplus.domain.model.UserRole;
-import co.edu.uco.estacionaplus.infrastructure.adapter.entity.UserEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.UserRoleEntity;
 
 public class UserRoleAssemblerImplementation implements UserRoleAssembler

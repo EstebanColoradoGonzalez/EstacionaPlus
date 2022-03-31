@@ -18,12 +18,16 @@ class CityTest
     @Test
     void validateMissingFields()
     {
-        Assertions.assertEquals("The name of a City cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> City.create(1, null, State.create(1, "Antioquia"))).getMessage());
+        var state = State.create(1, "Antioquia");
+
+        Assertions.assertEquals("The name of a City cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> City.create(1, null, state)).getMessage());
     }
 
     @Test
     void ValidateEmptyFields()
     {
-        Assertions.assertEquals("The name of a City cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> City.create(1, "", State.create(1, "Antioquia"))).getMessage());
+        var state = State.create(1, "Antioquia");
+
+        Assertions.assertEquals("The name of a City cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> City.create(1, "", state)).getMessage());
     }
 }

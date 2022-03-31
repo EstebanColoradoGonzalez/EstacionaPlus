@@ -18,12 +18,15 @@ class PlaceTest
     @Test
     void validateMissingFields()
     {
-        Assertions.assertEquals("The value of a Place cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> Place.create(1, null, true, TypePlace.create(1, "Moto"))).getMessage());
+        var typePlace = TypePlace.create(1, "Moto");
+        Assertions.assertEquals("The value of a Place cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> Place.create(1, null, true, typePlace)).getMessage());
     }
 
     @Test
     void ValidateEmptyFields()
     {
-        Assertions.assertEquals("The value of a Place cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> Place.create(1, "", true, TypePlace.create(1, "Moto"))).getMessage());
+        var typePlace = TypePlace.create(1, "Moto");
+
+        Assertions.assertEquals("The value of a Place cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> Place.create(1, "", true, typePlace)).getMessage());
     }
 }

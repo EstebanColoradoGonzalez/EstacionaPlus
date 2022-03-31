@@ -17,12 +17,16 @@ class VehicleTest
     @Test
     void validateMissingFields()
     {
-        Assertions.assertEquals("The license of a Vehicle cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> Vehicle.create(1, null, TypeVehicle.create(1, "Moto"))).getMessage());
+        var typeVehicle = TypeVehicle.create(1, "Moto");
+
+        Assertions.assertEquals("The license of a Vehicle cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> Vehicle.create(1, null, typeVehicle)).getMessage());
     }
 
     @Test
     void ValidateEmptyFields()
     {
-        Assertions.assertEquals("The license of a Vehicle cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> Vehicle.create(1, "", TypeVehicle.create(1, "Moto"))).getMessage());
+        var typeVehicle = TypeVehicle.create(1, "Moto");
+
+        Assertions.assertEquals("The license of a Vehicle cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> Vehicle.create(1, "", typeVehicle)).getMessage());
     }
 }

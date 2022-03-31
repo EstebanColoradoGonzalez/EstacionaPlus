@@ -7,11 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ServiceBusinessRules
 {
-    public ServiceBusinessRules()
-    {
-        
-    }
-
     public String calculateDepartureTime(String arrivalTime, String typeTime, int value)
     {
         String departureTime = "00:00:00";

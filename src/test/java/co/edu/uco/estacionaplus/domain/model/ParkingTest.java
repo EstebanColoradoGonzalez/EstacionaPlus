@@ -2,7 +2,6 @@ package co.edu.uco.estacionaplus.domain.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 
 class ParkingTest
@@ -27,19 +26,21 @@ class ParkingTest
     void validateMissingFields()
     {
         var places = new ArrayList<Place>();
+        var city = City.create(1, "Marinilla", State.create(1, "Antioquia"));
 
         places.add(Place.create(1, "A1", true, TypePlace.create(1, "Motocicleta")));
 
-        Assertions.assertEquals("The Name of a Parking cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> Parking.create(1, "888888888-3", null, "Calle 35 # 33 - 135", City.create(1, "Marinilla", State.create(1, "Antioquia")), places)).getMessage());
+        Assertions.assertEquals("The Name of a Parking cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> Parking.create(1, "888888888-3", null, "Calle 35 # 33 - 135", city, places)).getMessage());
     }
 
     @Test
     void ValidateEmptyFields()
     {
         var places = new ArrayList<Place>();
+        var city = City.create(1, "Marinilla", State.create(1, "Antioquia"));
 
         places.add(Place.create(1, "A1", true, TypePlace.create(1, "Motocicleta")));
 
-        Assertions.assertEquals("The Name of a Parking cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> Parking.create(1, "888888888-3", "", "Calle 35 # 33 - 135", City.create(1, "Marinilla", State.create(1, "Antioquia")), places)).getMessage());
+        Assertions.assertEquals("The Name of a Parking cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> Parking.create(1, "888888888-3", "", "Calle 35 # 33 - 135", city, places)).getMessage());
     }
 }

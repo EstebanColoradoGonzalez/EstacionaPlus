@@ -25,12 +25,18 @@ class UserTest
     @Test
     void validateMissingFields()
     {
-        Assertions.assertEquals("The names of a User cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> User.create(1, null, "colorado", "1038418594", "3228486049", "estebancolorado@gmail.com", "123456Aa", UserRole.create(1, "usuario"), Vehicle.create(1, "USV36D", TypeVehicle.create(1, "moto")))).getMessage());
+        var userRole = UserRole.create(1, "usuario");
+        var vehicle = Vehicle.create(1, "USV36D", TypeVehicle.create(1, "moto"));
+
+        Assertions.assertEquals("The names of a User cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> User.create(1, null, "colorado", "1038418594", "3228486049", "estebancolorado@gmail.com", "123456Aa", userRole, vehicle)).getMessage());
     }
 
     @Test
     void ValidateEmptyFields()
     {
-        Assertions.assertEquals("The names of a User cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> User.create(1, "", "colorado", "1038418594", "3228486049", "estebancolorado@gmail.com", "123456Aa", UserRole.create(1, "usuario"), Vehicle.create(1, "USV36D", TypeVehicle.create(1, "moto")))).getMessage());
+        var userRole = UserRole.create(1, "usuario");
+        var vehicle = Vehicle.create(1, "USV36D", TypeVehicle.create(1, "moto"));
+
+        Assertions.assertEquals("The names of a User cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> User.create(1, "", "colorado", "1038418594", "3228486049", "estebancolorado@gmail.com", "123456Aa", userRole, vehicle)).getMessage());
     }
 }

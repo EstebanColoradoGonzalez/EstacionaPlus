@@ -2,7 +2,6 @@ package co.edu.uco.estacionaplus.domain.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 
 class UserParkingTest
@@ -30,25 +29,5 @@ class UserParkingTest
         Assertions.assertEquals("Calle 35 Numero 33 135",userParking.getParking().getAddress());
         Assertions.assertEquals("Marinilla",userParking.getParking().getCity().getName());
         Assertions.assertEquals("Antioquia",userParking.getParking().getCity().getState().getName());
-    }
-
-    @Test
-    void validateMissingFields()
-    {
-        var places = new ArrayList<Place>();
-
-        places.add(Place.create(1, "A1", true, TypePlace.create(1, "Motocicleta")));
-
-        Assertions.assertEquals("The names of a User cannot be empty.",Assertions.assertThrows(IllegalArgumentException.class, () -> UserParking.create(1, User.create(1, null, "colorado", "1038418594", "3228486049", "estebancolorado@gmail.com", "123456Aa", UserRole.create(1, "usuario"), Vehicle.create(1, "USV36D", TypeVehicle.create(1, "moto"))), Parking.create(1, "888888888-3", "Parqueadero", "Calle 35 Numero 33 135", City.create(1, "Marinilla", State.create(1, "Antioquia")), places))).getMessage());
-    }
-
-    @Test
-    void ValidateEmptyFields()
-    {
-        var places = new ArrayList<Place>();
-
-        places.add(Place.create(1, "A1", true, TypePlace.create(1, "Motocicleta")));
-
-        Assertions.assertEquals("The names of a User cannot be empty.", Assertions.assertThrows(IllegalArgumentException.class, () -> UserParking.create(1, User.create(1, "", "colorado", "1038418594", "3228486049", "estebancolorado@gmail.com", "123456Aa", UserRole.create(1, "usuario"), Vehicle.create(1, "USV36D", TypeVehicle.create(1, "moto"))), Parking.create(1, "888888888-3", "Parqueadero", "Calle 35 Numero 33 135", City.create(1, "Marinilla", State.create(1, "Antioquia")), places))).getMessage());
     }
 }

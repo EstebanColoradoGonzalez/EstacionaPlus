@@ -31,12 +31,7 @@ public class UtilMessage
 
     public static final String PRICE_VALUE_CHECK_NUMBER = "The value of a Price cannot be less than or equal to zero.";
 
-    public static final String RESERVATION_ARRIVALTIME_CHECK_STRING_EMPTY = "The arrivalTime of a Reservation cannot be empty.";
-    public static final String RESERVATION_ARRIVALTIME_CHECK_LENGTH_VALID = "The arrivalTime of a Reservation must have a minimum of 1 character and a maximum of 10 characters.";
-    public static final String RESERVATION_ARRIVALTIME_CHECK_PATTERN = "The arrivalTime of a Reservation can only contain characters.";
-    public static final String RESERVATION_DEPARTURETIME_CHECK_STRING_EMPTY = "The departureTime of a Reservation cannot be empty.";
-    public static final String RESERVATION_DEPARTURETIME_CHECK_LENGTH_VALID = "The departureTime of a Reservation must have a minimum of 1 character and a maximum of 10 characters.";
-    public static final String RESERVATION_DEPARTURETIME_CHECK_PATTERN = "The departureTime of a Reservation can only contain characters.";
+    public static final String PARKING_MESSAGE_IT_DOES_NOT_EXISTS = "The parking with this code doesn't exists";
 
     public static final String RESERVEDTIME_VALUE_CHECK_NUMBER = "The value of a ReservedTime cannot be less tan zero.";
     public static final String RESERVEDTIME_TYPETIME_CHECK_STRING_EMPTY = "The type of Time of a ReservedTime cannot be empty.";
@@ -116,6 +111,9 @@ public class UtilMessage
     public static final String ADMIN_MESSAGE_MODIFICATION_SUCCESSFUL = "the admin was modified successful";
     public static final String ADMIN_MESSAGE_ELIMINATION_SUCCESSFUL = "the admin was removed successful";
     public static final String ADMIN_MESSAGE_THE_USER_WITH_CODE = "the admin with the code ";
+
+    public static final String PARKING_MESSAGE_CONSULTATION_ALL_SUCCESSFUL = "parkings was consulted successful";
+    public static final String PARKING_MESSAGE_THE_PARKING_WITH_CODE = "The parking with the code";
 
     public static final String MESSAGE_CONSULTATION_SUCCESSFUL = " was consulted successful";
 

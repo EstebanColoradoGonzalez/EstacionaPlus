@@ -9,6 +9,7 @@ import co.edu.uco.estacionaplus.domain.port.PlaceRepository;
 import co.edu.uco.estacionaplus.domain.port.ReservationRepository;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import co.edu.uco.estacionaplus.domain.utilitarian.UtilNumber;
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilTime;
 import org.springframework.stereotype.Service;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PriceAssemblerImplementation.getPriceAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.ReservationAssemblerImplementation.getReservationAssembler;
@@ -32,7 +33,7 @@ public class ServiceModifyReservation
         checkPaymentMethodDoesNotExists(reservation.getPaymentMethod());
         checkPlaceIsTaken(reservation.getPlace());
         var price = calculatePrice(reservation.getReservedTime().getValue());
-        var departureTime = calculateDepartureTime(reservation.getArrivalTime(), reservation.getReservedTime().getTypeTime(), reservation.getReservedTime().getValue());
+        var departureTime = calculateDepartureTime(UtilTime.getStringTime(reservation.getArrivalTime()), reservation.getReservedTime().getTypeTime(), reservation.getReservedTime().getValue());
 
         var reservationDTO = getReservationAssembler().assembleDTOFromDomain(reservation);
         reservationDTO.setPrice(getPriceAssembler().assembleDTOFromDomain(price));

@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "reservation")
@@ -19,9 +20,9 @@ public class ReservationEntity
     @GeneratedValue(strategy = GenerationType.AUTO, generator="reservation_code_seq")
     @SequenceGenerator(name="reservation_code_seq", sequenceName="reservation_code_seq", allocationSize=1)
     private int code;
-    private Date date;
-    private String arrivalTime;
-    private String departureTime;
+    private LocalDate date;
+    private LocalTime arrivalTime;
+    private LocalTime departureTime;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reservedtime")
     private ReservedTimeEntity reservedTime;

@@ -5,8 +5,10 @@ import co.edu.uco.estacionaplus.domain.assembler.ParkingAssembler;
 import co.edu.uco.estacionaplus.domain.model.City;
 import co.edu.uco.estacionaplus.domain.model.Parking;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.ParkingEntity;
+import java.util.List;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.CityAssemblerImplementation.getCityAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PlaceAssemblerImplementation.getPlaceAssembler;
+
 public class ParkingAssemblerImplementation implements ParkingAssembler
 {
     private static final ParkingAssembler INSTANCE = new ParkingAssemblerImplementation();
@@ -53,5 +55,11 @@ public class ParkingAssemblerImplementation implements ParkingAssembler
     @Override
     public ParkingEntity assembleEntityFromDomainToModify(int code, Parking domain) {
         return new ParkingEntity(code, domain.getNit(), domain.getName(), domain.getAddress(), getCityAssembler().assembleEntityFromDomain(domain.getCity()), getPlaceAssembler().assembleEntitiesFromDomains(domain.getPlaces()));
+    }
+
+    @Override
+    public List<ParkingDTO> assembleDTOsFromDomain(List<Parking> domains)
+    {
+        return domains.stream().map(this::assembleDTOFromDomain).toList();
     }
 }

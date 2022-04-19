@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController
 {
     private final ServiceApplicationSaveUser serviceSaveUser;
@@ -38,6 +39,12 @@ public class UserController
     {
         ResponseEntity<Response<UserDTO>> responseEntity;
         Response<UserDTO> response = new Response<>();
+
+        int lastIndex = serviceGetUsers.getAll().size() - 1;
+        var lastUser = serviceGetUsers.getAll().get(lastIndex);
+
+        userDTO.setCode(lastUser.getCode() + 1);
+        userDTO.getVehicle().setCode(lastUser.getVehicle().getCode() + 1);
 
         serviceSaveUser.save(userDTO);
 

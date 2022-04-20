@@ -107,6 +107,9 @@ public class UtilMessage
     public static final String USER_MESSAGE_THE_USER_WITH_CODE = "the user with the code ";
     public static final String USER_MESSAGE_THE_USER_WITH_EMAIL = "the user with the email ";
 
+    public static final String USER_MESSAGE_LOGIN_SUCCESSFUL = "OK";
+    public static final String USER_MESSAGE_LOGIN_NOT_SUCCESSFUL = "FAIL";
+
     public static final String ADMIN_MESSAGE_CREATION_SUCCESSFUL = "the admin was created successful";
     public static final String ADMIN_MESSAGE_MODIFICATION_SUCCESSFUL = "the admin was modified successful";
     public static final String ADMIN_MESSAGE_ELIMINATION_SUCCESSFUL = "the admin was removed successful";

@@ -7,6 +7,7 @@ import java.util.List;
 public interface UserRepository
 {
     List<UserSummaryDTO> getAll();
+    List<User> getAllWithPassword();
     UserSummaryDTO getByCode(int code);
     UserSummaryDTO getByIdentificationNumber(String identificationNumber);
     UserSummaryDTO getByEmail(String email);

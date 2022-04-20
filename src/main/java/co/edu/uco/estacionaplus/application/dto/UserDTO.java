@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.application.dto;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,9 @@ public class UserDTO
     private String password;
     private UserRoleDTO userRole;
     private VehicleDTO vehicle;
+
+    public static UserDTO create()
+    {
+        return new UserDTO(0, UtilText.EMPTY, UtilText.EMPTY, UtilText.EMPTY, UtilText.EMPTY, UtilText.EMPTY, UtilText.EMPTY, UserRoleDTO.create(), VehicleDTO.create());
+    }
 }

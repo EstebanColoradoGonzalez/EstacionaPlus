@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.application.dto;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,9 @@ public class CityDTO
     private int code;
     private String name;
     private StateDTO state;
+
+    public static CityDTO create()
+    {
+        return new CityDTO(0, UtilText.EMPTY, StateDTO.create());
+    }
 }

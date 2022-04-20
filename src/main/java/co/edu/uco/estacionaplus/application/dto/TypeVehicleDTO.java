@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.application.dto;
 
+import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,4 +14,9 @@ public class TypeVehicleDTO
 {
     private int code;
     private String name;
+
+    public static TypeVehicleDTO create()
+    {
+        return new TypeVehicleDTO(0, UtilText.EMPTY);
+    }
 }

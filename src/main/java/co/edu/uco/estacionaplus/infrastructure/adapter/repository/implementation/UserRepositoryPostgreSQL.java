@@ -9,6 +9,8 @@ import co.edu.uco.estacionaplus.infrastructure.adapter.entity.UserRoleEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.TypeVehicleDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserRoleDAO;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.UserAssemblerImplementation.getUserAssembler;
@@ -31,6 +33,12 @@ public class UserRepositoryPostgreSQL implements UserRepository
     public List<UserSummaryDTO> getAll()
     {
         return this.userDAO.findAll().stream().map(getUserAssembler()::assembleSummaryDTOFromEntity).toList();
+    }
+
+    @Override
+    public List<User> getAllWithPassword()
+    {
+        return this.userDAO.findAll().stream().map(getUserAssembler()::assembleDomainFromEntity).toList();
     }
 
     @Override
@@ -70,8 +78,14 @@ public class UserRepositoryPostgreSQL implements UserRepository
     {
         var userRole = this.userRoleDAO.findById(user.getUserRole().getCode()).map(entity -> new UserRoleEntity(entity.getCode(), entity.getName())).orElse(null);
         var typeVehicle = this.typeVehicleDAO.findById(user.getVehicle().getTypeVehicle().getCode()).map(entity -> new TypeVehicleEntity(entity.getCode(), entity.getName())).orElse(null);
+        var userEntity = getUserAssembler().assembleEntityFromDomainToSave(user, userRole, typeVehicle);
 
-        this.userDAO.save(getUserAssembler().assembleEntityFromDomainToSave(user, userRole, typeVehicle));
+        Argon2 argon = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2d);
+        String hash = argon.hash(1, 1024, 1, user.getPassword());
+
+        userEntity.setPassword(hash);
+
+        this.userDAO.save(userEntity);
     }
 
     @Override

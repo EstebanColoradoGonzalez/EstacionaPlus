@@ -2,7 +2,7 @@ package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementatio
 
 import co.edu.uco.estacionaplus.domain.model.State;
 import co.edu.uco.estacionaplus.domain.port.StateRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
+import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.StateDAO;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -35,7 +35,7 @@ public class StateRepositoryPostgreSQL implements StateRepository
     {
         var state = this.stateDAO.findByName(name);
 
-        if(UtilObject.isNull(state))
+        if(ValidateObject.isNull(state))
         {
             return null;
         }

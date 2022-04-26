@@ -1,13 +1,13 @@
-package co.edu.uco.estacionaplus.domain.utilitarian;
+package co.edu.uco.estacionaplus.domain.formatter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class UtilDate
+public class FormatDate
 {
     private static final String FORMAT_YYYY_MM_DD = "yyyy/MM/dd";
 
-    private UtilDate()
+    private FormatDate()
     {
 
     }

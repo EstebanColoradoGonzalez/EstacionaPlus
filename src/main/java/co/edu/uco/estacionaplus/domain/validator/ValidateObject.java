@@ -1,8 +1,8 @@
-package co.edu.uco.estacionaplus.domain.utilitarian;
+package co.edu.uco.estacionaplus.domain.validator;
 
-public class UtilObject
+public class ValidateObject
 {
-    private UtilObject()
+    private ValidateObject()
     {
 
     }

@@ -6,8 +6,8 @@ import co.edu.uco.estacionaplus.domain.model.Reservation;
 import co.edu.uco.estacionaplus.domain.port.PaymentMethodRepository;
 import co.edu.uco.estacionaplus.domain.port.PlaceRepository;
 import co.edu.uco.estacionaplus.domain.port.ReservationRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilTime;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.formatter.FormatTime;
 import org.springframework.stereotype.Service;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PriceAssemblerImplementation.getPriceAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.ReservationAssemblerImplementation.getReservationAssembler;
@@ -33,7 +33,7 @@ public class ServiceModifyReservation
         checkPaymentMethodDoesNotExists(reservation.getPaymentMethod());
         checkPlaceIsTaken(reservation.getPlace());
         var price = serviceBusinessRules.calculatePrice(reservation.getReservedTime().getValue());
-        var departureTime = serviceBusinessRules.calculateDepartureTime(UtilTime.getStringTime(reservation.getArrivalTime()), reservation.getReservedTime().getTypeTime(), reservation.getReservedTime().getValue());
+        var departureTime = serviceBusinessRules.calculateDepartureTime(FormatTime.getStringTime(reservation.getArrivalTime()), reservation.getReservedTime().getTypeTime(), reservation.getReservedTime().getValue());
 
         var reservationDTO = getReservationAssembler().assembleDTOFromDomain(reservation);
         reservationDTO.setPrice(getPriceAssembler().assembleDTOFromDomain(price));
@@ -46,7 +46,7 @@ public class ServiceModifyReservation
     {
         if(!this.paymentMethodRepository.exists(paymentMethod))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_PAYMENT_METHOD_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(Message.MESSAGE_PAYMENT_METHOD_DOES_NOT_EXISTS);
         }
     }
 
@@ -56,7 +56,7 @@ public class ServiceModifyReservation
 
         if(object.isTaken())
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_PLACE_IS_TAKEN);
+            throw new IllegalArgumentException(Message.MESSAGE_PLACE_IS_TAKEN);
         }
     }
 }

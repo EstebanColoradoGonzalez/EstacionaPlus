@@ -2,7 +2,7 @@ package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementatio
 
 import co.edu.uco.estacionaplus.domain.model.Vehicle;
 import co.edu.uco.estacionaplus.domain.port.VehicleRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
+import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.TypeVehicleEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.TypeVehicleDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.VehicleDAO;
@@ -32,7 +32,7 @@ public class VehicleRepositoryPostgreSQL implements VehicleRepository
     {
         var vehicle = this.vehicleDAO.findByLicense(license);
 
-        if(UtilObject.isNull(vehicle))
+        if(ValidateObject.isNull(vehicle))
         {
             return null;
         }

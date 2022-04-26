@@ -1,6 +1,5 @@
 package co.edu.uco.estacionaplus.infrastructure.error;
 
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -38,7 +37,7 @@ public class ErrorManager extends ResponseEntityExceptionHandler
         else
         {
             LOGGER_ERROR.error(nameException, exception);
-            Error error = new Error(nameException, UtilMessage.AN_ERROR_OCCURRED_PLEASE_CONTACT_THE_ADMINISTRATOR);
+            Error error = new Error(nameException, exception.getMessage());
             result = new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

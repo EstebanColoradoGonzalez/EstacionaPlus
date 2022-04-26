@@ -1,7 +1,7 @@
 package co.edu.uco.estacionaplus.domain.model;
 
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.validator.ValidateString;
 import lombok.Getter;
 
 @Getter
@@ -37,19 +37,19 @@ public class User
 
     private void setNames(String names)
     {
-        if (UtilText.isStringEmpty(names))
+        if (ValidateString.isStringEmpty(names))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_NAME_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.USER_NAME_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(names,1, 20))
+        if(!ValidateString.isLengthValid(names,1, 20))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_NAME_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.USER_NAME_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.stringContainsOnlyLettersAndSpaces(names))
+        if(!ValidateString.stringContainsOnlyLettersAndSpaces(names))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_NAME_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.USER_NAME_CHECK_PATTERN);
         }
 
         this.names = names;
@@ -57,19 +57,19 @@ public class User
 
     private void setLastNames(String lastNames)
     {
-        if (UtilText.isStringEmpty(lastNames))
+        if (ValidateString.isStringEmpty(lastNames))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_LASTNAME_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.USER_LASTNAME_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(lastNames,1, 50))
+        if(!ValidateString.isLengthValid(lastNames,1, 50))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_LASTNAME_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.USER_LASTNAME_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.stringContainsOnlyLettersAndSpaces(lastNames))
+        if(!ValidateString.stringContainsOnlyLettersAndSpaces(lastNames))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_LASTNAME_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.USER_LASTNAME_CHECK_PATTERN);
         }
 
         this.lastNames = lastNames;
@@ -77,19 +77,19 @@ public class User
 
     private void setIdentificationNumber(String identificationNumber)
     {
-        if (UtilText.isStringEmpty(identificationNumber))
+        if (ValidateString.isStringEmpty(identificationNumber))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_IDENTIFICATION_NUMBER_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.USER_IDENTIFICATION_NUMBER_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(identificationNumber,1, 10))
+        if(!ValidateString.isLengthValid(identificationNumber,1, 10))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_IDENTIFICATION_NUMBER_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.USER_IDENTIFICATION_NUMBER_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.isStringAlphanumeric(identificationNumber))
+        if(!ValidateString.isStringAlphanumeric(identificationNumber))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_IDENTIFICATION_NUMBER_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.USER_IDENTIFICATION_NUMBER_CHECK_PATTERN);
         }
 
         this.identificationNumber = identificationNumber;
@@ -97,19 +97,19 @@ public class User
 
     private void setPhone(String phone)
     {
-        if (UtilText.isStringEmpty(phone))
+        if (ValidateString.isStringEmpty(phone))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_PHONE_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.USER_PHONE_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(phone,1, 10))
+        if(!ValidateString.isLengthValid(phone,1, 10))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_PHONE_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.USER_PHONE_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.isStringAlphanumeric(phone))
+        if(!ValidateString.isStringAlphanumeric(phone))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_PHONE_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.USER_PHONE_CHECK_PATTERN);
         }
 
         this.phone = phone;
@@ -117,19 +117,19 @@ public class User
 
     private void setEmail(String email)
     {
-        if (UtilText.isStringEmpty(email))
+        if (ValidateString.isStringEmpty(email))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_EMAIL_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.USER_EMAIL_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(email,1, 100))
+        if(!ValidateString.isLengthValid(email,1, 100))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_EMAIL_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.USER_EMAIL_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.stringEmail(email))
+        if(!ValidateString.stringEmail(email))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_EMAIL_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.USER_EMAIL_CHECK_PATTERN);
         }
 
         this.email = email;
@@ -137,19 +137,19 @@ public class User
 
     private void setPassword(String password)
     {
-        if (UtilText.isStringEmpty(password))
+        if (ValidateString.isStringEmpty(password))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_SECRETWORD_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.USER_SECRETWORD_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(password,1, 255))
+        if(!ValidateString.isLengthValid(password,1, 255))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_SECRETWORD_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.USER_SECRETWORD_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.stringPassword(password))
+        if(!ValidateString.stringPassword(password))
         {
-            throw new IllegalArgumentException(UtilMessage.USER_SECRETWORD_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.USER_SECRETWORD_CHECK_PATTERN);
         }
 
         this.password = password;

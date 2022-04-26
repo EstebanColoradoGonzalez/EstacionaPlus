@@ -2,6 +2,7 @@ package co.edu.uco.estacionaplus.domain.assembler.implementation;
 
 import co.edu.uco.estacionaplus.application.dto.UserDTO;
 import co.edu.uco.estacionaplus.domain.assembler.UserAssembler;
+import co.edu.uco.estacionaplus.domain.dto.UserNoSummaryDTO;
 import co.edu.uco.estacionaplus.domain.dto.UserSummaryDTO;
 import co.edu.uco.estacionaplus.domain.model.User;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.TypeVehicleEntity;
@@ -53,6 +54,12 @@ public class UserAssemblerImplementation implements UserAssembler
     public UserSummaryDTO assembleSummaryDTOFromEntity(UserEntity entity)
     {
         return new UserSummaryDTO(entity.getCode(), entity.getNames(), entity.getLastNames(), entity.getIdentificationNumber(), entity.getPhone(), entity.getEmail(), getUserRoleAssembler().assembleSummaryDTOFromEntity(entity.getUserRole()), getVehicleAssembler().assembleSummaryDTOFromEntity(entity.getVehicle()));
+    }
+
+    @Override
+    public UserNoSummaryDTO assembleNoSummaryDTOFromEntity(UserEntity entity)
+    {
+        return new UserNoSummaryDTO(entity.getCode(), entity.getNames(), entity.getLastNames(), entity.getIdentificationNumber(), entity.getPhone(), entity.getEmail(), entity.getPassword(), getUserRoleAssembler().assembleSummaryDTOFromEntity(entity.getUserRole()), getVehicleAssembler().assembleSummaryDTOFromEntity(entity.getVehicle()));
     }
 
     @Override

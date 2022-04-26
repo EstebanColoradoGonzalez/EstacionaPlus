@@ -3,7 +3,7 @@ package co.edu.uco.estacionaplus.infrastructure.controller;
 import co.edu.uco.estacionaplus.application.dto.ParkingDTO;
 import co.edu.uco.estacionaplus.application.service.serviceparking.ServiceApplicationGetParkingByCode;
 import co.edu.uco.estacionaplus.application.service.serviceparking.ServiceApplicationGetParkings;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,7 @@ public class ParkingController
         Response<ParkingDTO> response = new Response<>();
 
         response.setData(this.serviceGetParkings.getAll());
-        response.addMessage(UtilMessage.PARKING_MESSAGE_CONSULTATION_ALL_SUCCESSFUL);
+        response.addMessage(Message.PARKING_MESSAGE_CONSULTATION_ALL_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -53,7 +53,7 @@ public class ParkingController
 
         respuesta.setData(users);
 
-        respuesta.addMessage(UtilMessage.PARKING_MESSAGE_THE_PARKING_WITH_CODE + code + UtilMessage.MESSAGE_CONSULTATION_SUCCESSFUL);
+        respuesta.addMessage(Message.PARKING_MESSAGE_THE_PARKING_WITH_CODE + code + Message.MESSAGE_CONSULTATION_SUCCESSFUL);
         respuesta.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(respuesta, HttpStatus.ACCEPTED);

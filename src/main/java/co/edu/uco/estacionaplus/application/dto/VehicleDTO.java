@@ -1,6 +1,6 @@
 package co.edu.uco.estacionaplus.application.dto;
 
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import co.edu.uco.estacionaplus.domain.validator.ValidateString;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +18,6 @@ public class VehicleDTO
 
     public static VehicleDTO create()
     {
-        return new VehicleDTO(0, UtilText.EMPTY, TypeVehicleDTO.create());
+        return new VehicleDTO(0, ValidateString.EMPTY, TypeVehicleDTO.create());
     }
 }

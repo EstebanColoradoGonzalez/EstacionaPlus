@@ -2,7 +2,7 @@ package co.edu.uco.estacionaplus.domain.service.serviceparking;
 
 import co.edu.uco.estacionaplus.domain.model.Parking;
 import co.edu.uco.estacionaplus.domain.port.ParkingRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +19,7 @@ public class ServiceGetParkingByCode
     {
         if(!this.parkingRepository.exists(this.parkingRepository.getByCode(code)))
         {
-            throw new IllegalArgumentException(UtilMessage.PARKING_MESSAGE_IT_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(Message.PARKING_MESSAGE_IT_DOES_NOT_EXISTS);
         }
 
         return this.parkingRepository.getByCode(code);

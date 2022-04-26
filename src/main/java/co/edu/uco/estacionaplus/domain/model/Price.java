@@ -1,7 +1,7 @@
 package co.edu.uco.estacionaplus.domain.model;
 
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilNumber;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.validator.ValidateNumber;
 import lombok.Getter;
 
 @Getter
@@ -23,9 +23,9 @@ public class Price
 
     private void setValue(double value)
     {
-        if(UtilNumber.isNumberLessThanOrEqual(value, 0))
+        if(ValidateNumber.isNumberLessThanOrEqual(value, 0))
         {
-            throw new IllegalArgumentException(UtilMessage.PRICE_VALUE_CHECK_NUMBER);
+            throw new IllegalArgumentException(Message.PRICE_VALUE_CHECK_NUMBER);
         }
 
         this.value = value;

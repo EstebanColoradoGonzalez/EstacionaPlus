@@ -1,8 +1,8 @@
 package co.edu.uco.estacionaplus.domain.model;
 
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilNumber;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.validator.ValidateNumber;
+import co.edu.uco.estacionaplus.domain.validator.ValidateString;
 import lombok.Getter;
 
 @Getter
@@ -26,9 +26,9 @@ public class ReservedTime
 
     private void setValue(int value)
     {
-        if (UtilNumber.isNumberLess(value, 0))
+        if (ValidateNumber.isNumberLess(value, 0))
         {
-            throw new IllegalArgumentException(UtilMessage.RESERVEDTIME_VALUE_CHECK_NUMBER);
+            throw new IllegalArgumentException(Message.RESERVEDTIME_VALUE_CHECK_NUMBER);
         }
 
         this.value = value;
@@ -36,19 +36,19 @@ public class ReservedTime
 
     private void setTypeTime(String typeTime)
     {
-        if (UtilText.isStringEmpty(typeTime))
+        if (ValidateString.isStringEmpty(typeTime))
         {
-            throw new IllegalArgumentException(UtilMessage.RESERVEDTIME_TYPETIME_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.RESERVEDTIME_TYPETIME_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(typeTime, 1, 10))
+        if(!ValidateString.isLengthValid(typeTime, 1, 10))
         {
-            throw new IllegalArgumentException(UtilMessage.RESERVEDTIME_TYPETIME_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.RESERVEDTIME_TYPETIME_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.stringContainsOnlyLettersAndSpaces(typeTime))
+        if(!ValidateString.stringContainsOnlyLettersAndSpaces(typeTime))
         {
-            throw new IllegalArgumentException(UtilMessage.RESERVEDTIME_TYPETIME_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.RESERVEDTIME_TYPETIME_CHECK_PATTERN);
         }
 
         this.typeTime = typeTime;

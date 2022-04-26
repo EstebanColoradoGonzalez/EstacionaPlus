@@ -2,7 +2,7 @@ package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementatio
 
 import co.edu.uco.estacionaplus.domain.model.Parking;
 import co.edu.uco.estacionaplus.domain.port.ParkingRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
+import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.CityDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.ParkingDAO;
 import org.springframework.stereotype.Repository;
@@ -40,7 +40,7 @@ public class ParkingRepositoryPostgreSQL implements ParkingRepository
     {
         var parking = this.parkingDAO.findByNit(nit);
 
-        if(UtilObject.isNull(parking))
+        if(ValidateObject.isNull(parking))
         {
             return null;
         }
@@ -53,7 +53,7 @@ public class ParkingRepositoryPostgreSQL implements ParkingRepository
     {
         var parking = this.parkingDAO.findByAddress(address);
 
-        if(UtilObject.isNull(parking))
+        if(ValidateObject.isNull(parking))
         {
             return null;
         }

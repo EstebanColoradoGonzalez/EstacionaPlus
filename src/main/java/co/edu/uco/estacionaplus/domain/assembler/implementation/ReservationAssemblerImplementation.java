@@ -6,8 +6,8 @@ import co.edu.uco.estacionaplus.domain.model.PaymentMethod;
 import co.edu.uco.estacionaplus.domain.model.Place;
 import co.edu.uco.estacionaplus.domain.model.Reservation;
 import co.edu.uco.estacionaplus.domain.model.User;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilDate;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilTime;
+import co.edu.uco.estacionaplus.domain.formatter.FormatDate;
+import co.edu.uco.estacionaplus.domain.formatter.FormatTime;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.ReservationEntity;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PaymentMethodAssemblerImplementation.getPaymentMethodAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PlaceAssemblerImplementation.getPlaceAssembler;
@@ -44,13 +44,13 @@ public class ReservationAssemblerImplementation implements ReservationAssembler
     @Override
     public Reservation assembleDomainFromDTO(ReservationDTO dto)
     {
-        return Reservation.create(dto.getCode(), UtilDate.getDate(dto.getDate()), UtilTime.getTime(dto.getArrivalTime()), UtilTime.getTime(dto.getDepartureTime()), getReservedTimeAssembler().assembleDomainFromDTO(dto.getReservedTime()), getPriceAssembler().assembleDomainFromDTO(dto.getPrice()), getPlaceAssembler().assembleDomainFromDTO(dto.getPlace()), getPaymentMethodAssembler().assembleDomainFromDTO(dto.getPaymentMethod()), getUserAssembler().assembleDomainFromDTO(dto.getUser()));
+        return Reservation.create(dto.getCode(), FormatDate.getDate(dto.getDate()), FormatTime.getTime(dto.getArrivalTime()), FormatTime.getTime(dto.getDepartureTime()), getReservedTimeAssembler().assembleDomainFromDTO(dto.getReservedTime()), getPriceAssembler().assembleDomainFromDTO(dto.getPrice()), getPlaceAssembler().assembleDomainFromDTO(dto.getPlace()), getPaymentMethodAssembler().assembleDomainFromDTO(dto.getPaymentMethod()), getUserAssembler().assembleDomainFromDTO(dto.getUser()));
     }
 
     @Override
     public ReservationDTO assembleDTOFromDomain(Reservation domain)
     {
-        return new ReservationDTO(domain.getCode(), UtilDate.getStringDate(domain.getDate()), UtilTime.getStringTime(domain.getArrivalTime()), UtilTime.getStringTime(domain.getDepartureTime()), getReservedTimeAssembler().assembleDTOFromDomain(domain.getReservedTime()), getPriceAssembler().assembleDTOFromDomain(domain.getPrice()), getPlaceAssembler().assembleDTOFromDomain(domain.getPlace()), getPaymentMethodAssembler().assembleDTOFromDomain(domain.getPaymentMethod()), getUserAssembler().assembleDTOFromDomain(domain.getUser()));
+        return new ReservationDTO(domain.getCode(), FormatDate.getStringDate(domain.getDate()), FormatTime.getStringTime(domain.getArrivalTime()), FormatTime.getStringTime(domain.getDepartureTime()), getReservedTimeAssembler().assembleDTOFromDomain(domain.getReservedTime()), getPriceAssembler().assembleDTOFromDomain(domain.getPrice()), getPlaceAssembler().assembleDTOFromDomain(domain.getPlace()), getPaymentMethodAssembler().assembleDTOFromDomain(domain.getPaymentMethod()), getUserAssembler().assembleDTOFromDomain(domain.getUser()));
     }
 
     @Override

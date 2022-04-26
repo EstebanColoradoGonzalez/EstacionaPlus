@@ -1,7 +1,7 @@
 package co.edu.uco.estacionaplus.domain.service.servicereservation;
 
 import co.edu.uco.estacionaplus.domain.model.Price;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilNumber;
+import co.edu.uco.estacionaplus.domain.validator.ValidateNumber;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,12 +17,12 @@ public class ServiceBusinessRules
 
         for(var i = 0; i < arrivalTime.length(); i++)
         {
-            if(UtilNumber.isNumberTheSame(i, 0))
+            if(ValidateNumber.isNumberTheSame(i, 0))
             {
                 hours = concatenateCharacters(i, arrivalTime);
             }
 
-            if(UtilNumber.isNumberTheSame(i, 3))
+            if(ValidateNumber.isNumberTheSame(i, 3))
             {
                 minutes = concatenateCharacters(i, arrivalTime);
             }

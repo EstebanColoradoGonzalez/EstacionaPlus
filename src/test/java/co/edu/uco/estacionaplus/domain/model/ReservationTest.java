@@ -1,6 +1,6 @@
 package co.edu.uco.estacionaplus.domain.model;
 
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilTime;
+import co.edu.uco.estacionaplus.domain.formatter.FormatTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
@@ -10,10 +10,10 @@ class ReservationTest
     @Test
     void validateSuccessfulCreation()
     {
-        var reservation = Reservation.create(1, LocalDate.now(), UtilTime.getTime("13:00:00"), UtilTime.getTime("14:00:00"), ReservedTime.create(1, 1, "Horas"), Price.create(1, 2000), Place.create(1, "A1", true, TypePlace.create(1, "Moto")), PaymentMethod.create(1, "Tarjeta"), User.create(1, "esteban", "colorado", "1038418594", "3228486049", "estebancolorado@gmail.com", "123456Aa", UserRole.create(1, "usuario"), Vehicle.create(1, "USV36D", TypeVehicle.create(1, "moto"))));
+        var reservation = Reservation.create(1, LocalDate.now(), FormatTime.getTime("13:00:00"), FormatTime.getTime("14:00:00"), ReservedTime.create(1, 1, "Horas"), Price.create(1, 2000), Place.create(1, "A1", true, TypePlace.create(1, "Moto")), PaymentMethod.create(1, "Tarjeta"), User.create(1, "esteban", "colorado", "1038418594", "3228486049", "estebancolorado@gmail.com", "123456Aa", UserRole.create(1, "usuario"), Vehicle.create(1, "USV36D", TypeVehicle.create(1, "moto"))));
 
-        Assertions.assertEquals(UtilTime.getTime("13:00:00"), reservation.getArrivalTime());
-        Assertions.assertEquals(UtilTime.getTime("14:00:00"), reservation.getDepartureTime());
+        Assertions.assertEquals(FormatTime.getTime("13:00:00"), reservation.getArrivalTime());
+        Assertions.assertEquals(FormatTime.getTime("14:00:00"), reservation.getDepartureTime());
         Assertions.assertEquals(1, reservation.getReservedTime().getValue());
         Assertions.assertEquals("Horas", reservation.getReservedTime().getTypeTime());
         Assertions.assertEquals(2000, reservation.getPrice().getValue());

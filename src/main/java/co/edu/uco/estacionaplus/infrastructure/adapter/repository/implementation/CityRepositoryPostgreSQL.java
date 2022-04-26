@@ -2,7 +2,7 @@ package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementatio
 
 import co.edu.uco.estacionaplus.domain.model.City;
 import co.edu.uco.estacionaplus.domain.port.CityRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
+import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.CityDAO;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -35,7 +35,7 @@ public class CityRepositoryPostgreSQL implements CityRepository
     {
         var city = this.cityDAO.findByName(name);
 
-        if(UtilObject.isNull(city))
+        if(ValidateObject.isNull(city))
         {
             return null;
         }

@@ -1,7 +1,7 @@
 package co.edu.uco.estacionaplus.domain.model;
 
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.validator.ValidateString;
 import lombok.Getter;
 import java.util.List;
 
@@ -32,19 +32,19 @@ public class Parking
 
     private void setNit(String nit)
     {
-        if (UtilText.isStringEmpty(nit))
+        if (ValidateString.isStringEmpty(nit))
         {
-            throw new IllegalArgumentException(UtilMessage.PARKING_NIT_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.PARKING_NIT_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(nit,1, 20))
+        if(!ValidateString.isLengthValid(nit,1, 20))
         {
-            throw new IllegalArgumentException(UtilMessage.PARKING_NIT_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.PARKING_NIT_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.stringNIT(nit))
+        if(!ValidateString.stringNIT(nit))
         {
-            throw new IllegalArgumentException(UtilMessage.PARKING_NIT_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.PARKING_NIT_CHECK_PATTERN);
         }
 
         this.nit = nit;
@@ -52,19 +52,19 @@ public class Parking
 
     private void setName(String name)
     {
-        if (UtilText.isStringEmpty(name))
+        if (ValidateString.isStringEmpty(name))
         {
-            throw new IllegalArgumentException(UtilMessage.PARKING_NAME_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.PARKING_NAME_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(name,1, 50))
+        if(!ValidateString.isLengthValid(name,1, 50))
         {
-            throw new IllegalArgumentException(UtilMessage.PARKING_NAME_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.PARKING_NAME_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.isStringAlphanumeric(name))
+        if(!ValidateString.isStringAlphanumeric(name))
         {
-            throw new IllegalArgumentException(UtilMessage.PARKING_NAME_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.PARKING_NAME_CHECK_PATTERN);
         }
 
         this.name = name;
@@ -72,19 +72,19 @@ public class Parking
 
     private void setAddress(String address)
     {
-        if (UtilText.isStringEmpty(address))
+        if (ValidateString.isStringEmpty(address))
         {
-            throw new IllegalArgumentException(UtilMessage.PARKING_ADDRESS_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.PARKING_ADDRESS_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(address,1, 50))
+        if(!ValidateString.isLengthValid(address,1, 50))
         {
-            throw new IllegalArgumentException(UtilMessage.PARKING_ADDRESS_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.PARKING_ADDRESS_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.isStringAlphanumeric(address))
+        if(!ValidateString.isStringAlphanumeric(address))
         {
-            throw new IllegalArgumentException(UtilMessage.PARKING_ADDRESS_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.PARKING_ADDRESS_CHECK_PATTERN);
         }
 
         this.address = address;

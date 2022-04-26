@@ -5,8 +5,8 @@ import co.edu.uco.estacionaplus.domain.model.UserParking;
 import co.edu.uco.estacionaplus.domain.port.ParkingRepository;
 import co.edu.uco.estacionaplus.domain.port.UserParkingRepository;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import org.springframework.stereotype.Service;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.UserAssemblerImplementation.getUserAssembler;
 
@@ -37,7 +37,7 @@ public class ServiceSaveUserParking
     {
         if(!this.userRepository.exists(getUserAssembler().assembleSummaryDTOFromEntity(getUserAssembler().assembleEntityFromDomain(user))))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_USER_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(Message.MESSAGE_USER_DOES_NOT_EXISTS);
         }
     }
 
@@ -45,9 +45,9 @@ public class ServiceSaveUserParking
     {
         var parking = this.parkingRepository.getByNIT(nit);
 
-        if(!UtilObject.isNull(parking))
+        if(!ValidateObject.isNull(parking))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_NIT);
+            throw new IllegalArgumentException(Message.MESSAGE_EXISTS_WITH_NIT);
         }
     }
 
@@ -55,9 +55,9 @@ public class ServiceSaveUserParking
     {
         var parking = this.parkingRepository.getByAddress(address);
 
-        if(!UtilObject.isNull(parking))
+        if(!ValidateObject.isNull(parking))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_ADDRESS);
+            throw new IllegalArgumentException(Message.MESSAGE_EXISTS_WITH_ADDRESS);
         }
     }
 }

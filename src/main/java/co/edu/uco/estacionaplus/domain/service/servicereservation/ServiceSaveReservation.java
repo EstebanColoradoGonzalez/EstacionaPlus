@@ -8,8 +8,8 @@ import co.edu.uco.estacionaplus.domain.port.PaymentMethodRepository;
 import co.edu.uco.estacionaplus.domain.port.PlaceRepository;
 import co.edu.uco.estacionaplus.domain.port.ReservationRepository;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilTime;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.formatter.FormatTime;
 import org.springframework.stereotype.Service;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PlaceAssemblerImplementation.getPlaceAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PriceAssemblerImplementation.getPriceAssembler;
@@ -42,7 +42,7 @@ public class ServiceSaveReservation
         checkPlaceIsTaken(reservation.getPlace());
 
         var price = serviceBusinessRules.calculatePrice(reservation.getReservedTime().getValue());
-        var departureTime = serviceBusinessRules.calculateDepartureTime(UtilTime.getStringTime(reservation.getArrivalTime()), reservation.getReservedTime().getTypeTime(), reservation.getReservedTime().getValue());
+        var departureTime = serviceBusinessRules.calculateDepartureTime(FormatTime.getStringTime(reservation.getArrivalTime()), reservation.getReservedTime().getTypeTime(), reservation.getReservedTime().getValue());
 
         var reservationDTO = getReservationAssembler().assembleDTOFromDomain(reservation);
         reservationDTO.setPrice(getPriceAssembler().assembleDTOFromDomain(price));
@@ -58,7 +58,7 @@ public class ServiceSaveReservation
 
         if(object.isTaken())
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_PLACE_IS_TAKEN);
+            throw new IllegalArgumentException(Message.MESSAGE_PLACE_IS_TAKEN);
         }
     }
 
@@ -66,7 +66,7 @@ public class ServiceSaveReservation
     {
         if(!this.placeRepository.exists(place))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_PLACE_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(Message.MESSAGE_PLACE_DOES_NOT_EXISTS);
         }
     }
 
@@ -74,7 +74,7 @@ public class ServiceSaveReservation
     {
         if(!this.paymentMethodRepository.exists(paymentMethod))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_PAYMENT_METHOD_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(Message.MESSAGE_PAYMENT_METHOD_DOES_NOT_EXISTS);
         }
     }
 
@@ -82,7 +82,7 @@ public class ServiceSaveReservation
     {
         if(!this.userRepository.exists(getUserAssembler().assembleSummaryDTOFromDomain(user)))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_USER_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(Message.MESSAGE_USER_DOES_NOT_EXISTS);
         }
     }
 }

@@ -1,7 +1,7 @@
 package co.edu.uco.estacionaplus.domain.model;
 
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.validator.ValidateString;
 import lombok.Getter;
 
 @Getter
@@ -27,19 +27,19 @@ public class Place
 
     private void setPosition(String position)
     {
-        if (UtilText.isStringEmpty(position))
+        if (ValidateString.isStringEmpty(position))
         {
-            throw new IllegalArgumentException(UtilMessage.PLACE_POSITION_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.PLACE_POSITION_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(position,1, 10))
+        if(!ValidateString.isLengthValid(position,1, 10))
         {
-            throw new IllegalArgumentException(UtilMessage.PLACE_POSITION_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.PLACE_POSITION_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.isStringAlphanumeric(position))
+        if(!ValidateString.isStringAlphanumeric(position))
         {
-            throw new IllegalArgumentException(UtilMessage.PLACE_POSITION_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.PLACE_POSITION_CHECK_PATTERN);
         }
 
         this.position = position;

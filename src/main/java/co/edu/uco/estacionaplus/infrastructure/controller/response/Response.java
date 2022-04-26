@@ -1,7 +1,7 @@
 package co.edu.uco.estacionaplus.infrastructure.controller.response;
 
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import co.edu.uco.estacionaplus.domain.validator.ValidateString;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class Response<T>
 
     public void addMessage(String message)
     {
-        if(!UtilText.stringIsNull(message))
+        if(!ValidateString.stringIsNull(message))
         {
             getMessages().add(message);
         }

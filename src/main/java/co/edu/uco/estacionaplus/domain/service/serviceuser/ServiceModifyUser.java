@@ -4,8 +4,8 @@ import co.edu.uco.estacionaplus.domain.model.User;
 import co.edu.uco.estacionaplus.domain.model.Vehicle;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
 import co.edu.uco.estacionaplus.domain.port.VehicleRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,9 +32,9 @@ public class ServiceModifyUser
     {
         var userSummary = this.userRepository.getByEmail(user.getEmail());
 
-        if(!UtilObject.isNull(userSummary) && userSummary.getCode() != code)
+        if(!ValidateObject.isNull(userSummary) && userSummary.getCode() != code)
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_EMAIL);
+            throw new IllegalArgumentException(Message.MESSAGE_EXISTS_WITH_EMAIL);
         }
     }
 
@@ -42,9 +42,9 @@ public class ServiceModifyUser
     {
         var userSummary = this.userRepository.getByIdentificationNumber(user.getIdentificationNumber());
 
-        if(!UtilObject.isNull(userSummary) && userSummary.getCode() != code)
+        if(!ValidateObject.isNull(userSummary) && userSummary.getCode() != code)
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_IDENTIFICATION_NUMBER);
+            throw new IllegalArgumentException(Message.MESSAGE_EXISTS_WITH_IDENTIFICATION_NUMBER);
         }
     }
 
@@ -52,9 +52,9 @@ public class ServiceModifyUser
     {
         var vehicleSummary = this.vehicleRepository.getByLicense(vehicle.getLicense());
 
-        if(!UtilObject.isNull(vehicleSummary) && vehicleSummary.getCode() != vehicle.getCode())
+        if(!ValidateObject.isNull(vehicleSummary) && vehicleSummary.getCode() != vehicle.getCode())
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_VEHICLE_EXISTS_WITH_LICENSE);
+            throw new IllegalArgumentException(Message.MESSAGE_VEHICLE_EXISTS_WITH_LICENSE);
         }
     }
 }

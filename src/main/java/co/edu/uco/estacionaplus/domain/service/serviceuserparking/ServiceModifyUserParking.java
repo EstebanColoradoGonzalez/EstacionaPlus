@@ -3,8 +3,8 @@ package co.edu.uco.estacionaplus.domain.service.serviceuserparking;
 import co.edu.uco.estacionaplus.domain.model.UserParking;
 import co.edu.uco.estacionaplus.domain.port.ParkingRepository;
 import co.edu.uco.estacionaplus.domain.port.UserParkingRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,9 +31,9 @@ public class ServiceModifyUserParking
     {
         var parking = this.parkingRepository.getByNIT(userParking.getParking().getNit());
 
-        if(!UtilObject.isNull(parking) && userParking.getCode() != code)
+        if(!ValidateObject.isNull(parking) && userParking.getCode() != code)
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_NIT);
+            throw new IllegalArgumentException(Message.MESSAGE_EXISTS_WITH_NIT);
         }
     }
 
@@ -41,9 +41,9 @@ public class ServiceModifyUserParking
     {
         var parking = this.parkingRepository.getByAddress(userParking.getParking().getAddress());
 
-        if(!UtilObject.isNull(parking) && userParking.getCode() != code)
+        if(!ValidateObject.isNull(parking) && userParking.getCode() != code)
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_ADDRESS);
+            throw new IllegalArgumentException(Message.MESSAGE_EXISTS_WITH_ADDRESS);
         }
     }
 }

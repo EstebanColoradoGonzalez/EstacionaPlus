@@ -1,7 +1,7 @@
 package co.edu.uco.estacionaplus.domain.model;
 
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.validator.ValidateString;
 import lombok.Getter;
 
 @Getter
@@ -25,19 +25,19 @@ public class Vehicle
 
     private void setLicense(String license)
     {
-        if (UtilText.isStringEmpty(license))
+        if (ValidateString.isStringEmpty(license))
         {
-            throw new IllegalArgumentException(UtilMessage.VEHICLE_LICENSE_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.VEHICLE_LICENSE_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(license,1, 6))
+        if(!ValidateString.isLengthValid(license,1, 6))
         {
-            throw new IllegalArgumentException(UtilMessage.VEHICLE_LICENSE_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.VEHICLE_LICENSE_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.isStringAlphanumeric(license))
+        if(!ValidateString.isStringAlphanumeric(license))
         {
-            throw new IllegalArgumentException(UtilMessage.VEHICLE_LICENSE_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.VEHICLE_LICENSE_CHECK_PATTERN);
         }
 
         this.license = license;

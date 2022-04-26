@@ -2,7 +2,7 @@ package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementatio
 
 import co.edu.uco.estacionaplus.domain.model.Place;
 import co.edu.uco.estacionaplus.domain.port.PlaceRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
+import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.PlaceDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.TypePlaceDAO;
 import org.springframework.stereotype.Repository;
@@ -39,7 +39,7 @@ public class PlaceRepositoryPostgreSQL implements PlaceRepository
     {
         var place = this.placeDAO.findByPosition(position);
 
-        if(UtilObject.isNull(place))
+        if(ValidateObject.isNull(place))
         {
             return null;
         }

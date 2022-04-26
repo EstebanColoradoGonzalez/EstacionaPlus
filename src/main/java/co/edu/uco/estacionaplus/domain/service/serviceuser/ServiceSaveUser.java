@@ -8,8 +8,8 @@ import co.edu.uco.estacionaplus.domain.port.TypeVehicleRepository;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
 import co.edu.uco.estacionaplus.domain.port.UserRoleRepository;
 import co.edu.uco.estacionaplus.domain.port.VehicleRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilObject;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -42,7 +42,7 @@ public class ServiceSaveUser
     {
         if(!this.userRoleRepository.exists(userRole))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_USER_ROLE_DOES_NOT_EXISTS_WITH_NAME);
+            throw new IllegalArgumentException(Message.MESSAGE_USER_ROLE_DOES_NOT_EXISTS_WITH_NAME);
         }
     }
 
@@ -50,9 +50,9 @@ public class ServiceSaveUser
     {
         var userSummary = this.userRepository.getByEmail(user.getEmail());
 
-        if(!UtilObject.isNull(userSummary))
+        if(!ValidateObject.isNull(userSummary))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_EMAIL);
+            throw new IllegalArgumentException(Message.MESSAGE_EXISTS_WITH_EMAIL);
         }
     }
 
@@ -60,9 +60,9 @@ public class ServiceSaveUser
     {
         var userSummary = this.userRepository.getByIdentificationNumber(user.getIdentificationNumber());
 
-        if(!UtilObject.isNull(userSummary))
+        if(!ValidateObject.isNull(userSummary))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_EXISTS_WITH_IDENTIFICATION_NUMBER);
+            throw new IllegalArgumentException(Message.MESSAGE_EXISTS_WITH_IDENTIFICATION_NUMBER);
         }
     }
 
@@ -70,7 +70,7 @@ public class ServiceSaveUser
     {
         if(!this.typeVehicleRepository.exists(typeVehicle))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_TYPE_VEHICLE_DOES_NOT_EXISTS_WITH_NAME);
+            throw new IllegalArgumentException(Message.MESSAGE_TYPE_VEHICLE_DOES_NOT_EXISTS_WITH_NAME);
         }
     }
 
@@ -78,9 +78,9 @@ public class ServiceSaveUser
     {
         var vehicleSummary = this.vehicleRepository.getByLicense(vehicle.getLicense());
 
-        if(!UtilObject.isNull(vehicleSummary))
+        if(!ValidateObject.isNull(vehicleSummary))
         {
-            throw new IllegalArgumentException(UtilMessage.MESSAGE_VEHICLE_EXISTS_WITH_LICENSE);
+            throw new IllegalArgumentException(Message.MESSAGE_VEHICLE_EXISTS_WITH_LICENSE);
         }
     }
 }

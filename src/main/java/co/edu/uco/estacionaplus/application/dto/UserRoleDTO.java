@@ -1,6 +1,6 @@
 package co.edu.uco.estacionaplus.application.dto;
 
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import co.edu.uco.estacionaplus.domain.validator.ValidateString;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +17,6 @@ public class UserRoleDTO
 
     public static UserRoleDTO create()
     {
-        return new UserRoleDTO(0, UtilText.EMPTY);
+        return new UserRoleDTO(0, ValidateString.EMPTY);
     }
 }

@@ -2,7 +2,7 @@ package co.edu.uco.estacionaplus.domain.service.servicereservation;
 
 import co.edu.uco.estacionaplus.domain.model.Reservation;
 import co.edu.uco.estacionaplus.domain.port.ReservationRepository;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +19,7 @@ public class ServiceGetReservationByCode
     {
         if(!this.reservationRepository.exists(this.reservationRepository.getByCode(code)))
         {
-            throw new IllegalArgumentException(UtilMessage.RESERVATION_MESSAGE_IT_DOES_NOT_EXISTS);
+            throw new IllegalArgumentException(Message.RESERVATION_MESSAGE_IT_DOES_NOT_EXISTS);
         }
         return this.reservationRepository.getByCode(code);
     }

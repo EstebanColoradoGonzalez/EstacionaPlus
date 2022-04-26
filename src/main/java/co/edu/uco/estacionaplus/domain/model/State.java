@@ -1,7 +1,7 @@
 package co.edu.uco.estacionaplus.domain.model;
 
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilText;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.domain.validator.ValidateString;
 import lombok.Getter;
 
 @Getter
@@ -23,19 +23,19 @@ public class State
 
     private void setName(String name)
     {
-        if (UtilText.isStringEmpty(name))
+        if (ValidateString.isStringEmpty(name))
         {
-            throw new IllegalArgumentException(UtilMessage.STATE_NAME_CHECK_STRING_EMPTY);
+            throw new IllegalArgumentException(Message.STATE_NAME_CHECK_STRING_EMPTY);
         }
 
-        if(!UtilText.isLengthValid(name, 1, 20))
+        if(!ValidateString.isLengthValid(name, 1, 20))
         {
-            throw new IllegalArgumentException(UtilMessage.STATE_NAME_CHECK_LENGTH_VALID);
+            throw new IllegalArgumentException(Message.STATE_NAME_CHECK_LENGTH_VALID);
         }
 
-        if(!UtilText.stringContainsOnlyLettersAndSpaces(name))
+        if(!ValidateString.stringContainsOnlyLettersAndSpaces(name))
         {
-            throw new IllegalArgumentException(UtilMessage.STATE_NAME_CHECK_PATTERN);
+            throw new IllegalArgumentException(Message.STATE_NAME_CHECK_PATTERN);
         }
 
         this.name = name;

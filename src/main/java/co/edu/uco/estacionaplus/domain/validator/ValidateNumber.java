@@ -1,8 +1,8 @@
-package co.edu.uco.estacionaplus.domain.utilitarian;
+package co.edu.uco.estacionaplus.domain.validator;
 
-public class UtilNumber
+public class ValidateNumber
 {
-    private UtilNumber()
+    private ValidateNumber()
     {
 
     }
@@ -10,7 +10,7 @@ public class UtilNumber
     @SuppressWarnings("unchecked")
     public static <T extends Number> T getDefaultNumber(T number)
     {
-        return (T) UtilObject.getDefaultValue(number, 0);
+        return (T) ValidateObject.getDefaultValue(number, 0);
     }
 
     public static <T extends Number> boolean isNumberGreater(T number, T comparatorNumber)

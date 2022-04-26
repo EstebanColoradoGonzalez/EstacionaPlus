@@ -5,7 +5,7 @@ import co.edu.uco.estacionaplus.application.service.serviceuserparking.ServiceAp
 import co.edu.uco.estacionaplus.application.service.serviceuserparking.ServiceApplicationGetUserParkingByCode;
 import co.edu.uco.estacionaplus.application.service.serviceuserparking.ServiceApplicationModifyUserParking;
 import co.edu.uco.estacionaplus.application.service.serviceuserparking.ServiceApplicationSaveUserParking;
-import co.edu.uco.estacionaplus.domain.utilitarian.UtilMessage;
+import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
 import org.springframework.http.HttpStatus;
@@ -39,7 +39,7 @@ public class UserParkingController
 
         serviceSaveUserParking.save(userParkingDTO);
 
-        response.addMessage(UtilMessage.ADMIN_MESSAGE_CREATION_SUCCESSFUL);
+        response.addMessage(Message.ADMIN_MESSAGE_CREATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -55,7 +55,7 @@ public class UserParkingController
 
         serviceModifyUserParking.modify(code, userParkingDTO);
 
-        response.addMessage(UtilMessage.ADMIN_MESSAGE_MODIFICATION_SUCCESSFUL);
+        response.addMessage(Message.ADMIN_MESSAGE_MODIFICATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -71,7 +71,7 @@ public class UserParkingController
 
         serviceDeleteUserParking.delete(code);
 
-        response.addMessage(UtilMessage.ADMIN_MESSAGE_ELIMINATION_SUCCESSFUL);
+        response.addMessage(Message.ADMIN_MESSAGE_ELIMINATION_SUCCESSFUL);
         response.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -90,7 +90,7 @@ public class UserParkingController
 
         respuesta.setData(users);
 
-        respuesta.addMessage(UtilMessage.ADMIN_MESSAGE_THE_USER_WITH_CODE + code + UtilMessage.MESSAGE_CONSULTATION_SUCCESSFUL);
+        respuesta.addMessage(Message.ADMIN_MESSAGE_THE_USER_WITH_CODE + code + Message.MESSAGE_CONSULTATION_SUCCESSFUL);
         respuesta.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(respuesta, HttpStatus.ACCEPTED);

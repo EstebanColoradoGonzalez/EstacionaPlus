@@ -1,13 +1,13 @@
-package co.edu.uco.estacionaplus.domain.utilitarian;
+package co.edu.uco.estacionaplus.domain.formatter;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class UtilTime
+public class FormatTime
 {
     private static final String FORMAT_HH_MM_SS = "HH:mm:ss";
 
-    private UtilTime()
+    private FormatTime()
     {
 
     }

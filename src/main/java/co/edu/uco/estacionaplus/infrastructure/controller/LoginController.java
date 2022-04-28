@@ -3,12 +3,12 @@ package co.edu.uco.estacionaplus.infrastructure.controller;
 import co.edu.uco.estacionaplus.application.dto.LoginDTO;
 import co.edu.uco.estacionaplus.application.service.servicelogin.ServiceApplicationLogin;
 import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.infrastructure.aspecto.LogExecutionTime;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 
 @RestController
@@ -24,6 +24,7 @@ public class LoginController
     }
 
     @PostMapping
+    @LogExecutionTime
     public ResponseEntity<Response<String>> login(@RequestBody LoginDTO login)
     {
         ResponseEntity<Response<String>> responseEntity;

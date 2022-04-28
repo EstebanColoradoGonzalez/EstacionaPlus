@@ -13,12 +13,15 @@ import java.io.IOException;
 public class AuthenticationFilter extends OncePerRequestFilter
 {
 
+    private static final String STRING_EMPTY = "";
+    private static final String WILDCARD_ALL = "*";
+    private static final String REGEX_ALL = "\\*";
     private static final String MESSAGE_TOKEN_INVALID = "Token does not exist, invalid or expired.";
 
     private final ServiceValidateToken servicioValidacionToken;
     private final String[] excludePaths;
 
-    public AuthenticationFilter(ServiceValidateToken servicioValidacionToken, String[] excludePaths)
+    public AuthenticationFilter(ServiceValidateToken servicioValidacionToken,String[] excludePaths)
     {
         this.servicioValidacionToken = servicioValidacionToken;
         this.excludePaths = excludePaths;
@@ -29,7 +32,8 @@ public class AuthenticationFilter extends OncePerRequestFilter
     {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if(!this.servicioValidacionToken.isValid(token)) {
+        if(!this.servicioValidacionToken.isValid(token))
+        {
             response.sendError(HttpStatus.UNAUTHORIZED.value(),MESSAGE_TOKEN_INVALID);
             return;
         }
@@ -48,9 +52,26 @@ public class AuthenticationFilter extends OncePerRequestFilter
         {
             String excludePath = excludePaths[i];
 
-            if(path.equals(excludePath))
+            if(excludePath.endsWith(WILDCARD_ALL))
             {
-                shouldNotFilter = true;
+                if(path.startsWith(excludePath.replaceAll(REGEX_ALL, STRING_EMPTY)))
+                {
+                    shouldNotFilter = true;
+                }
+            }
+            else if(excludePath.startsWith(WILDCARD_ALL))
+            {
+                if(path.endsWith(excludePath.replaceAll(REGEX_ALL, STRING_EMPTY)))
+                {
+                    shouldNotFilter = true;
+                }
+            }
+            else
+            {
+                if(path.equals(excludePath))
+                {
+                    shouldNotFilter = true;
+                }
             }
         }
 

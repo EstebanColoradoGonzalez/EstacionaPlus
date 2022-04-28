@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -22,12 +23,12 @@ public class ServiceGenerateTokenJWT implements ServiceGenerateToken
     }
 
     @Override
-    public String generateToken(String email, String rol)
+    public String generateToken(String email, List<String> roles)
     {
         return Jwts.builder()
                 .setIssuer("EstacionaPlus")
                 .setSubject(email)
-                .claim("rol", rol)
+                .claim("roles", roles)
                 .setIssuedAt(createDate(LocalDateTime.now()))
                 .setExpiration(createDate(LocalDateTime.now().plusHours(1)))
                 .setId(UUID.randomUUID().toString())

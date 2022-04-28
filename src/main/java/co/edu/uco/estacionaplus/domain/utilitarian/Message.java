@@ -121,4 +121,6 @@ public class Message
     public static final String MESSAGE_CONSULTATION_SUCCESSFUL = " was consulted successful";
 
     public static final String WRONG_USER_OR_PASSWORD = "User or password is wrong";
+
+    public static final String MESSAGE_TOKEN_INVALID = "Token does not exist, invalid or expired.";
 }

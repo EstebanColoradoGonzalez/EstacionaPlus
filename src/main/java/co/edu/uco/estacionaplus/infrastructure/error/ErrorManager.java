@@ -1,5 +1,6 @@
 package co.edu.uco.estacionaplus.infrastructure.error;
 
+import co.edu.uco.estacionaplus.infrastructure.aspecto.exception.ExceptionUserUnauthorized;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ public class ErrorManager extends ResponseEntityExceptionHandler
     public ErrorManager()
     {
         STATUS_CODES.put(IllegalStateException.class.getSimpleName(), HttpStatus.CONFLICT.value());
+        STATUS_CODES.put(ExceptionUserUnauthorized.class.getSimpleName(), HttpStatus.FORBIDDEN.value());
     }
 
     @ExceptionHandler(Exception.class)

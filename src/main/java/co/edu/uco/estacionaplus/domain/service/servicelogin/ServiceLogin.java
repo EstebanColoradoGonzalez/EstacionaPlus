@@ -5,6 +5,8 @@ import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class ServiceLogin
 {
@@ -22,7 +24,7 @@ public class ServiceLogin
     public String validateCredentials(String email, String password)
     {
         var user = this.userRepository.getByEmailWithPassword(email);
-
+        var roles = new ArrayList<String>();
         if(ValidateObject.isNull(user))
         {
             throw new IllegalArgumentException(Message.WRONG_USER_OR_PASSWORD);
@@ -35,6 +37,8 @@ public class ServiceLogin
             throw new IllegalArgumentException(Message.WRONG_USER_OR_PASSWORD);
         }
 
-        return this.serviceGenerateToken.generateToken(user.getEmail(), user.getUserRole().getName());
+        roles.add(user.getUserRole().getName());
+
+        return this.serviceGenerateToken.generateToken(user.getEmail(), roles);
     }
 }

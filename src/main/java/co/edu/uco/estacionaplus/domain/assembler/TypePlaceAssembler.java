@@ -6,5 +6,4 @@ import co.edu.uco.estacionaplus.infrastructure.adapter.entity.TypePlaceEntity;
 
 public interface TypePlaceAssembler extends Assembler<TypePlace, TypePlaceEntity, TypePlaceDTO>
 {
-
 }

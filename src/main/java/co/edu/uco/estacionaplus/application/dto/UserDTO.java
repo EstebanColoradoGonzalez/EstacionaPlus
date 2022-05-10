@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,11 +21,11 @@ public class UserDTO
     private String phone;
     private String email;
     private String password;
-    private UserRoleDTO userRole;
+    private List<UserRoleDTO> roles;
     private VehicleDTO vehicle;
 
     public static UserDTO create()
     {
-        return new UserDTO(0, ValidateString.EMPTY, ValidateString.EMPTY, ValidateString.EMPTY, ValidateString.EMPTY, ValidateString.EMPTY, ValidateString.EMPTY, UserRoleDTO.create(), VehicleDTO.create());
+        return new UserDTO(0, ValidateString.EMPTY, ValidateString.EMPTY, ValidateString.EMPTY, ValidateString.EMPTY, ValidateString.EMPTY, ValidateString.EMPTY, new ArrayList<>(), VehicleDTO.create());
     }
 }

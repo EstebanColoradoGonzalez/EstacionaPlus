@@ -3,7 +3,7 @@ package co.edu.uco.estacionaplus.infrastructure.controller;
 import co.edu.uco.estacionaplus.application.dto.LoginDTO;
 import co.edu.uco.estacionaplus.application.service.servicelogin.ServiceApplicationLogin;
 import co.edu.uco.estacionaplus.domain.utilitarian.Message;
-import co.edu.uco.estacionaplus.infrastructure.aspecto.LogExecutionTime;
+import co.edu.uco.estacionaplus.infrastructure.aspect.LogExecutionTime;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
 import org.springframework.http.HttpStatus;

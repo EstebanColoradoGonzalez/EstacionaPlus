@@ -5,7 +5,6 @@ import co.edu.uco.estacionaplus.domain.port.UserParkingRepository;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserParkingDAO;
 import org.springframework.stereotype.Repository;
-import static co.edu.uco.estacionaplus.domain.assembler.implementation.UserAssemblerImplementation.getUserAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.UserParkingAssemblerImplementation.getUserParkingAssembler;
 
 @Repository
@@ -29,7 +28,7 @@ public class UserParkingRepositoryPostgreSQL implements UserParkingRepository
     @Override
     public void save(UserParking userParking)
     {
-        var user = this.userDAO.findById(userParking.getUser().getCode()).map(getUserAssembler()::assembleDomainFromEntity).orElse(null);
+        var user = this.userDAO.findById(userParking.getUser().getCode()).orElse(null);
 
         this.userParkingDAO.save(getUserParkingAssembler().assembleEntityFromDomainToSave(userParking, user));
     }

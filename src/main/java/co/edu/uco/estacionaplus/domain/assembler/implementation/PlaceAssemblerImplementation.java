@@ -3,7 +3,6 @@ package co.edu.uco.estacionaplus.domain.assembler.implementation;
 import co.edu.uco.estacionaplus.application.dto.PlaceDTO;
 import co.edu.uco.estacionaplus.domain.assembler.PlaceAssembler;
 import co.edu.uco.estacionaplus.domain.model.Place;
-import co.edu.uco.estacionaplus.domain.model.TypePlace;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.PlaceEntity;
 import java.util.List;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.TypePlaceAssemblerImplementation.getTypePlaceAssembler;
@@ -25,25 +24,25 @@ public class PlaceAssemblerImplementation implements PlaceAssembler
     @Override
     public Place assembleDomainFromEntity(PlaceEntity entity)
     {
-        return Place.create(entity.getCode(), entity.getPosition(), entity.isTaken(), getTypePlaceAssembler().assembleDomainFromEntity(entity.getTypePlace()));
+        return Place.create(entity.getCode(), entity.getPosition(), getTypePlaceAssembler().assembleDomainFromEntity(entity.getTypePlace()));
     }
 
     @Override
     public PlaceEntity assembleEntityFromDomain(Place domain)
     {
-        return new PlaceEntity(domain.getCode(), domain.getPosition(), domain.isTaken(), getTypePlaceAssembler().assembleEntityFromDomain(domain.getTypePlace()));
+        return new PlaceEntity(domain.getCode(), domain.getPosition(), getTypePlaceAssembler().assembleEntityFromDomain(domain.getTypePlace()));
     }
 
     @Override
     public Place assembleDomainFromDTO(PlaceDTO dto)
     {
-        return Place.create(dto.getCode(), dto.getPosition(), dto.isTaken(), getTypePlaceAssembler().assembleDomainFromDTO(dto.getTypePlace()));
+        return Place.create(dto.getCode(), dto.getPosition(), getTypePlaceAssembler().assembleDomainFromDTO(dto.getTypePlace()));
     }
 
     @Override
     public PlaceDTO assembleDTOFromDomain(Place domain)
     {
-        return new PlaceDTO(domain.getCode(), domain.getPosition(), domain.isTaken(), getTypePlaceAssembler().assembleDTOFromDomain(domain.getTypePlace()));
+        return new PlaceDTO(domain.getCode(), domain.getPosition(), getTypePlaceAssembler().assembleDTOFromDomain(domain.getTypePlace()));
     }
 
     @Override
@@ -71,20 +70,8 @@ public class PlaceAssemblerImplementation implements PlaceAssembler
     }
 
     @Override
-    public PlaceEntity assembleEntityFromDomainToSave(Place domain, TypePlace typePlace)
-    {
-        return new PlaceEntity(domain.getCode(), domain.getPosition(), domain.isTaken(), getTypePlaceAssembler().assembleEntityFromDomain(typePlace));
-    }
-
-    @Override
     public PlaceEntity assembleEntityFromDomainToModify(int code, Place domain)
     {
-        return new PlaceEntity(code, domain.getPosition(), domain.isTaken(), getTypePlaceAssembler().assembleEntityFromDomain(domain.getTypePlace()));
-    }
-
-    @Override
-    public Place assembleDomainFromDTO(PlaceDTO dto, boolean isTaken)
-    {
-        return Place.create(dto.getCode(), dto.getPosition(), isTaken, getTypePlaceAssembler().assembleDomainFromDTO(dto.getTypePlace()));
+        return new PlaceEntity(code, domain.getPosition(), getTypePlaceAssembler().assembleEntityFromDomain(domain.getTypePlace()));
     }
 }

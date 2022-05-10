@@ -18,5 +18,7 @@ public class UserRoleEntity
     @GeneratedValue(strategy = GenerationType.AUTO, generator="userrole_code_seq")
     @SequenceGenerator(name="userrole_code_seq", sequenceName="userrole_code_seq", allocationSize=1)
     private int code;
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "role")
+    private RoleEntity role;
 }

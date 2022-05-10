@@ -13,6 +13,5 @@ public class PlaceDTO
 {
     private int code;
     private String position;
-    private boolean taken;
     private TypePlaceDTO typePlace;
 }

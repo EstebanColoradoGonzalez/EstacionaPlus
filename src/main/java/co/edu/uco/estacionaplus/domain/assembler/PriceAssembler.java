@@ -6,5 +6,4 @@ import co.edu.uco.estacionaplus.infrastructure.adapter.entity.PriceEntity;
 
 public interface PriceAssembler extends Assembler<Price, PriceEntity, PriceDTO>
 {
-
 }

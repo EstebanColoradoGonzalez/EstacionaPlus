@@ -6,6 +6,7 @@ import co.edu.uco.estacionaplus.application.service.serviceuserparking.ServiceAp
 import co.edu.uco.estacionaplus.application.service.serviceuserparking.ServiceApplicationModifyUserParking;
 import co.edu.uco.estacionaplus.application.service.serviceuserparking.ServiceApplicationSaveUserParking;
 import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.infrastructure.aspect.Secured;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/userparking")
+@RequestMapping("/api/admins")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserParkingController
 {
     private final ServiceApplicationSaveUserParking serviceSaveUserParking;
@@ -32,6 +34,7 @@ public class UserParkingController
     }
 
     @PostMapping
+    @Secured(roles = {"ROLE_USER"})
     public ResponseEntity<Response<UserParkingDTO>> save(@RequestBody UserParkingDTO userParkingDTO)
     {
         ResponseEntity<Response<UserParkingDTO>> responseEntity;
@@ -48,6 +51,7 @@ public class UserParkingController
     }
 
     @PutMapping("/{code}")
+    @Secured(roles = {"ROLE_ADMIN"})
     public ResponseEntity<Response<UserParkingDTO>> modify(@RequestBody UserParkingDTO userParkingDTO, @PathVariable int code)
     {
         ResponseEntity<Response<UserParkingDTO>> responseEntity;
@@ -64,6 +68,7 @@ public class UserParkingController
     }
 
     @DeleteMapping("/{code}")
+    @Secured(roles = {"ROLE_ADMIN"})
     public ResponseEntity<Response<UserParkingDTO>> delete(@PathVariable int code)
     {
         ResponseEntity<Response<UserParkingDTO>> responseEntity;
@@ -80,6 +85,7 @@ public class UserParkingController
     }
 
     @GetMapping("/{code}")
+    @Secured(roles = {"ROLE_ADMIN"})
     public ResponseEntity<Response<UserParkingDTO>> getByCode(@PathVariable int code)
     {
         ResponseEntity<Response<UserParkingDTO>> responseEntity;

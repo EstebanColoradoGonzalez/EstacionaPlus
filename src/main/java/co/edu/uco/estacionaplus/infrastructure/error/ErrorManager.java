@@ -1,6 +1,6 @@
 package co.edu.uco.estacionaplus.infrastructure.error;
 
-import co.edu.uco.estacionaplus.infrastructure.aspecto.exception.ExceptionUserUnauthorized;
+import co.edu.uco.estacionaplus.infrastructure.aspect.exception.ExceptionUserUnauthorized;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

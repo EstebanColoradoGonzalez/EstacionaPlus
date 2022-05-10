@@ -3,6 +3,7 @@ package co.edu.uco.estacionaplus.domain.model;
 import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import co.edu.uco.estacionaplus.domain.validator.ValidateString;
 import lombok.Getter;
+import java.util.List;
 
 @Getter
 public class User
@@ -14,10 +15,10 @@ public class User
     private String phone;
     private String email;
     private String password;
-    private UserRole userRole;
+    private List<UserRole> roles;
     private Vehicle vehicle;
 
-    private User(int code, String names, String lastNames, String identificationNumber, String phone, String email, String password, UserRole userRole, Vehicle vehicle)
+    private User(int code, String names, String lastNames, String identificationNumber, String phone, String email, String password, List<UserRole> roles, Vehicle vehicle)
     {
         this.code = code;
         setNames(names);
@@ -26,13 +27,13 @@ public class User
         setPhone(phone);
         setEmail(email);
         setPassword(password);
-        this.userRole = userRole;
+        this.roles = roles;
         this.vehicle = vehicle;
     }
 
-    public static User create(int code, String names, String lastNames, String identificationNumber, String phone, String email, String password, UserRole userRole, Vehicle vehicle)
+    public static User create(int code, String names, String lastNames, String identificationNumber, String phone, String email, String password, List<UserRole> roles, Vehicle vehicle)
     {
-        return new User(code, names, lastNames, identificationNumber, phone, email, password, userRole, vehicle);
+        return new User(code, names, lastNames, identificationNumber, phone, email, password, roles, vehicle);
     }
 
     private void setNames(String names)

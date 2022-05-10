@@ -8,13 +8,13 @@ import co.edu.uco.estacionaplus.domain.service.servicelogin.ServiceEncryptText;
 import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.TypeVehicleEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.UserRoleEntity;
+import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.RoleDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.TypeVehicleDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserRoleDAO;
 import org.springframework.stereotype.Repository;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.UserAssemblerImplementation.getUserAssembler;
 
 @Repository
@@ -22,13 +22,15 @@ public class UserRepositoryPostgreSQL implements UserRepository
 {
     private final UserDAO userDAO;
     private final UserRoleDAO userRoleDAO;
+    private final RoleDAO roleDAO;
     private final TypeVehicleDAO typeVehicleDAO;
     private final ServiceEncryptText serviceEncryptText;
 
-    public UserRepositoryPostgreSQL(UserDAO userDAO, UserRoleDAO userRoleDAO, TypeVehicleDAO typeVehicleDAO, ServiceEncryptText serviceEncryptText)
+    public UserRepositoryPostgreSQL(UserDAO userDAO, UserRoleDAO userRoleDAO, RoleDAO roleDAO, TypeVehicleDAO typeVehicleDAO, ServiceEncryptText serviceEncryptText)
     {
         this.userDAO = userDAO;
         this.userRoleDAO = userRoleDAO;
+        this.roleDAO = roleDAO;
         this.typeVehicleDAO = typeVehicleDAO;
         this.serviceEncryptText = serviceEncryptText;
     }
@@ -87,13 +89,22 @@ public class UserRepositoryPostgreSQL implements UserRepository
     @Override
     public void save(User user)
     {
-        var userRole = this.userRoleDAO.findById(user.getUserRole().getCode()).map(entity -> new UserRoleEntity(entity.getCode(), entity.getName())).orElse(null);
+        List<UserRoleEntity> filterRoles = new ArrayList<>();
+        var roles = this.userRoleDAO.findAll().stream().toList();
+        int i = 0;
+
+        roles.stream().forEach(role ->
+        {
+            if(role.getRole().getName().equals(user.getRoles().get(i).getName()))
+            {
+                filterRoles.add(role);
+            }
+        });
+
         var typeVehicle = this.typeVehicleDAO.findById(user.getVehicle().getTypeVehicle().getCode()).map(entity -> new TypeVehicleEntity(entity.getCode(), entity.getName())).orElse(null);
-        var userEntity = getUserAssembler().assembleEntityFromDomainToSave(user, userRole, typeVehicle);
+        var userEntity = getUserAssembler().assembleEntityFromDomainToSave(user, filterRoles, typeVehicle);
 
-        var hash = this.serviceEncryptText.encryptText(userEntity.getPassword());
-
-        userEntity.setPassword(hash);
+        userEntity.setPassword(this.serviceEncryptText.encryptText(userEntity.getPassword()));
 
         this.userDAO.save(userEntity);
     }
@@ -101,7 +112,26 @@ public class UserRepositoryPostgreSQL implements UserRepository
     @Override
     public void modify(int code, User user)
     {
-        this.userDAO.save(getUserAssembler().assembleEntityFromDomainToModify(code, user));
+        var userEntity = getUserAssembler().assembleEntityFromDomainToModify(code, user);
+
+        userEntity.setPassword(this.serviceEncryptText.encryptText(userEntity.getPassword()));
+
+        List<UserRoleEntity> filterRoles = new ArrayList<>();
+
+        var roles = this.userRoleDAO.findAll().stream().toList();
+        int i = 0;
+
+        roles.stream().forEach(role ->
+        {
+            if(role.getRole().getName().equals(user.getRoles().get(i).getName()))
+            {
+                filterRoles.add(role);
+            }
+        });
+
+        userEntity.setRoles(roles);
+
+        this.userDAO.save(userEntity);
     }
 
     @Override

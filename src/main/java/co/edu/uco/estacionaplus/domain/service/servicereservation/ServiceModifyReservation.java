@@ -1,10 +1,10 @@
 package co.edu.uco.estacionaplus.domain.service.servicereservation;
 
+import co.edu.uco.estacionaplus.domain.model.ParkingPlace;
 import co.edu.uco.estacionaplus.domain.model.PaymentMethod;
-import co.edu.uco.estacionaplus.domain.model.Place;
 import co.edu.uco.estacionaplus.domain.model.Reservation;
+import co.edu.uco.estacionaplus.domain.port.ParkingPlaceRepository;
 import co.edu.uco.estacionaplus.domain.port.PaymentMethodRepository;
-import co.edu.uco.estacionaplus.domain.port.PlaceRepository;
 import co.edu.uco.estacionaplus.domain.port.ReservationRepository;
 import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import co.edu.uco.estacionaplus.domain.formatter.FormatTime;
@@ -17,14 +17,14 @@ public class ServiceModifyReservation
 {
     private final ReservationRepository reservationRepository;
     private final PaymentMethodRepository paymentMethodRepository;
-    private final PlaceRepository placeRepository;
+    private final ParkingPlaceRepository parkingPlaceRepository;
     private final ServiceBusinessRules serviceBusinessRules;
 
-    public ServiceModifyReservation(ReservationRepository reservationRepository, PaymentMethodRepository paymentMethodRepository, PlaceRepository placeRepository, ServiceBusinessRules serviceBusinessRules)
+    public ServiceModifyReservation(ReservationRepository reservationRepository, PaymentMethodRepository paymentMethodRepository, ParkingPlaceRepository parkingPlaceRepository, ServiceBusinessRules serviceBusinessRules)
     {
         this.reservationRepository = reservationRepository;
         this.paymentMethodRepository = paymentMethodRepository;
-        this.placeRepository = placeRepository;
+        this.parkingPlaceRepository = parkingPlaceRepository;
         this.serviceBusinessRules = serviceBusinessRules;
     }
 
@@ -50,9 +50,9 @@ public class ServiceModifyReservation
         }
     }
 
-    private void checkPlaceIsTaken(Place place)
+    private void checkPlaceIsTaken(ParkingPlace place)
     {
-        var object = this.placeRepository.getByPosition(place.getPosition());
+        var object = this.parkingPlaceRepository.getByCode(place.getCode());
 
         if(object.isTaken())
         {

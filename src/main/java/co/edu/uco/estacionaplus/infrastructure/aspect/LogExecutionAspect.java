@@ -1,4 +1,4 @@
-package co.edu.uco.estacionaplus.infrastructure.aspecto;
+package co.edu.uco.estacionaplus.infrastructure.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogExecutionAspect
 {
-
     @Around("@annotation(LogExecutionTime)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable
     {

@@ -2,8 +2,8 @@ package co.edu.uco.estacionaplus.domain.assembler.implementation;
 
 import co.edu.uco.estacionaplus.application.dto.UserParkingDTO;
 import co.edu.uco.estacionaplus.domain.assembler.UserParkingAssembler;
-import co.edu.uco.estacionaplus.domain.model.User;
 import co.edu.uco.estacionaplus.domain.model.UserParking;
+import co.edu.uco.estacionaplus.infrastructure.adapter.entity.UserEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.UserParkingEntity;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.ParkingAssemblerImplementation.getParkingAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.UserAssemblerImplementation.getUserAssembler;
@@ -47,9 +47,9 @@ public class UserParkingAssemblerImplementation implements UserParkingAssembler
     }
 
     @Override
-    public UserParkingEntity assembleEntityFromDomainToSave(UserParking domain, User user)
+    public UserParkingEntity assembleEntityFromDomainToSave(UserParking domain, UserEntity user)
     {
-        return new UserParkingEntity(domain.getCode(), getUserAssembler().assembleEntityFromDomain(user), getParkingAssembler().assembleEntityFromDomain(domain.getParking()));
+        return new UserParkingEntity(domain.getCode(), user, getParkingAssembler().assembleEntityFromDomain(domain.getParking()));
     }
 
     @Override

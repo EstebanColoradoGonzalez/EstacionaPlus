@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +19,6 @@ public class UserNoSummaryDTO
     private String phone;
     private String email;
     private String password;
-    private UserRoleSummaryDTO userRole;
+    private List<UserRoleSummaryDTO> roles;
     private VehicleSummaryDTO vehicle;
 }

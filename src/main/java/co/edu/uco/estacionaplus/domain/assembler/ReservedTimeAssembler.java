@@ -6,5 +6,4 @@ import co.edu.uco.estacionaplus.infrastructure.adapter.entity.ReservedTimeEntity
 
 public interface ReservedTimeAssembler extends Assembler<ReservedTime, ReservedTimeEntity, ReservedTimeDTO>
 {
-
 }

@@ -16,7 +16,6 @@ public class PlaceEntity
     @SequenceGenerator(name="place_code_seq", sequenceName="place_code_seq", allocationSize=1)
     private int code;
     private String position;
-    private boolean taken;
     @ManyToOne
     @JoinColumn(name = "typeplace")
     private TypePlaceEntity typePlace;

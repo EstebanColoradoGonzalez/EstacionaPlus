@@ -9,20 +9,18 @@ public class Place
 {
     private int code;
     private String position;
-    private boolean taken;
     private TypePlace typePlace;
 
-    private Place(int code, String position, boolean taken, TypePlace typePlace)
+    private Place(int code, String position, TypePlace typePlace)
     {
         this.code = code;
         setPosition(position);
         this.typePlace = typePlace;
-        this.taken = taken;
     }
 
-    public static Place create(int code, String position, boolean taken, TypePlace typePlace)
+    public static Place create(int code, String position, TypePlace typePlace)
     {
-        return new Place(code, position, taken, typePlace);
+        return new Place(code, position, typePlace);
     }
 
     private void setPosition(String position)

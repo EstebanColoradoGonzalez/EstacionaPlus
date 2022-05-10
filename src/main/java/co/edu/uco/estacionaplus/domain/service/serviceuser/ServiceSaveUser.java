@@ -2,7 +2,6 @@ package co.edu.uco.estacionaplus.domain.service.serviceuser;
 
 import co.edu.uco.estacionaplus.domain.model.TypeVehicle;
 import co.edu.uco.estacionaplus.domain.model.User;
-import co.edu.uco.estacionaplus.domain.model.UserRole;
 import co.edu.uco.estacionaplus.domain.model.Vehicle;
 import co.edu.uco.estacionaplus.domain.port.TypeVehicleRepository;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
@@ -30,20 +29,12 @@ public class ServiceSaveUser
 
     public void save(User user)
     {
-        checkUserRoleDoesNotExists(user.getUserRole());
         checkUserDoesNotExistsWithEmail(user);
         checkUserDoesNotExistsWithIdentificationNumber(user);
         checkTypeVehicleDoesNotExists(user.getVehicle().getTypeVehicle());
         checkVehicleDoesNotExistsWithLicense(user.getVehicle());
+        this.userRoleRepository.save(user.getRoles().get(0));
         this.userRepository.save(user);
-    }
-
-    private void checkUserRoleDoesNotExists(UserRole userRole)
-    {
-        if(!this.userRoleRepository.exists(userRole))
-        {
-            throw new IllegalArgumentException(Message.MESSAGE_USER_ROLE_DOES_NOT_EXISTS_WITH_NAME);
-        }
     }
 
     private void checkUserDoesNotExistsWithEmail(User user)

@@ -6,6 +6,7 @@ import co.edu.uco.estacionaplus.application.service.servicereservation.ServiceAp
 import co.edu.uco.estacionaplus.application.service.servicereservation.ServiceApplicationModifyReservation;
 import co.edu.uco.estacionaplus.application.service.servicereservation.ServiceApplicationSaveReservation;
 import co.edu.uco.estacionaplus.domain.utilitarian.Message;
+import co.edu.uco.estacionaplus.infrastructure.aspect.Secured;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reservation")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ReservationController
 {
     private final ServiceApplicationSaveReservation serviceSaveReservation;
@@ -32,6 +34,7 @@ public class ReservationController
     }
 
     @PostMapping
+    @Secured(roles = {"ROLE_USER"})
     public ResponseEntity<Response<ReservationDTO>> save(@RequestBody ReservationDTO reservationDTO)
     {
         ResponseEntity<Response<ReservationDTO>> responseEntity;
@@ -48,6 +51,7 @@ public class ReservationController
     }
 
     @PutMapping("/{code}")
+    @Secured(roles = {"ROLE_USER"})
     public ResponseEntity<Response<ReservationDTO>> modify(@RequestBody ReservationDTO reservationDTO, @PathVariable int code)
     {
         ResponseEntity<Response<ReservationDTO>> responseEntity;
@@ -64,6 +68,7 @@ public class ReservationController
     }
 
     @DeleteMapping("/{code}")
+    @Secured(roles = {"ROLE_USER"})
     public ResponseEntity<Response<ReservationDTO>> delete(@PathVariable int code)
     {
         ResponseEntity<Response<ReservationDTO>> responseEntity;
@@ -80,6 +85,7 @@ public class ReservationController
     }
 
     @GetMapping("/{code}")
+    @Secured(roles = {"ROLE_ADMIN"})
     public ResponseEntity<Response<ReservationDTO>> getByCode(@PathVariable int code)
     {
         ResponseEntity<Response<ReservationDTO>> responseEntity;

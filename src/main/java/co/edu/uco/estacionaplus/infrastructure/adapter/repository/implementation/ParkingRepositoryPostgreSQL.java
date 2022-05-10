@@ -7,7 +7,6 @@ import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.CityDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.ParkingDAO;
 import org.springframework.stereotype.Repository;
 import java.util.List;
-
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.CityAssemblerImplementation.getCityAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.ParkingAssemblerImplementation.getParkingAssembler;
 

@@ -4,7 +4,7 @@ import co.edu.uco.estacionaplus.application.dto.UserDTO;
 import co.edu.uco.estacionaplus.application.service.serviceuser.*;
 import co.edu.uco.estacionaplus.domain.dto.UserSummaryDTO;
 import co.edu.uco.estacionaplus.domain.utilitarian.Message;
-import co.edu.uco.estacionaplus.infrastructure.aspecto.SecuredResource;
+import co.edu.uco.estacionaplus.infrastructure.aspect.Secured;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
 import org.springframework.http.HttpStatus;
@@ -41,12 +41,6 @@ public class UserController
         ResponseEntity<Response<UserDTO>> responseEntity;
         Response<UserDTO> response = new Response<>();
 
-        int lastIndex = serviceGetUsers.getAll().size() - 1;
-        var lastUser = serviceGetUsers.getAll().get(lastIndex);
-
-        userDTO.setCode(lastUser.getCode() + 1);
-        userDTO.getVehicle().setCode(lastUser.getVehicle().getCode() + 1);
-
         serviceSaveUser.save(userDTO);
 
         response.addMessage(Message.USER_MESSAGE_CREATION_SUCCESSFUL);
@@ -58,7 +52,7 @@ public class UserController
     }
 
     @PutMapping("/{code}")
-    @SecuredResource(name = "USER_ROLE")
+    @Secured(roles = {"ROLE_USER"})
     public ResponseEntity<Response<UserDTO>> modify(@RequestBody UserDTO userDTO, @PathVariable int code)
     {
         ResponseEntity<Response<UserDTO>> responseEntity;
@@ -75,7 +69,7 @@ public class UserController
     }
 
     @DeleteMapping("/{code}")
-    @SecuredResource(name = "ROLE_USER")
+    @Secured(roles = {"ROLE_USER"})
     public ResponseEntity<Response<UserDTO>> delete(@PathVariable int code)
     {
         ResponseEntity<Response<UserDTO>> responseEntity;
@@ -92,7 +86,7 @@ public class UserController
     }
 
     @GetMapping
-    @SecuredResource(name = "ROLE_USER")
+    @Secured(roles = {"ROLE_USER"})
     public ResponseEntity<Response<UserSummaryDTO>> getAll()
     {
         ResponseEntity<Response<UserSummaryDTO>> responseEntity;
@@ -108,7 +102,7 @@ public class UserController
     }
 
     @GetMapping("/{code}")
-    @SecuredResource(name = "ROLE_USER")
+    @Secured(roles = {"ROLE_USER"})
     public ResponseEntity<Response<UserSummaryDTO>> getByCode(@PathVariable int code)
     {
         ResponseEntity<Response<UserSummaryDTO>> responseEntity;
@@ -128,7 +122,7 @@ public class UserController
     }
 
     @GetMapping("/user/{email}")
-    @SecuredResource(name = "ROLE_USER")
+    @Secured(roles = {"ROLE_USER"})
     public ResponseEntity<Response<UserSummaryDTO>> getByEmail(@PathVariable String email)
     {
         ResponseEntity<Response<UserSummaryDTO>> responseEntity;

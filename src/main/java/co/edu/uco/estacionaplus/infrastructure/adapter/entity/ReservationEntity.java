@@ -30,8 +30,8 @@ public class ReservationEntity
     @JoinColumn(name = "price")
     private PriceEntity price;
     @ManyToOne
-    @JoinColumn(name = "place")
-    private PlaceEntity place;
+    @JoinColumn(name = "parkingplace")
+    private ParkingPlaceEntity place;
     @ManyToOne
     @JoinColumn(name = "paymentmethod")
     private PaymentMethodEntity paymentMethod;

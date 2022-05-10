@@ -4,18 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class ParkingDTO
+public class ParkingPlaceDTO
 {
     private int code;
-    private String nit;
-    private String name;
-    private String address;
-    private CityDTO city;
-    private List<ParkingPlaceDTO> places;
+    private boolean taken;
+    private PlaceDTO place;
 }

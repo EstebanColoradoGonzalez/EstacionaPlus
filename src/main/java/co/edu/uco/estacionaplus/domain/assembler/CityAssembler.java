@@ -6,5 +6,4 @@ import co.edu.uco.estacionaplus.infrastructure.adapter.entity.CityEntity;
 
 public interface CityAssembler extends Assembler<City, CityEntity, CityDTO>
 {
-
 }

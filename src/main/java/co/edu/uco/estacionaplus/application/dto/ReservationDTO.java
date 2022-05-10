@@ -17,7 +17,7 @@ public class ReservationDTO
     private String departureTime;
     private ReservedTimeDTO reservedTime;
     private PriceDTO price;
-    private PlaceDTO place;
+    private ParkingPlaceDTO place;
     private PaymentMethodDTO paymentMethod;
     private UserDTO user;
 }

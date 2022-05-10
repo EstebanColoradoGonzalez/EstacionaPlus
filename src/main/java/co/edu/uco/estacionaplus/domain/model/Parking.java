@@ -13,9 +13,9 @@ public class Parking
     private String name;
     private String address;
     private City city;
-    private List<Place> places;
+    private List<ParkingPlace> places;
 
-    private Parking(int code, String nit, String name, String address, City city, List<Place> places)
+    private Parking(int code, String nit, String name, String address, City city, List<ParkingPlace> places)
     {
         this.code = code;
         setNit(nit);
@@ -25,7 +25,7 @@ public class Parking
         this.places = places;
     }
 
-    public static Parking create(int code, String nit, String name, String address, City city, List<Place> places)
+    public static Parking create(int code, String nit, String name, String address, City city, List<ParkingPlace> places)
     {
         return new Parking(code, nit, name, address, city, places);
     }

@@ -8,7 +8,6 @@ import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.TypePlaceD
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PlaceAssemblerImplementation.getPlaceAssembler;
-import static co.edu.uco.estacionaplus.domain.assembler.implementation.TypePlaceAssemblerImplementation.getTypePlaceAssembler;
 
 @Repository
 public class PlaceRepositoryPostgreSQL implements PlaceRepository
@@ -45,27 +44,6 @@ public class PlaceRepositoryPostgreSQL implements PlaceRepository
         }
 
         return getPlaceAssembler().assembleDomainFromEntity(place);
-    }
-
-    @Override
-    public void save(Place place)
-    {
-        var typePlace = this.typePlaceDAO.findById(place.getCode()).map(getTypePlaceAssembler()::assembleDomainFromEntity).orElse(null);
-
-
-        this.placeDAO.save(getPlaceAssembler().assembleEntityFromDomainToSave(place, typePlace));
-    }
-
-    @Override
-    public void modify(int code, Place place)
-    {
-        this.placeDAO.save(getPlaceAssembler().assembleEntityFromDomainToModify(code, place));
-    }
-
-    @Override
-    public void delete(int code)
-    {
-        this.placeDAO.deleteById(code);
     }
 
     @Override

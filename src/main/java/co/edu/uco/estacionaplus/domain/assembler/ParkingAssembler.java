@@ -4,7 +4,6 @@ import co.edu.uco.estacionaplus.application.dto.ParkingDTO;
 import co.edu.uco.estacionaplus.domain.model.City;
 import co.edu.uco.estacionaplus.domain.model.Parking;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.ParkingEntity;
-
 import java.util.List;
 
 public interface ParkingAssembler extends Assembler<Parking, ParkingEntity, ParkingDTO>

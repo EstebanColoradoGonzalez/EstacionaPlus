@@ -7,6 +7,8 @@ import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import co.edu.uco.estacionaplus.infrastructure.aspect.Secured;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "http://localhost:4200")
+@Tag(name = "User Controller")
 public class UserController
 {
     private final ServiceApplicationSaveUser serviceSaveUser;
@@ -36,6 +39,7 @@ public class UserController
     }
 
     @PostMapping
+    @Operation(summary = "Create User", description = "This is used to create a user in the app")
     public ResponseEntity<Response<UserDTO>> save(@RequestBody UserDTO userDTO)
     {
         ResponseEntity<Response<UserDTO>> responseEntity;
@@ -53,6 +57,7 @@ public class UserController
 
     @PutMapping("/{code}")
     @Secured(roles = {"ROLE_USER"})
+    @Operation(summary = "Modify User", description = "This is used to modify a user in the app")
     public ResponseEntity<Response<UserDTO>> modify(@RequestBody UserDTO userDTO, @PathVariable int code)
     {
         ResponseEntity<Response<UserDTO>> responseEntity;
@@ -70,6 +75,7 @@ public class UserController
 
     @DeleteMapping("/{code}")
     @Secured(roles = {"ROLE_USER"})
+    @Operation(summary = "Delete User", description = "This is used to delete a user in the app")
     public ResponseEntity<Response<UserDTO>> delete(@PathVariable int code)
     {
         ResponseEntity<Response<UserDTO>> responseEntity;
@@ -87,6 +93,7 @@ public class UserController
 
     @GetMapping
     @Secured(roles = {"ROLE_USER"})
+    @Operation(summary = "Get All Users", description = "This is used to get all users of the app")
     public ResponseEntity<Response<UserSummaryDTO>> getAll()
     {
         ResponseEntity<Response<UserSummaryDTO>> responseEntity;
@@ -103,6 +110,7 @@ public class UserController
 
     @GetMapping("/{code}")
     @Secured(roles = {"ROLE_USER"})
+    @Operation(summary = "Get User by Code", description = "This is used to get a user of the app through code")
     public ResponseEntity<Response<UserSummaryDTO>> getByCode(@PathVariable int code)
     {
         ResponseEntity<Response<UserSummaryDTO>> responseEntity;
@@ -123,6 +131,7 @@ public class UserController
 
     @GetMapping("/user/{email}")
     @Secured(roles = {"ROLE_USER"})
+    @Operation(summary = "Get User by Email", description = "This is used to get a user of the app through email")
     public ResponseEntity<Response<UserSummaryDTO>> getByEmail(@PathVariable String email)
     {
         ResponseEntity<Response<UserSummaryDTO>> responseEntity;

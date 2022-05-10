@@ -9,6 +9,8 @@ import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import co.edu.uco.estacionaplus.infrastructure.aspect.Secured;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.enumerator.StatusResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admins")
 @CrossOrigin(origins = "http://localhost:4200")
+@Tag(name = "Admin Controller")
 public class UserParkingController
 {
     private final ServiceApplicationSaveUserParking serviceSaveUserParking;
@@ -35,6 +38,7 @@ public class UserParkingController
 
     @PostMapping
     @Secured(roles = {"ROLE_USER"})
+    @Operation(summary = "Create Parking", description = "This is used to create a parking and admin in the app")
     public ResponseEntity<Response<UserParkingDTO>> save(@RequestBody UserParkingDTO userParkingDTO)
     {
         ResponseEntity<Response<UserParkingDTO>> responseEntity;
@@ -52,6 +56,7 @@ public class UserParkingController
 
     @PutMapping("/{code}")
     @Secured(roles = {"ROLE_ADMIN"})
+    @Operation(summary = "Modify Parking", description = "This is used to modify a parking and admin in the app")
     public ResponseEntity<Response<UserParkingDTO>> modify(@RequestBody UserParkingDTO userParkingDTO, @PathVariable int code)
     {
         ResponseEntity<Response<UserParkingDTO>> responseEntity;
@@ -69,6 +74,7 @@ public class UserParkingController
 
     @DeleteMapping("/{code}")
     @Secured(roles = {"ROLE_ADMIN"})
+    @Operation(summary = "Delete Parking", description = "This is used to delete a parking and admin in the app")
     public ResponseEntity<Response<UserParkingDTO>> delete(@PathVariable int code)
     {
         ResponseEntity<Response<UserParkingDTO>> responseEntity;
@@ -86,6 +92,7 @@ public class UserParkingController
 
     @GetMapping("/{code}")
     @Secured(roles = {"ROLE_ADMIN"})
+    @Operation(summary = "Get Admin by Code", description = "This is used to get a parking and admin of the app")
     public ResponseEntity<Response<UserParkingDTO>> getByCode(@PathVariable int code)
     {
         ResponseEntity<Response<UserParkingDTO>> responseEntity;

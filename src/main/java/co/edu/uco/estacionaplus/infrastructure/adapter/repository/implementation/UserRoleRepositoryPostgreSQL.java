@@ -3,7 +3,6 @@ package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementatio
 import co.edu.uco.estacionaplus.domain.model.UserRole;
 import co.edu.uco.estacionaplus.domain.port.UserRoleRepository;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.RoleDAO;
-import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserRoleDAO;
 import org.springframework.stereotype.Repository;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.UserRoleAssemblerImplementation.getUserRoleAssembler;
@@ -12,13 +11,11 @@ import static co.edu.uco.estacionaplus.domain.assembler.implementation.UserRoleA
 public class UserRoleRepositoryPostgreSQL implements UserRoleRepository
 {
     private final UserRoleDAO userRoleDAO;
-    private final UserDAO userDAO;
     private final RoleDAO roleDAO;
 
-    public UserRoleRepositoryPostgreSQL(UserRoleDAO userRoleDAO, UserDAO userDAO, RoleDAO roleDAO)
+    public UserRoleRepositoryPostgreSQL(UserRoleDAO userRoleDAO, RoleDAO roleDAO)
     {
         this.userRoleDAO = userRoleDAO;
-        this.userDAO = userDAO;
         this.roleDAO = roleDAO;
     }
 
@@ -40,7 +37,12 @@ public class UserRoleRepositoryPostgreSQL implements UserRoleRepository
             lastIndex = userRoles.get(userRoles.size() - 1).getCode() + 1;
         }
 
-        this.userRoleDAO.save(getUserRoleAssembler().assembleEntityFromDomainToSave(lastIndex, role));
+        var userRole2 = getUserRoleAssembler().assembleEntityFromDomain(userRole);
+
+        userRole2.setCode(lastIndex);
+        userRole2.setRole(role);
+
+        this.userRoleDAO.save(userRole2);
     }
 
     @Override

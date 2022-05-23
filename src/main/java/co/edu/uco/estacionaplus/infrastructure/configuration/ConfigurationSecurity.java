@@ -16,7 +16,7 @@ public class ConfigurationSecurity
     {
         FilterRegistrationBean<AuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
 
-        registrationBean.setFilter(new AuthenticationFilter(tokenValidationService, new String[]{"/api/login","/api/parkings", "/api/users", "/swagger-ui.html","/swagger-ui/index.html","/v3/api-docs/swagger-config","/v3/api-docs", "*.js","*.css","*.png"}));
+        registrationBean.setFilter(new AuthenticationFilter(tokenValidationService, new String[]{"/api/login","/api/parkings", "/api/users*", "/swagger-ui.html","/swagger-ui/index.html","/v3/api-docs/swagger-config","/v3/api-docs", "*.js","*.css","*.png"}));
         registrationBean.addUrlPatterns(URL_PATTERN);
 
         return registrationBean;

@@ -37,7 +37,7 @@ public class ServiceLogin
             throw new IllegalArgumentException(Message.WRONG_USER_OR_PASSWORD);
         }
 
-        user.getRoles().stream().forEach(role ->
+        user.getRoles().forEach(role ->
         {
             roles.add(role.getName());
         });

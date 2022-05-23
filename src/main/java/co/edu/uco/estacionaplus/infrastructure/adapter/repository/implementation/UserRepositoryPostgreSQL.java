@@ -8,7 +8,6 @@ import co.edu.uco.estacionaplus.domain.service.servicelogin.ServiceEncryptText;
 import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.TypeVehicleEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.UserRoleEntity;
-import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.RoleDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.TypeVehicleDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserRoleDAO;
@@ -22,15 +21,13 @@ public class UserRepositoryPostgreSQL implements UserRepository
 {
     private final UserDAO userDAO;
     private final UserRoleDAO userRoleDAO;
-    private final RoleDAO roleDAO;
     private final TypeVehicleDAO typeVehicleDAO;
     private final ServiceEncryptText serviceEncryptText;
 
-    public UserRepositoryPostgreSQL(UserDAO userDAO, UserRoleDAO userRoleDAO, RoleDAO roleDAO, TypeVehicleDAO typeVehicleDAO, ServiceEncryptText serviceEncryptText)
+    public UserRepositoryPostgreSQL(UserDAO userDAO, UserRoleDAO userRoleDAO, TypeVehicleDAO typeVehicleDAO, ServiceEncryptText serviceEncryptText)
     {
         this.userDAO = userDAO;
         this.userRoleDAO = userRoleDAO;
-        this.roleDAO = roleDAO;
         this.typeVehicleDAO = typeVehicleDAO;
         this.serviceEncryptText = serviceEncryptText;
     }
@@ -91,15 +88,9 @@ public class UserRepositoryPostgreSQL implements UserRepository
     {
         List<UserRoleEntity> filterRoles = new ArrayList<>();
         var roles = this.userRoleDAO.findAll().stream().toList();
-        int i = 0;
+        var role = roles.get(roles.size() - 1);
 
-        roles.stream().forEach(role ->
-        {
-            if(role.getRole().getName().equals(user.getRoles().get(i).getName()))
-            {
-                filterRoles.add(role);
-            }
-        });
+        filterRoles.add(role);
 
         var typeVehicle = this.typeVehicleDAO.findById(user.getVehicle().getTypeVehicle().getCode()).map(entity -> new TypeVehicleEntity(entity.getCode(), entity.getName())).orElse(null);
         var userEntity = getUserAssembler().assembleEntityFromDomainToSave(user, filterRoles, typeVehicle);

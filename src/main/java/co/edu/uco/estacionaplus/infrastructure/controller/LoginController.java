@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/login")
-@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Login Controller")
 public class LoginController
 {

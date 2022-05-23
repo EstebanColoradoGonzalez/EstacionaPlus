@@ -2,6 +2,7 @@ package co.edu.uco.estacionaplus.domain.service.serviceuser;
 
 import co.edu.uco.estacionaplus.domain.model.TypeVehicle;
 import co.edu.uco.estacionaplus.domain.model.User;
+import co.edu.uco.estacionaplus.domain.model.UserRole;
 import co.edu.uco.estacionaplus.domain.model.Vehicle;
 import co.edu.uco.estacionaplus.domain.port.TypeVehicleRepository;
 import co.edu.uco.estacionaplus.domain.port.UserRepository;
@@ -33,7 +34,8 @@ public class ServiceSaveUser
         checkUserDoesNotExistsWithIdentificationNumber(user);
         checkTypeVehicleDoesNotExists(user.getVehicle().getTypeVehicle());
         checkVehicleDoesNotExistsWithLicense(user.getVehicle());
-        this.userRoleRepository.save(user.getRoles().get(0));
+
+        this.userRoleRepository.save(UserRole.create(1, "ROLE_USER"));
         this.userRepository.save(user);
     }
 

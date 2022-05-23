@@ -17,7 +17,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/parkings")
-@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Parking Controller")
 public class ParkingController
 {

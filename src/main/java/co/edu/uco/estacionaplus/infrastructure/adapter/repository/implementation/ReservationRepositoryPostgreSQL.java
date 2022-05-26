@@ -7,6 +7,9 @@ import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.PaymentMet
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.ReservationDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.UserDAO;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.ParkingPlaceAssemblerImplementation.getParkingPlaceAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PaymentMethodAssemblerImplementation.getPaymentMethodAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.ReservationAssemblerImplementation.getReservationAssembler;
@@ -25,6 +28,12 @@ public class ReservationRepositoryPostgreSQL implements ReservationRepository
         this.userDAO = userDAO;
         this.paymentMethodDAO = paymentMethodDAO;
         this.parkingPlaceDAO = parkingPlaceDAO;
+    }
+
+    @Override
+    public List<Reservation> getAll()
+    {
+        return this.reservationDAO.findAll().stream().map(getReservationAssembler()::assembleDomainFromEntity).toList();
     }
 
     @Override

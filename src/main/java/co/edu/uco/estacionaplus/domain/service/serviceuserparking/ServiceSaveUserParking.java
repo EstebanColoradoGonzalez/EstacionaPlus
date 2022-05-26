@@ -10,8 +10,10 @@ import co.edu.uco.estacionaplus.domain.port.UserRoleRepository;
 import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.UserAssemblerImplementation.getUserAssembler;
 
 @Service

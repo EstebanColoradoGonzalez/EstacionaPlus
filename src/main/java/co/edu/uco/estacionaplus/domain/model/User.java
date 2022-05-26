@@ -148,10 +148,10 @@ public class User
             throw new IllegalArgumentException(Message.USER_SECRETWORD_CHECK_LENGTH_VALID);
         }
 
-        if(!ValidateString.stringPassword(password))
+        /*if(!ValidateString.stringPassword(password))
         {
             throw new IllegalArgumentException(Message.USER_SECRETWORD_CHECK_PATTERN);
-        }
+        }*/
 
         this.password = password;
     }

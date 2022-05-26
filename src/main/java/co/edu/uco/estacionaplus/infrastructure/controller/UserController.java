@@ -2,6 +2,7 @@ package co.edu.uco.estacionaplus.infrastructure.controller;
 
 import co.edu.uco.estacionaplus.application.dto.UserDTO;
 import co.edu.uco.estacionaplus.application.service.serviceuser.*;
+import co.edu.uco.estacionaplus.domain.dto.UserNoSummaryDTO;
 import co.edu.uco.estacionaplus.domain.dto.UserSummaryDTO;
 import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import co.edu.uco.estacionaplus.infrastructure.aspect.Secured;
@@ -26,8 +27,9 @@ public class UserController
     private final ServiceApplicationGetUsers serviceGetUsers;
     private final ServiceApplicationGetUserByCode serviceGetUserByCode;
     private final ServiceApplicationGetUserByEmail serviceGetUserByEmail;
+    private final ServiceApplicationGetUserByEmailWithPassword serviceGetUserByEmailWithPassword;
 
-    public UserController(ServiceApplicationSaveUser serviceSaveUser, ServiceApplicationModifyUser serviceModifyUser, ServiceApplicationDeleteUser serviceDeleteUser, ServiceApplicationGetUserByCode serviceGetUserByCode, ServiceApplicationGetUsers serviceGetUsers, ServiceApplicationGetUserByEmail serviceGetUserByEmail)
+    public UserController(ServiceApplicationSaveUser serviceSaveUser, ServiceApplicationModifyUser serviceModifyUser, ServiceApplicationDeleteUser serviceDeleteUser, ServiceApplicationGetUserByCode serviceGetUserByCode, ServiceApplicationGetUsers serviceGetUsers, ServiceApplicationGetUserByEmail serviceGetUserByEmail, ServiceApplicationGetUserByEmailWithPassword serviceGetUserByEmailWithPassword)
     {
         this.serviceSaveUser = serviceSaveUser;
         this.serviceModifyUser = serviceModifyUser;
@@ -35,6 +37,7 @@ public class UserController
         this.serviceGetUsers = serviceGetUsers;
         this.serviceGetUserByCode = serviceGetUserByCode;
         this.serviceGetUserByEmail = serviceGetUserByEmail;
+        this.serviceGetUserByEmailWithPassword = serviceGetUserByEmailWithPassword;
     }
 
     @PostMapping
@@ -138,6 +141,26 @@ public class UserController
 
         List<UserSummaryDTO> users = new ArrayList<>();
         users.add(this.serviceGetUserByEmail.getByEmail(email));
+        respuesta.setData(users);
+
+        respuesta.addMessage(Message.USER_MESSAGE_THE_USER_WITH_EMAIL + email + Message.MESSAGE_CONSULTATION_SUCCESSFUL);
+        respuesta.setStatus(StatusResponse.SUCCESSFUL);
+
+        responseEntity = new ResponseEntity<>(respuesta, HttpStatus.ACCEPTED);
+
+        return responseEntity;
+    }
+
+    @GetMapping("/user/email/{email}")
+    @Secured(roles = {"ROLE_USER"})
+    @Operation(summary = "Get User by Email With Password", description = "This is used to get a user of the app through email")
+    public ResponseEntity<Response<UserNoSummaryDTO>> getByEmailWithPassword(@PathVariable String email)
+    {
+        ResponseEntity<Response<UserNoSummaryDTO>> responseEntity;
+        Response<UserNoSummaryDTO> respuesta = new Response<>();
+
+        List<UserNoSummaryDTO> users = new ArrayList<>();
+        users.add(this.serviceGetUserByEmailWithPassword.getByEmailWithPassword(email));
         respuesta.setData(users);
 
         respuesta.addMessage(Message.USER_MESSAGE_THE_USER_WITH_EMAIL + email + Message.MESSAGE_CONSULTATION_SUCCESSFUL);

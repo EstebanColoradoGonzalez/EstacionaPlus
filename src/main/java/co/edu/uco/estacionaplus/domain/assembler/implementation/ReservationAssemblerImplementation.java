@@ -9,6 +9,9 @@ import co.edu.uco.estacionaplus.domain.model.PaymentMethod;
 import co.edu.uco.estacionaplus.domain.model.Reservation;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.ReservationEntity;
 import co.edu.uco.estacionaplus.infrastructure.adapter.entity.UserEntity;
+
+import java.util.List;
+
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.ParkingPlaceAssemblerImplementation.getParkingPlaceAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PaymentMethodAssemblerImplementation.getPaymentMethodAssembler;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PriceAssemblerImplementation.getPriceAssembler;
@@ -63,5 +66,11 @@ public class ReservationAssemblerImplementation implements ReservationAssembler
     public ReservationEntity assembleEntityFromDomainToModify(int code, Reservation domain)
     {
         return new ReservationEntity(code, domain.getDate(), domain.getArrivalTime(), domain.getDepartureTime(), getReservedTimeAssembler().assembleEntityFromDomain(domain.getReservedTime()), getPriceAssembler().assembleEntityFromDomain(domain.getPrice()), getParkingPlaceAssembler().assembleEntityFromDomain(domain.getPlace()), getPaymentMethodAssembler().assembleEntityFromDomain(domain.getPaymentMethod()), getUserAssembler().assembleEntityFromDomain(domain.getUser()));
+    }
+
+    @Override
+    public List<ReservationDTO> assemblerDTOsFromDomains(List<Reservation> domains)
+    {
+        return domains.stream().map(getReservationAssembler()::assembleDTOFromDomain).toList();
     }
 }

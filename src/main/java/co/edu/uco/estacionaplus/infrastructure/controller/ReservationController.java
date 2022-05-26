@@ -1,10 +1,7 @@
 package co.edu.uco.estacionaplus.infrastructure.controller;
 
 import co.edu.uco.estacionaplus.application.dto.ReservationDTO;
-import co.edu.uco.estacionaplus.application.service.servicereservation.ServiceApplicationDeleteReservation;
-import co.edu.uco.estacionaplus.application.service.servicereservation.ServiceApplicationGetReservationByCode;
-import co.edu.uco.estacionaplus.application.service.servicereservation.ServiceApplicationModifyReservation;
-import co.edu.uco.estacionaplus.application.service.servicereservation.ServiceApplicationSaveReservation;
+import co.edu.uco.estacionaplus.application.service.servicereservation.*;
 import co.edu.uco.estacionaplus.domain.utilitarian.Message;
 import co.edu.uco.estacionaplus.infrastructure.aspect.Secured;
 import co.edu.uco.estacionaplus.infrastructure.controller.response.Response;
@@ -19,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reservation")
+@CrossOrigin("http://localhost:4200")
 @Tag(name = "Reservation Controller")
 public class ReservationController
 {
@@ -26,13 +24,15 @@ public class ReservationController
     private final ServiceApplicationModifyReservation serviceModifyReservation;
     private final ServiceApplicationDeleteReservation serviceDeleteReservation;
     private final ServiceApplicationGetReservationByCode serviceGetReservationByCode;
+    private final ServiceApplicationGetReservations serviceGetReservations;
 
-    public ReservationController(ServiceApplicationSaveReservation serviceSaveReservation, ServiceApplicationModifyReservation serviceModifyReservation, ServiceApplicationDeleteReservation serviceDeleteReservation, ServiceApplicationGetReservationByCode serviceGetReservationByCode)
+    public ReservationController(ServiceApplicationSaveReservation serviceSaveReservation, ServiceApplicationModifyReservation serviceModifyReservation, ServiceApplicationDeleteReservation serviceDeleteReservation, ServiceApplicationGetReservationByCode serviceGetReservationByCode, ServiceApplicationGetReservations serviceGetReservations)
     {
         this.serviceSaveReservation = serviceSaveReservation;
         this.serviceModifyReservation = serviceModifyReservation;
         this.serviceDeleteReservation = serviceDeleteReservation;
         this.serviceGetReservationByCode = serviceGetReservationByCode;
+        this.serviceGetReservations = serviceGetReservations;
     }
 
     @PostMapping
@@ -90,7 +90,7 @@ public class ReservationController
     }
 
     @GetMapping("/{code}")
-    @Secured(roles = {"ROLE_ADMIN"})
+    @Secured(roles = {"ROLE_USER"})
     @Operation(summary = "Get Reservation by Code", description = "This is used to get a reservation of a place of a specific parking through code")
     public ResponseEntity<Response<ReservationDTO>> getByCode(@PathVariable int code)
     {
@@ -103,6 +103,26 @@ public class ReservationController
         respuesta.setData(reservations);
 
         respuesta.addMessage(Message.RESERVATION_MESSAGE_THE_USER_WITH_CODE + code + Message.MESSAGE_CONSULTATION_SUCCESSFUL);
+        respuesta.setStatus(StatusResponse.SUCCESSFUL);
+
+        responseEntity = new ResponseEntity<>(respuesta, HttpStatus.ACCEPTED);
+
+        return responseEntity;
+    }
+
+    @GetMapping
+    @Secured(roles = {"ROLE_USER"})
+    @Operation(summary = "Get All Reservations", description = "This is used to get all the reservations")
+    public ResponseEntity<Response<ReservationDTO>> getAll()
+    {
+        ResponseEntity<Response<ReservationDTO>> responseEntity;
+        Response<ReservationDTO> respuesta = new Response<>();
+
+        var reservations = this.serviceGetReservations.getReservations();
+
+        respuesta.setData(reservations);
+
+        respuesta.addMessage(Message.MESSAGE_CONSULTATION_SUCCESSFUL);
         respuesta.setStatus(StatusResponse.SUCCESSFUL);
 
         responseEntity = new ResponseEntity<>(respuesta, HttpStatus.ACCEPTED);

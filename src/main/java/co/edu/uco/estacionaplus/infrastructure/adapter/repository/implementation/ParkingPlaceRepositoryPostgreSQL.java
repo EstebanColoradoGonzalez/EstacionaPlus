@@ -2,7 +2,6 @@ package co.edu.uco.estacionaplus.infrastructure.adapter.repository.implementatio
 
 import co.edu.uco.estacionaplus.domain.model.ParkingPlace;
 import co.edu.uco.estacionaplus.domain.port.ParkingPlaceRepository;
-import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.ParkingDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.ParkingPlaceDAO;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.PlaceDAO;
 import org.springframework.stereotype.Repository;
@@ -12,13 +11,11 @@ import static co.edu.uco.estacionaplus.domain.assembler.implementation.ParkingPl
 public class ParkingPlaceRepositoryPostgreSQL implements ParkingPlaceRepository
 {
     private final ParkingPlaceDAO parkingPlaceDAO;
-    private final ParkingDAO parkingDAO;
     private final PlaceDAO placeDAO;
 
-    public ParkingPlaceRepositoryPostgreSQL(ParkingPlaceDAO parkingPlaceDAO, ParkingDAO parkingDAO, PlaceDAO placeDAO)
+    public ParkingPlaceRepositoryPostgreSQL(ParkingPlaceDAO parkingPlaceDAO, PlaceDAO placeDAO)
     {
         this.parkingPlaceDAO = parkingPlaceDAO;
-        this.parkingDAO = parkingDAO;
         this.placeDAO = placeDAO;
     }
 

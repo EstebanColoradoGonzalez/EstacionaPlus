@@ -4,7 +4,6 @@ import co.edu.uco.estacionaplus.domain.model.Place;
 import co.edu.uco.estacionaplus.domain.port.PlaceRepository;
 import co.edu.uco.estacionaplus.domain.validator.ValidateObject;
 import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.PlaceDAO;
-import co.edu.uco.estacionaplus.infrastructure.adapter.repository.jpa.TypePlaceDAO;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import static co.edu.uco.estacionaplus.domain.assembler.implementation.PlaceAssemblerImplementation.getPlaceAssembler;
@@ -13,12 +12,10 @@ import static co.edu.uco.estacionaplus.domain.assembler.implementation.PlaceAsse
 public class PlaceRepositoryPostgreSQL implements PlaceRepository
 {
     private final PlaceDAO placeDAO;
-    private final TypePlaceDAO typePlaceDAO;
 
-    public PlaceRepositoryPostgreSQL(PlaceDAO placeDAO, TypePlaceDAO typePlaceDAO)
+    public PlaceRepositoryPostgreSQL(PlaceDAO placeDAO)
     {
         this.placeDAO = placeDAO;
-        this.typePlaceDAO = typePlaceDAO;
     }
 
     @Override

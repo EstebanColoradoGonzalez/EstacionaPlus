@@ -26,7 +26,7 @@ public class SecuredAspect
 	}
 
 	@Before("@annotation(Secured)")
-	public void processMethodsAnnotatedWithProjectSecuredAnnotation(JoinPoint joinPoint) throws Throwable
+	public void processMethodsAnnotatedWithProjectSecuredAnnotation(JoinPoint joinPoint) throws Exception
 	{
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();

@@ -8,7 +8,6 @@ class PaymentMethodTest
     @Test
     void validateSuccessfulCreation()
     {
-
         var paymentMethod = PaymentMethod.create(1, "Tarjeta");
 
         Assertions.assertEquals("Tarjeta", paymentMethod.getName());

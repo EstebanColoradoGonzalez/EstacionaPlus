@@ -56,17 +56,17 @@ public class Message
     public static final String USER_LASTNAME_CHECK_STRING_EMPTY = "The lastNames of a User cannot be empty.";
     public static final String USER_LASTNAME_CHECK_LENGTH_VALID = "The lastNames of a User must have a minimum of 1 character and a maximum of 50 characters.";
     public static final String USER_LASTNAME_CHECK_PATTERN = "The lastNames of a User can only contain characters.";
-    public static final String USER_IDENTIFICATION_NUMBER_CHECK_STRING_EMPTY = "The lastNames of a User cannot be empty.";
-    public static final String USER_IDENTIFICATION_NUMBER_CHECK_LENGTH_VALID = "The lastNames of a User must have a minimum of 1 character and a maximum of 10 characters.";
-    public static final String USER_IDENTIFICATION_NUMBER_CHECK_PATTERN = "The lastNames of a User can only contain characters.";
+    public static final String USER_IDENTIFICATION_NUMBER_CHECK_STRING_EMPTY = "The identificationNumber of a User cannot be empty.";
+    public static final String USER_IDENTIFICATION_NUMBER_CHECK_LENGTH_VALID = "The identificationNumber of a User must have a minimum of 1 character and a maximum of 10 characters.";
+    public static final String USER_IDENTIFICATION_NUMBER_CHECK_PATTERN = "The identificationNumber of a User can only contain characters.";
     public static final String USER_PHONE_CHECK_STRING_EMPTY = "The phone of a User cannot be empty.";
     public static final String USER_PHONE_CHECK_LENGTH_VALID = "The phone of a User must have a minimum of 1 character and a maximum of 10 characters.";
     public static final String USER_PHONE_CHECK_PATTERN = "The phone of a User can only contain characters.";
     public static final String USER_EMAIL_CHECK_STRING_EMPTY = "The email of a User cannot be empty.";
     public static final String USER_EMAIL_CHECK_LENGTH_VALID = "The email of a User must have a minimum of 1 character and a maximum of 100 characters.";
     public static final String USER_EMAIL_CHECK_PATTERN = "The email of a User can only contain characters.";
-    public static final String USER_SECRETWORD_CHECK_STRING_EMPTY = "The email of a User cannot be empty.";
-    public static final String USER_SECRETWORD_CHECK_LENGTH_VALID = "The email of a User must have a minimum of 1 character and a maximum of 255 characters.";
+    public static final String USER_SECRETWORD_CHECK_STRING_EMPTY = "The password of a User cannot be empty.";
+    public static final String USER_SECRETWORD_CHECK_LENGTH_VALID = "The password of a User must have a minimum of 1 character and a maximum of 255 characters.";
     public static final String USER_SECRETWORD_CHECK_PATTERN = "The password of a User is incorrect";
 
     public static final String USERROLE_NAME_CHECK_STRING_EMPTY = "The name of a User Role cannot be empty.";

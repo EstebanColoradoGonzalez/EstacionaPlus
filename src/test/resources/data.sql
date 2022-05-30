@@ -8,7 +8,7 @@ insert into typeplace values (1, 'Motocicleta');
 insert into typeplace values (2, 'Automovil');
 
 insert into state values (1, 'Antioquia');
-insert into city values (1, 'Rionegro', 1);
+insert into city values (1, 'Marinilla', 1);
 
 insert into paymentmethod values (1, 'Efectivo');
 insert into paymentmethod values (2, 'Tarjeta');

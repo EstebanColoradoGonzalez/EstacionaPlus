@@ -8,8 +8,8 @@ class CityTest
     @Test
     void validateSuccessfulCreation()
     {
-
-        var city = City.create(1, "Marinilla", State.create(1, "Antioquia"));
+        var state = State.create(1, "Antioquia");
+        var city = City.create(1, "Marinilla", state);
 
         Assertions.assertEquals("Marinilla",city.getName());
         Assertions.assertEquals("Antioquia",city.getState().getName());

@@ -8,7 +8,8 @@ class VehicleTest
     @Test
     void validateSuccessfulCreation()
     {
-        var vehicle = Vehicle.create(1, "USV36D", TypeVehicle.create(1, "Moto"));
+        var typeVehicle = TypeVehicle.create(1, "Moto");
+        var vehicle = Vehicle.create(1, "USV36D", typeVehicle);
 
         Assertions.assertEquals("USV36D", vehicle.getLicense());
         Assertions.assertEquals("Moto", vehicle.getTypeVehicle().getName());
